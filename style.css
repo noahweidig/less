@@ -111,6 +111,24 @@ header {
     transition: opacity 0.3s, transform 0.5s;
 }
 
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    transition: color 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.nav-links a:hover {
+    color: var(--primary-purple);
+}
+
 [data-theme="light"] .moon {
     opacity: 0;
     transform: translate(-50%, -50%) rotate(90deg);
@@ -126,6 +144,10 @@ header {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.hero.small {
+    min-height: 60vh;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -325,6 +347,16 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
+    header {
+        padding: 0 1rem;
+    }
+    .nav-links {
+        gap: 0.8rem;
+        font-size: 0.8rem;
+    }
+    .logo {
+        font-size: 1.2rem;
+    }
     .hero-content h1 {
         font-size: 2.5rem;
     }
