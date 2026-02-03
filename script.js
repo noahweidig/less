@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Theme Toggle ---
     const themeToggle = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
+    const navToggle = document.querySelector('.nav-toggle');
+    const header = document.querySelector('header');
+    const navLinks = document.querySelectorAll('.nav-links a');
 
     // Check for saved theme preference or system preference
     const savedTheme = localStorage.getItem('theme');
@@ -20,6 +23,20 @@ document.addEventListener('DOMContentLoaded', () => {
         htmlElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
     });
+
+    if (navToggle && header) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = header.classList.toggle('nav-open');
+            navToggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                header.classList.remove('nav-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
 
     // --- 3D Tilt Effect for Cards ---
     const cards = document.querySelectorAll('.card');
