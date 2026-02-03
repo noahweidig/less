@@ -164,6 +164,13 @@ header {
     padding: 0 2rem;
 }
 
+.hero-content {
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .hero-content h1 {
     font-family: 'Playfair Display', serif;
     font-size: 4rem;
