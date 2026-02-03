@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Minimalism: Reclaim Your Attention</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">Focus.</div>
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span class="icon sun">☀️</span>
+            <span class="icon moon">🌙</span>
+        </button>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Digital Minimalism</h1>
+                <p class="subtitle">A philosophy of technology use.</p>
+                <button class="cta-button" onclick="document.getElementById('principles').scrollIntoView({behavior: 'smooth'})">Explore</button>
+            </div>
+            <div class="hero-shapes">
+                <!-- Decorative shapes handled in CSS/JS -->
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </section>
+
+        <section id="principles" class="content-section">
+            <h2>Core Principles</h2>
+            <div class="cards">
+                <div class="card" data-tilt>
+                    <h3>Clutter is Costly</h3>
+                    <p>Cluttering your time and attention with too many devices, apps, and services creates a negative cost.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <h3>Optimization is Important</h3>
+                    <p>To extract the full benefit from a new technology, we must think carefully about how we use it.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <h3>Intentionality is Satisfying</h3>
+                    <p>Digital minimalists derive significant satisfaction from their general commitment to being more intentional.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section interactive-quote">
+            <blockquote>
+                "Digital minimalism definitively does not reject the innovations of the internet age, but instead rejects the way so many people currently engage with these tools."
+            </blockquote>
+            <cite>— Cal Newport</cite>
+        </section>
+
+        <section class="content-section steps">
+            <h2>Steps to Declutter</h2>
+            <ul class="step-list">
+                <li class="step">
+                    <span class="step-number">01</span>
+                    <div class="step-content">
+                        <h3>Define your technology rules</h3>
+                        <p>Decide what is optional and what is essential.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-number">02</span>
+                    <div class="step-content">
+                        <h3>Take a 30-day break</h3>
+                        <p>Step away from optional technologies.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-number">03</span>
+                    <div class="step-content">
+                        <h3>Reintroduce</h3>
+                        <p>Bring back only what adds value to your life.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="content-section benefits">
+            <h2>Why It Matters</h2>
+            <div class="cards">
+                <div class="card" data-tilt>
+                    <h3>Solitude</h3>
+                    <p>Reclaim the ability to be alone with your thoughts, free from input from other minds.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <h3>Focus</h3>
+                    <p>Deep work requires deep focus. Minimize distractions to maximize your creative output.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <h3>Connection</h3>
+                    <p>Trade low-quality digital interactions for high-quality real-world conversations.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Digital Minimalism Concept. Built with Focus.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
