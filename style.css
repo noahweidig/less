@@ -45,6 +45,10 @@ body {
     line-height: 1.6;
 }
 
+main {
+    padding-top: var(--nav-height);
+}
+
 /* Background Gradients */
 body::before {
     content: '';
@@ -141,12 +145,14 @@ header {
 
 /* Hero Section */
 .hero {
-    min-height: 100vh;
+    min-height: calc(100vh - var(--nav-height));
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    width: 100%;
+    position: relative;
 }
 
 .hero.small {
