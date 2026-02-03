@@ -133,6 +133,35 @@ header {
     color: var(--primary-purple);
 }
 
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.nav-toggle-bar {
+    width: 24px;
+    height: 2px;
+    background: var(--text-color);
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.nav-open .nav-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-open .nav-toggle-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-open .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
 [data-theme="light"] .moon {
     opacity: 0;
     transform: translate(-50%, -50%) rotate(90deg);
@@ -366,9 +395,31 @@ footer {
     header {
         padding: 0 1rem;
     }
+    nav {
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        background: var(--bg-color);
+        border-bottom: 1px solid var(--card-border);
+        transform: translateY(-120%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .nav-open nav {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
     .nav-links {
-        gap: 0.8rem;
-        font-size: 0.8rem;
+        flex-direction: column;
+        padding: 1rem 1.5rem;
+        gap: 1rem;
+        font-size: 0.95rem;
+    }
+    .nav-toggle {
+        display: flex;
     }
     .logo {
         font-size: 1.2rem;

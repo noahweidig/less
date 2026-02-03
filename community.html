@@ -13,7 +13,12 @@
 <body>
     <header>
         <div class="logo">Focus.</div>
-        <nav>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+        <nav id="primary-navigation" aria-label="Primary navigation">
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="software.html">Software</a></li>
