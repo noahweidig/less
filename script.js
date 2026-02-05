@@ -28,16 +28,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (navToggle && header) {
         navToggle.addEventListener('click', () => {
+            header.classList.add('nav-animate');
             const isOpen = header.classList.toggle('nav-open');
             navToggle.setAttribute('aria-expanded', isOpen);
+            window.setTimeout(() => header.classList.remove('nav-animate'), 350);
         });
 
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
+                header.classList.add('nav-animate');
                 header.classList.remove('nav-open');
                 navToggle.setAttribute('aria-expanded', 'false');
+                window.setTimeout(() => header.classList.remove('nav-animate'), 350);
             });
         });
+    }
+
+    // --- Hero Intro Animation ---
+    const heroContents = document.querySelectorAll('.hero-content');
+
+    if (heroContents.length > 0) {
+        if (prefersReducedMotion) {
+            heroContents.forEach(content => content.classList.add('is-visible'));
+        } else {
+            window.requestAnimationFrame(() => {
+                heroContents.forEach(content => content.classList.add('is-visible'));
+            });
+        }
     }
 
     // --- 3D Tilt Effect for Cards ---

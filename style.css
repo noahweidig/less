@@ -198,6 +198,14 @@ header {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.hero-content.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .hero-content h1 {
@@ -408,6 +416,9 @@ footer {
         transform: translateY(-120%);
         opacity: 0;
         pointer-events: none;
+        transition: none;
+    }
+    .nav-animate nav {
         transition: transform 0.3s ease, opacity 0.3s ease;
     }
     .nav-open nav {
@@ -440,5 +451,13 @@ footer {
     .step-number {
         margin-right: 0;
         margin-bottom: 1rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-content {
+        opacity: 1;
+        transform: none;
+        transition: none;
     }
 }
