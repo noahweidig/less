@@ -312,12 +312,16 @@ header {
     border: 1px solid var(--card-border);
     box-shadow: var(--glass-shadow);
     backdrop-filter: blur(5px);
+    transform: translateZ(0);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
     transition: transform 0.3s;
     cursor: default;
 }
 
 .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) translateZ(0);
 }
 
 .card h3 {
