@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.querySelector('.nav-toggle');
     const header = document.querySelector('header');
     const navLinks = document.querySelectorAll('.nav-links a');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
 
     // Check for saved theme preference or system preference
     const savedTheme = localStorage.getItem('theme');
@@ -41,25 +43,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 3D Tilt Effect for Cards ---
     const cards = document.querySelectorAll('.card');
 
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+    if (!prefersReducedMotion && supportsHover && cards.length > 0) {
+        cards.forEach(card => {
+            let rafId = null;
+            let lastEvent = null;
 
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
+            const handlePointerMove = (event) => {
+                lastEvent = event;
+                if (rafId) {
+                    return;
+                }
+                rafId = window.requestAnimationFrame(() => {
+                    if (!lastEvent) {
+                        rafId = null;
+                        return;
+                    }
+                    const rect = card.getBoundingClientRect();
+                    const x = lastEvent.clientX - rect.left;
+                    const y = lastEvent.clientY - rect.top;
 
-            const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
-            const rotateY = ((x - centerX) / centerX) * 10;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                    const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+                    const rotateY = ((x - centerX) / centerX) * 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                    rafId = null;
+                });
+            };
+
+            card.addEventListener('pointerenter', () => {
+                card.style.willChange = 'transform';
+            });
+
+            card.addEventListener('pointermove', handlePointerMove);
+
+            card.addEventListener('pointerleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                card.style.willChange = '';
+                if (rafId) {
+                    window.cancelAnimationFrame(rafId);
+                    rafId = null;
+                }
+                lastEvent = null;
+            });
         });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-        });
-    });
+    }
 
     // --- Scroll Animations (Intersection Observer) ---
     const steps = document.querySelectorAll('.step');
@@ -69,16 +99,18 @@ document.addEventListener('DOMContentLoaded', () => {
         rootMargin: "0px 0px -50px 0px"
     };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Only animate once
-            }
-        });
-    }, observerOptions);
+    if (steps.length > 0 && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
 
-    steps.forEach(step => {
-        observer.observe(step);
-    });
+        steps.forEach(step => {
+            observer.observe(step);
+        });
+    }
 });
