@@ -9,17 +9,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const supportsHover = window.matchMedia('(hover: hover)').matches;
 
     // Check for saved theme preference or system preference
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Optimized to avoid blocking main thread with synchronous I/O
+    const initTheme = () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+        }
+    };
 
-    if (savedTheme) {
-        htmlElement.setAttribute('data-theme', savedTheme);
-    } else if (systemPrefersDark) {
-        htmlElement.setAttribute('data-theme', 'dark');
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(initTheme);
+    } else {
+        setTimeout(initTheme, 0);
     }
 
     themeToggle.addEventListener('click', () => {
-        const currentTheme = htmlElement.getAttribute('data-theme');
+        let currentTheme = htmlElement.getAttribute('data-theme');
+
+        // If no attribute, we are using system preference
+        if (!currentTheme) {
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            currentTheme = systemPrefersDark ? 'dark' : 'light';
+        }
+
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
         htmlElement.setAttribute('data-theme', newTheme);
