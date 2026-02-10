@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const htmlElement = document.documentElement;
     const navToggle = document.querySelector('.nav-toggle');
     const header = document.querySelector('header');
-    const navLinks = document.querySelectorAll('.nav-links a');
+    const navLinksContainer = document.querySelector('.nav-links');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const supportsHover = window.matchMedia('(hover: hover)').matches;
 
@@ -34,14 +34,17 @@ document.addEventListener('DOMContentLoaded', () => {
             window.setTimeout(() => header.classList.remove('nav-animate'), 350);
         });
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                header.classList.add('nav-animate');
-                header.classList.remove('nav-open');
-                navToggle.setAttribute('aria-expanded', 'false');
-                window.setTimeout(() => header.classList.remove('nav-animate'), 350);
+        if (navLinksContainer) {
+            navLinksContainer.addEventListener('click', (event) => {
+                const link = event.target.closest('a');
+                if (link && navLinksContainer.contains(link)) {
+                    header.classList.add('nav-animate');
+                    header.classList.remove('nav-open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    window.setTimeout(() => header.classList.remove('nav-animate'), 350);
+                }
             });
-        });
+        }
     }
 
     // --- Hero Intro Animation ---
