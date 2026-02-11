@@ -39,19 +39,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (navToggle && header) {
+        const nav = header.querySelector('nav');
+
+        const cleanup = (e) => {
+            if (e.target !== nav) return;
+            header.classList.remove('nav-animate');
+            nav.removeEventListener('transitionend', cleanup);
+        };
+
         navToggle.addEventListener('click', () => {
             header.classList.add('nav-animate');
+            nav.addEventListener('transitionend', cleanup);
             const isOpen = header.classList.toggle('nav-open');
             navToggle.setAttribute('aria-expanded', isOpen);
-            window.setTimeout(() => header.classList.remove('nav-animate'), 350);
         });
 
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 header.classList.add('nav-animate');
+                nav.addEventListener('transitionend', cleanup);
                 header.classList.remove('nav-open');
                 navToggle.setAttribute('aria-expanded', 'false');
-                window.setTimeout(() => header.classList.remove('nav-animate'), 350);
             });
         });
     }
