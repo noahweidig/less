@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cards.forEach(card => {
             let rafId = null;
             let lastEvent = null;
+            let cardRect = null;
 
             const handlePointerMove = (event) => {
                 lastEvent = event;
@@ -71,16 +72,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 rafId = window.requestAnimationFrame(() => {
-                    if (!lastEvent) {
+                    if (!lastEvent || !cardRect) {
                         rafId = null;
                         return;
                     }
-                    const rect = card.getBoundingClientRect();
-                    const x = lastEvent.clientX - rect.left;
-                    const y = lastEvent.clientY - rect.top;
 
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
+                    // Optimized: Use cached document-relative coordinates
+                    const x = lastEvent.pageX - cardRect.left;
+                    const y = lastEvent.pageY - cardRect.top;
+
+                    const centerX = cardRect.width / 2;
+                    const centerY = cardRect.height / 2;
 
                     const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
                     const rotateY = ((x - centerX) / centerX) * 10;
@@ -92,6 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.addEventListener('pointerenter', () => {
                 card.style.willChange = 'transform';
+                const rect = card.getBoundingClientRect();
+                cardRect = {
+                    left: rect.left + window.scrollX,
+                    top: rect.top + window.scrollY,
+                    width: rect.width,
+                    height: rect.height
+                };
             });
 
             card.addEventListener('pointermove', handlePointerMove);
@@ -104,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     rafId = null;
                 }
                 lastEvent = null;
+                cardRect = null;
             });
         });
     }
