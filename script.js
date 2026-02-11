@@ -160,4 +160,68 @@ document.addEventListener('DOMContentLoaded', () => {
             observer.observe(step);
         });
     }
+
+    // --- Screen Time Chart Animation ---
+    const screenTimeSection = document.querySelector('.screen-time');
+
+    if (screenTimeSection) {
+        const donutFill = screenTimeSection.querySelector('.donut-fill');
+        const donutNumber = screenTimeSection.querySelector('.donut-number');
+        const statNumbers = screenTimeSection.querySelectorAll('.stat-number');
+        const circumference = 2 * Math.PI * 80;
+        const targetPercent = 44;
+
+        const animateValue = (element, end, duration) => {
+            const startTime = performance.now();
+            const update = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                element.textContent = Math.round(end * eased);
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            };
+            requestAnimationFrame(update);
+        };
+
+        const animateChart = () => {
+            const targetOffset = circumference * (1 - targetPercent / 100);
+
+            if (prefersReducedMotion) {
+                if (donutFill) donutFill.style.strokeDashoffset = targetOffset;
+                if (donutNumber) donutNumber.textContent = targetPercent;
+                statNumbers.forEach(el => {
+                    el.textContent = el.getAttribute('data-target');
+                });
+            } else {
+                const duration = 1500;
+                if (donutFill) {
+                    donutFill.style.transition = 'stroke-dashoffset ' + duration + 'ms cubic-bezier(0.4, 0, 0.2, 1)';
+                    donutFill.style.strokeDashoffset = targetOffset;
+                }
+                if (donutNumber) animateValue(donutNumber, targetPercent, duration);
+                statNumbers.forEach(el => {
+                    animateValue(el, parseInt(el.getAttribute('data-target'), 10), duration);
+                });
+            }
+        };
+
+        if ('IntersectionObserver' in window) {
+            const chartObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        screenTimeSection.classList.add('visible');
+                        animateChart();
+                        chartObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            chartObserver.observe(screenTimeSection);
+        } else {
+            screenTimeSection.classList.add('visible');
+            animateChart();
+        }
+    }
 });
