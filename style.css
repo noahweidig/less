@@ -121,7 +121,7 @@ header {
     z-index: 100;
     backdrop-filter: blur(10px);
     border: 1px solid var(--card-border);
-    border-radius: 1rem;
+    border-radius: 9999px;
     box-shadow: var(--glass-shadow);
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
