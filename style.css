@@ -365,6 +365,13 @@ header {
     cursor: default;
 }
 
+a.card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+}
+
 .card:hover {
     transform: translateY(-10px) translateZ(0);
 }
