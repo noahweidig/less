@@ -660,3 +660,24 @@ footer {
         transition: none;
     }
 }
+
+/* Accessibility - Skip to Content */
+.skip-to-content {
+    position: absolute;
+  top: 0;
+    left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+    background: var(--primary-purple);
+    color: white;
+    padding: 1rem 2rem;
+    z-index: 1000;
+    text-decoration: none;
+    border-radius: 0 0 10px 10px;
+    font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.skip-to-content:focus {
+  transform: translateX(-50%) translateY(0);
+    outline: 2px solid var(--primary-orange);
+}
