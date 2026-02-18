@@ -224,4 +224,24 @@ document.addEventListener('DOMContentLoaded', () => {
             animateChart();
         }
     }
+
+    // --- Active Navigation Link ---
+    const currentPath = window.location.pathname;
+    const navItems = document.querySelectorAll('.nav-links a');
+
+    navItems.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath) {
+            // Check if current path ends with the link path (e.g. "index.html")
+            // Also handle root path "/" mapping to "index.html"
+            if (
+                currentPath.endsWith(linkPath) ||
+                (currentPath === '/' && linkPath === 'index.html') ||
+                (currentPath.endsWith('/') && linkPath === 'index.html')
+            ) {
+                link.setAttribute('aria-current', 'page');
+                link.classList.add('active');
+            }
+        }
+    });
 });
