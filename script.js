@@ -8,6 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const supportsHover = window.matchMedia('(hover: hover)').matches;
 
+    const updateThemeLabel = () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        let isDark = currentTheme === 'dark';
+
+        // If no attribute, check system preference
+        if (!currentTheme) {
+            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+
+        const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+        themeToggle.setAttribute('aria-label', label);
+    };
+
     // Check for saved theme preference or system preference
     // Optimized to avoid blocking main thread with synchronous I/O
     const initTheme = () => {
@@ -15,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (savedTheme) {
             htmlElement.setAttribute('data-theme', savedTheme);
         }
+        updateThemeLabel();
     };
 
     if ('requestIdleCallback' in window) {
@@ -36,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         htmlElement.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+        updateThemeLabel();
     });
 
     if (navToggle && header) {
