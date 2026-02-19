@@ -14,11 +14,6 @@
     <a href="#main-content" class="skip-to-content">Skip to content</a>
     <header>
         <div class="logo">Focus.</div>
-        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation">
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
-        </button>
         <nav id="primary-navigation" aria-label="Primary navigation">
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -27,17 +22,24 @@
                 <li><a href="community.html">Community</a></li>
             </ul>
         </nav>
-        <button id="theme-toggle" aria-label="Toggle dark mode">
-            <span class="icon sun">☀️</span>
-            <span class="icon moon">🌙</span>
-        </button>
+        <div class="header-controls">
+            <button id="theme-toggle" aria-label="Toggle dark mode">
+                <span class="icon sun">☀️</span>
+                <span class="icon moon">🌙</span>
+            </button>
+            <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+        </div>
     </header>
 
     <main id="main-content" tabindex="-1">
         <section class="hero small">
             <div class="hero-content">
                 <h1>Tools</h1>
-                <p class="subtitle">Curated tools to help you reclaim your focus.</p>
+                <p class="subtitle">The right tools make less feel like more.</p>
             </div>
             <div class="hero-shapes">
                 <div class="shape shape-1"></div>
@@ -47,6 +49,7 @@
 
         <section class="content-section">
             <h2>Dumbphones</h2>
+            <p class="section-intro">The most powerful way to reduce screen time is to carry a phone that doesn't demand your attention.</p>
             <div class="cards">
                 <a href="https://www.thelightphone.com/" class="card" data-tilt target="_blank" rel="noopener noreferrer">
                     <h3>Light Phone</h3>
@@ -83,6 +86,7 @@
 
         <section class="content-section">
             <h2>Focus Tools</h2>
+            <p class="section-intro">Not ready for a dumbphone? These apps block distractions on the devices you already have.</p>
             <div class="cards">
                 <a href="https://undistracted.app/" class="card" data-tilt target="_blank" rel="noopener noreferrer">
                     <h3>UnDistracted</h3>
@@ -104,6 +108,13 @@
                     <p>The toughest website blocker for your computer. Lock yourself out of distractions until your work is done.</p>
                     <span class="sr-only">(opens in a new tab)</span>
                 </a>
+            </div>
+        </section>
+        <section class="content-section next-step">
+            <h2>Tools Are Just the Start</h2>
+            <p class="section-intro">Lasting change comes from daily practice. Build habits that keep you intentional.</p>
+            <div class="next-step-links">
+                <a href="habits.html" class="cta-button">Build Daily Habits</a>
             </div>
         </section>
     </main>
