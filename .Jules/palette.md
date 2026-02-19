@@ -11,3 +11,7 @@
 ## 2025-05-25 - Active Navigation State
 **Learning:** Users, especially those using screen readers, need to know their current location within the site hierarchy. Adding `aria-current="page"` provides this context programmatically, while visual cues help sighted users.
 **Action:** Always verify that navigation menus indicate the current page using both visual styles and semantic attributes.
+
+## 2025-05-26 - Dynamic Button Labels
+**Learning:** Static labels for toggle buttons (like "Toggle dark mode") can be ambiguous about the current state or the action to be taken. Dynamic labels (e.g., "Switch to dark mode" / "Switch to light mode") clarify the action and state for screen reader users.
+**Action:** Use JavaScript to update `aria-label` on toggle buttons to reflect the specific action based on the current state.
