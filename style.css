@@ -72,6 +72,10 @@
     --moon-transform: translate(-50%, -50%) rotate(0deg);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -279,6 +283,7 @@ header {
 }
 
 .cta-button {
+    text-decoration: none;
     padding: 1rem 2rem;
     font-size: 1.1rem;
     border: none;
@@ -617,7 +622,6 @@ a.card {
 }
 
 .next-step-links .cta-button {
-    text-decoration: none;
     display: inline-block;
 }
 
@@ -720,6 +724,9 @@ footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
     .hero-content {
         opacity: 1;
         transform: none;
@@ -795,4 +802,9 @@ footer {
     border-radius: 2px;
     transform: scaleX(1);
     transition: transform 0.3s ease;
+}
+
+/* Accessibility - Remove outline for non-interactive scroll targets */
+[tabindex="-1"]:focus {
+    outline: none;
 }

@@ -15,3 +15,7 @@
 ## 2025-05-26 - Dynamic Button Labels
 **Learning:** Static labels for toggle buttons (like "Toggle dark mode") can be ambiguous about the current state or the action to be taken. Dynamic labels (e.g., "Switch to dark mode" / "Switch to light mode") clarify the action and state for screen reader users.
 **Action:** Use JavaScript to update `aria-label` on toggle buttons to reflect the specific action based on the current state.
+
+## 2025-05-27 - Semantic In-page Navigation
+**Learning:** Using `<button>` with JS for in-page navigation breaks semantics and requires manual focus management. Native anchor links with `scroll-behavior: smooth` provide a robust, accessible, and progressive solution.
+**Action:** Prefer `<a href='#id'>` over JS scroll buttons, and ensure targets have `tabindex='-1'`.
