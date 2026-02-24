@@ -259,4 +259,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // --- Back to Top Button ---
+    const backToTopButton = document.getElementById('back-to-top');
+
+    if (backToTopButton) {
+        const toggleBackToTop = () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        };
+
+        window.addEventListener('scroll', toggleBackToTop, { passive: true });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 });
