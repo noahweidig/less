@@ -658,7 +658,8 @@ footer {
         top: calc(var(--nav-height) + 0.5rem);
         left: 0;
         width: 100%;
-        background: var(--bg-color);
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
         border: 1px solid var(--card-border);
         border-radius: 0.75rem;
         box-shadow: var(--glass-shadow);
