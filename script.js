@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
         themeToggle.setAttribute('aria-label', label);
+        themeToggle.setAttribute('title', `${label} (T)`);
     };
 
     // Check for saved theme preference or system preference
@@ -281,4 +282,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- Keyboard Shortcuts ---
+    document.addEventListener('keydown', (e) => {
+        const activeTag = document.activeElement ? document.activeElement.tagName : '';
+
+        // Toggle Theme (T)
+        if ((e.key === 't' || e.key === 'T') && activeTag !== 'INPUT' && activeTag !== 'TEXTAREA') {
+            themeToggle.click();
+        }
+
+        // Close Mobile Menu (Escape)
+        if (e.key === 'Escape') {
+            const isMenuOpen = header && header.classList.contains('nav-open');
+            if (isMenuOpen) {
+                // Simulate click on nav toggle to close
+                if (navToggle) navToggle.click();
+            }
+        }
+    });
 });

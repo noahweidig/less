@@ -408,7 +408,8 @@ a.card {
     cursor: pointer;
 }
 
-.card:hover {
+.card:hover,
+.card:focus-visible {
     transform: translateY(-10px) translateZ(0);
 }
 
