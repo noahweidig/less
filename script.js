@@ -265,15 +265,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTopButton = document.getElementById('back-to-top');
 
     if (backToTopButton) {
-        const toggleBackToTop = () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.add('visible');
-            } else {
-                backToTopButton.classList.remove('visible');
-            }
-        };
+        // Optimized: Use IntersectionObserver instead of scroll event listener
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                // If sentinel is NOT intersecting, we've scrolled past the top 300px
+                if (!entries[0].isIntersecting) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
 
-        window.addEventListener('scroll', toggleBackToTop, { passive: true });
+            const sentinel = document.createElement('div');
+            Object.assign(sentinel.style, {
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                width: '1px',
+                height: '300px',
+                pointerEvents: 'none',
+                opacity: '0'
+            });
+            document.body.appendChild(sentinel);
+
+            observer.observe(sentinel);
+        } else {
+            // Fallback for older browsers
+            const toggleBackToTop = () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            };
+
+            window.addEventListener('scroll', toggleBackToTop, { passive: true });
+        }
 
         backToTopButton.addEventListener('click', () => {
             window.scrollTo({
