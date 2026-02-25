@@ -19,3 +19,7 @@
 ## 2025-05-27 - Semantic In-page Navigation
 **Learning:** Using `<button>` with JS for in-page navigation breaks semantics and requires manual focus management. Native anchor links with `scroll-behavior: smooth` provide a robust, accessible, and progressive solution.
 **Action:** Prefer `<a href='#id'>` over JS scroll buttons, and ensure targets have `tabindex='-1'`.
+
+## 2025-05-28 - Keyboard Parity for Visual Effects
+**Learning:** Interactive components often reserve rich visual feedback (like 3D tilts) for mouse users via `:hover`. Keyboard users deserve the same delight and confirmation of focus.
+**Action:** Always pair `:hover` effects with `:focus-visible` on interactive elements to ensure feature parity across input methods.
