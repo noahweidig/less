@@ -23,3 +23,7 @@
 ## 2025-05-28 - Keyboard Parity for Visual Effects
 **Learning:** Interactive components often reserve rich visual feedback (like 3D tilts) for mouse users via `:hover`. Keyboard users deserve the same delight and confirmation of focus.
 **Action:** Always pair `:hover` effects with `:focus-visible` on interactive elements to ensure feature parity across input methods.
+
+## 2025-05-29 - Turning Content into Action
+**Learning:** Transform passive reading (guides, steps) into active engagement by adding simple interactivity (checkboxes). This reinforces learning and provides a sense of progress without changing the core content.
+**Action:** Look for numbered lists or steps that can be converted into interactive checklists to add value.
