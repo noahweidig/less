@@ -328,4 +328,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // --- Interactive Habits Checklist ---
+    const stepMarkers = document.querySelectorAll('.step-marker');
+
+    if (stepMarkers.length > 0) {
+        stepMarkers.forEach(marker => {
+            const stepId = marker.getAttribute('data-step-id');
+            // Optimized: Read from localStorage only once on load
+            const isCompleted = localStorage.getItem(stepId) === 'true';
+
+            if (isCompleted) {
+                marker.setAttribute('aria-pressed', 'true');
+            }
+
+            marker.addEventListener('click', () => {
+                const currentState = marker.getAttribute('aria-pressed') === 'true';
+                const newState = !currentState;
+                marker.setAttribute('aria-pressed', newState);
+
+                // Save to localStorage
+                localStorage.setItem(stepId, newState);
+            });
+        });
+    }
 });

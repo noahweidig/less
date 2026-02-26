@@ -857,3 +857,60 @@ footer {
     outline: 2px solid var(--primary-purple);
     outline-offset: 2px;
 }
+
+/* Interactive Step Marker */
+.step-marker {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.step-marker .step-number {
+    margin-bottom: 0;
+}
+
+.step-marker:hover {
+    transform: scale(1.1);
+}
+
+.step-marker:focus-visible {
+    outline: 2px solid var(--primary-purple);
+    outline-offset: 4px;
+    border-radius: 8px;
+}
+
+.step-check {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--primary-green);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+    display: none;
+}
+
+.step-marker[aria-pressed="true"] .step-check {
+    display: block;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.step-marker[aria-pressed="true"] .step-number {
+    display: none;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
