@@ -914,3 +914,96 @@ footer {
         transform: scale(1);
     }
 }
+
+/* Print Styles */
+@media print {
+    /* Hide non-essential elements */
+    header,
+    footer,
+    .skip-to-content,
+    #theme-toggle,
+    .nav-toggle,
+    .header-controls,
+    .hero-shapes,
+    #back-to-top,
+    .next-step-links,
+    .step-marker {
+        display: none !important;
+    }
+
+    /* Reset layout and colors for print */
+    body {
+        background: white !important;
+        color: black !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Remove background gradients */
+    body::before {
+        display: none !important;
+    }
+
+    main {
+        padding-top: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Expand content width */
+    .hero,
+    .content-section,
+    .hero.small {
+        min-height: auto !important;
+        padding: 1rem 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Ensure text is readable */
+    h1, h2, h3, p, li {
+        color: black !important;
+        text-shadow: none !important;
+    }
+
+    /* Improve card layout for print */
+    .cards {
+        display: block !important;
+    }
+
+    .card {
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        margin-bottom: 1rem !important;
+        break-inside: avoid !important;
+        background: white !important;
+        color: black !important;
+        transform: none !important;
+    }
+
+    /* Reveal URLs for external links */
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        word-break: break-all;
+    }
+
+    /* Ensure steps don't break awkwardly */
+    .step {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Adjust chart visibility if needed, or hide it if complex */
+    .screen-time .donut-wrapper {
+        display: none !important; /* Charts often don't print well */
+    }
+
+    /* Ensure all text is visible */
+    .hero-content, .step, .screen-time .stat-cards {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
