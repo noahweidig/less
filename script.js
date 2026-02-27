@@ -189,11 +189,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const animateValue = (element, end, duration) => {
             const startTime = performance.now();
+            let lastValue = null;
             const update = (currentTime) => {
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
                 const eased = 1 - Math.pow(1 - progress, 3);
-                element.textContent = Math.round(end * eased);
+                const newValue = Math.round(end * eased);
+
+                // ⚡ Bolt: Cache value to prevent unnecessary DOM writes
+                // Only update textContent if the integer value has actually changed
+                if (newValue !== lastValue) {
+                    element.textContent = newValue;
+                    lastValue = newValue;
+                }
+
                 if (progress < 1) {
                     requestAnimationFrame(update);
                 }
