@@ -27,3 +27,7 @@
 ## 2025-05-29 - Turning Content into Action
 **Learning:** Transform passive reading (guides, steps) into active engagement by adding simple interactivity (checkboxes). This reinforces learning and provides a sense of progress without changing the core content.
 **Action:** Look for numbered lists or steps that can be converted into interactive checklists to add value.
+
+## 2025-05-30 - Invisible Focus Traps
+**Learning:** Interactive elements hidden only via `opacity: 0` remain in the keyboard tab order. This creates invisible focus traps where keyboard users focus on an element they cannot see, causing confusion.
+**Action:** Always pair `opacity: 0` with `visibility: hidden` (or `display: none`, or `pointer-events: none` AND `tabindex="-1"`) for elements that should not be interactive when visually hidden. Ensure smooth transitions by adding `visibility` to the CSS `transition` property.
