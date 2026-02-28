@@ -831,8 +831,9 @@ footer {
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
+    visibility: hidden;
     transform: translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, visibility 0.3s ease;
 
     background: var(--card-bg);
     backdrop-filter: blur(10px);
@@ -844,6 +845,7 @@ footer {
 .back-to-top.visible {
     opacity: 1;
     pointer-events: auto;
+    visibility: visible;
     transform: translateY(0);
 }
 
