@@ -14,3 +14,8 @@
 **Vulnerability:** DOM-based Cross-Site Scripting (XSS) risk from potentially unsafe assignments to sink properties (like innerHTML) in the future.
 **Learning:** Enforcing Trusted Types using Content Security Policy is a robust defense-in-depth mechanism to prevent DOM XSS vulnerabilities at the browser level.
 **Prevention:** Added `require-trusted-types-for 'script'` to the Content-Security-Policy header in all HTML files.
+
+## 2026-02-27 - [Enforce HTTPS via CSP]
+**Vulnerability:** Mixed content vulnerabilities, where HTTP resources are loaded over an HTTPS connection.
+**Learning:** Adding `upgrade-insecure-requests;` to the Content Security Policy instructs the browser to automatically upgrade any HTTP requests to HTTPS, providing a simple way to mitigate mixed content vulnerabilities without breaking functionality.
+**Prevention:** Included `upgrade-insecure-requests;` in the `Content-Security-Policy` header on all HTML pages.
