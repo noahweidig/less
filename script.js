@@ -70,14 +70,20 @@ document.addEventListener('DOMContentLoaded', () => {
             navToggle.setAttribute('aria-expanded', isOpen);
         });
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                header.classList.add('nav-animate');
-                nav.addEventListener('transitionend', cleanup);
-                header.classList.remove('nav-open');
-                navToggle.setAttribute('aria-expanded', 'false');
+        // ⚡ Bolt: Use event delegation to optimize memory usage and scalability
+        const navLinksContainer = nav.querySelector('.nav-links');
+        if (navLinksContainer) {
+            navLinksContainer.addEventListener('click', (e) => {
+                // Ensure the clicked element or its parent is an anchor tag
+                const link = e.target.closest('a');
+                if (link && navLinksContainer.contains(link)) {
+                    header.classList.add('nav-animate');
+                    nav.addEventListener('transitionend', cleanup);
+                    header.classList.remove('nav-open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                }
             });
-        });
+        }
     }
 
     // --- Hero Intro Animation ---
@@ -252,9 +258,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Active Navigation Link ---
     const currentPath = window.location.pathname;
-    const navItems = document.querySelectorAll('.nav-links a');
 
-    navItems.forEach(link => {
+    // ⚡ Bolt: Reuse the navLinks NodeList defined at the top of the file
+    // instead of querying the DOM again with document.querySelectorAll('.nav-links a')
+    navLinks.forEach(link => {
         const linkPath = link.getAttribute('href');
         if (linkPath) {
             // Check if current path ends with the link path (e.g. "index.html")
