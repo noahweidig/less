@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nav.addEventListener('transitionend', cleanup);
             const isOpen = header.classList.toggle('nav-open');
             navToggle.setAttribute('aria-expanded', isOpen);
+            navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
         });
 
         navLinks.forEach(link => {
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 nav.addEventListener('transitionend', cleanup);
                 header.classList.remove('nav-open');
                 navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.setAttribute('aria-label', 'Open menu');
             });
         });
     }
@@ -333,7 +335,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const isMenuOpen = header && header.classList.contains('nav-open');
             if (isMenuOpen) {
                 // Simulate click on nav toggle to close
-                if (navToggle) navToggle.click();
+                if (navToggle) {
+                    navToggle.click();
+                    navToggle.focus();
+                }
             }
         }
     });

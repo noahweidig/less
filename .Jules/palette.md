@@ -31,3 +31,7 @@
 ## 2025-05-30 - Invisible Focus Traps
 **Learning:** Interactive elements hidden only via `opacity: 0` remain in the keyboard tab order. This creates invisible focus traps where keyboard users focus on an element they cannot see, causing confusion.
 **Action:** Always pair `opacity: 0` with `visibility: hidden` (or `display: none`, or `pointer-events: none` AND `tabindex="-1"`) for elements that should not be interactive when visually hidden. Ensure smooth transitions by adding `visibility` to the CSS `transition` property.
+
+## 2025-05-31 - Dynamic ARIA Labels and Focus Restoration
+**Learning:** For components that change state (like a mobile menu toggle), static ARIA labels like "Open menu" become inaccurate when the menu is already open, confusing screen reader users. Additionally, closing a modal or menu with the Escape key without explicitly returning focus to the trigger can leave keyboard users lost.
+**Action:** Always toggle `aria-label` along with `aria-expanded` state, and ensure `element.focus()` is called on the toggle button when a menu is closed via keyboard interaction.
