@@ -71,14 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
             navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
         });
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
+        // ⚡ Bolt: Use event delegation instead of attaching O(n) event listeners
+        nav.addEventListener('click', (e) => {
+            if (e.target.closest('a')) {
                 header.classList.add('nav-animate');
                 nav.addEventListener('transitionend', cleanup);
                 header.classList.remove('nav-open');
                 navToggle.setAttribute('aria-expanded', 'false');
                 navToggle.setAttribute('aria-label', 'Open menu');
-            });
+            }
         });
     }
 
@@ -254,9 +255,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Active Navigation Link ---
     const currentPath = window.location.pathname;
-    const navItems = document.querySelectorAll('.nav-links a');
+    // ⚡ Bolt: Reused cached navLinks NodeList instead of redundant DOM query
 
-    navItems.forEach(link => {
+    navLinks.forEach(link => {
         const linkPath = link.getAttribute('href');
         if (linkPath) {
             // Check if current path ends with the link path (e.g. "index.html")
