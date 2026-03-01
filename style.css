@@ -672,16 +672,18 @@ footer {
         transform: translateY(-120%);
         opacity: 0;
         pointer-events: none;
+        visibility: hidden;
         transition: none;
         overflow: hidden;
     }
     .nav-animate nav {
-        transition: transform 0.3s ease, opacity 0.3s ease;
+        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
     }
     .nav-open nav {
         transform: translateY(0);
         opacity: 1;
         pointer-events: auto;
+        visibility: visible;
     }
     .nav-links {
         flex-direction: column;
