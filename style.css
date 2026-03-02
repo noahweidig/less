@@ -412,7 +412,7 @@ header {
     transform: translateZ(0);
     transform-style: preserve-3d;
     backface-visibility: hidden;
-    will-change: transform;
+    /* ⚡ Bolt: Removed static will-change: transform. It permanently allocates VRAM. Applied dynamically via JS on pointerenter. */
     transition: transform 0.3s;
     cursor: default;
 }

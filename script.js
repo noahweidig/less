@@ -150,9 +150,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.addEventListener('pointermove', handlePointerMove);
 
+            const handleTransitionEnd = (e) => {
+                if (e.target === card && e.propertyName === 'transform' && !card.matches(':hover')) {
+                    card.style.willChange = '';
+                    card.removeEventListener('transitionend', handleTransitionEnd);
+                }
+            };
+
             card.addEventListener('pointerleave', () => {
                 card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-                card.style.willChange = '';
+                // ⚡ Bolt: Wait for transition to finish before removing will-change to avoid dropping the layer early
+                card.addEventListener('transitionend', handleTransitionEnd);
                 if (rafId) {
                     window.cancelAnimationFrame(rafId);
                     rafId = null;
