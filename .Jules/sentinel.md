@@ -24,3 +24,8 @@
 **Vulnerability:** Potential DOM state corruption or unexpected behavior caused by tampering with `localStorage`.
 **Learning:** `localStorage` is an untrusted data source and values read from it should be strictly validated before being used to manipulate the DOM.
 **Prevention:** Added strict validation to `localStorage.getItem('theme')` to ensure it only accepts expected values (`'light'` or `'dark'`). Invalid values trigger a warning and are removed.
+
+## 2026-03-02 - [Anti-Clickjacking Framebuster]
+**Vulnerability:** The site was susceptible to clickjacking (UI redressing) because it lacked HTTP headers like `X-Frame-Options` or `Content-Security-Policy: frame-ancestors` to restrict embedding in iframes.
+**Learning:** For static sites where server-level header configuration might not be possible, a JavaScript framebuster provides a critical layer of defense-in-depth against clickjacking.
+**Prevention:** Added a JavaScript framebuster to `script.js` that attempts to redirect the top window to the current URL. Crucially, if this navigation is blocked (e.g., by a sandboxed iframe), it falls back securely by hiding the page content (`document.documentElement.style.display = 'none'`).
