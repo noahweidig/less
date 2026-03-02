@@ -19,3 +19,8 @@
 **Vulnerability:** Mixed content vulnerabilities, where HTTP resources are loaded over an HTTPS connection.
 **Learning:** Adding `upgrade-insecure-requests;` to the Content Security Policy instructs the browser to automatically upgrade any HTTP requests to HTTPS, providing a simple way to mitigate mixed content vulnerabilities without breaking functionality.
 **Prevention:** Included `upgrade-insecure-requests;` in the `Content-Security-Policy` header on all HTML pages.
+
+## 2026-03-01 - [Untrusted Data Boundary]
+**Vulnerability:** Potential DOM state corruption or unexpected behavior caused by tampering with `localStorage`.
+**Learning:** `localStorage` is an untrusted data source and values read from it should be strictly validated before being used to manipulate the DOM.
+**Prevention:** Added strict validation to `localStorage.getItem('theme')` to ensure it only accepts expected values (`'light'` or `'dark'`). Invalid values trigger a warning and are removed.

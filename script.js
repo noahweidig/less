@@ -27,7 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const initTheme = () => {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
-            htmlElement.setAttribute('data-theme', savedTheme);
+            // Security: Validate untrusted data from localStorage
+            if (savedTheme === 'light' || savedTheme === 'dark') {
+                htmlElement.setAttribute('data-theme', savedTheme);
+            } else {
+                console.warn('Security Warning: Invalid theme value detected in localStorage. Removing tampered key.');
+                localStorage.removeItem('theme');
+            }
         }
         updateThemeLabel();
     };
