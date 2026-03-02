@@ -35,3 +35,7 @@
 ## 2025-05-31 - Dynamic ARIA Labels and Focus Restoration
 **Learning:** For components that change state (like a mobile menu toggle), static ARIA labels like "Open menu" become inaccurate when the menu is already open, confusing screen reader users. Additionally, closing a modal or menu with the Escape key without explicitly returning focus to the trigger can leave keyboard users lost.
 **Action:** Always toggle `aria-label` along with `aria-expanded` state, and ensure `element.focus()` is called on the toggle button when a menu is closed via keyboard interaction.
+
+## 2026-03-02 - Tactile Feedback and Focus Parity
+**Learning:** Users lack physical confirmation of clicks on interactive components when `:active` states are missing. Furthermore, keyboard users don't get the same visual lift as mouse users if `:focus-visible` is not paired with `:hover`.
+**Action:** Always add `:active` states to provide visual feedback for clicks and ensure keyboard users get the same visual state as mouse users by pairing `:hover` and `:focus-visible`.

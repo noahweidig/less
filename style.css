@@ -164,8 +164,13 @@ header {
     transition: background 0.3s;
 }
 
-#theme-toggle:hover {
+#theme-toggle:hover,
+#theme-toggle:focus-visible {
     background: rgba(128, 128, 128, 0.1);
+}
+
+#theme-toggle:active {
+    transform: scale(0.95);
 }
 
 .icon {
@@ -190,8 +195,13 @@ header {
     font-family: 'Montserrat', sans-serif;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a:focus-visible {
     color: var(--primary-purple);
+}
+
+.nav-links a:active {
+    transform: translateY(1px);
 }
 
 .nav-toggle {
@@ -301,9 +311,15 @@ header {
     font-weight: 600;
 }
 
-.cta-button:hover {
+.cta-button:hover,
+.cta-button:focus-visible {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);
+}
+
+.cta-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(108, 92, 231, 0.4);
 }
 
 /* Hero Shapes */
@@ -638,9 +654,14 @@ a.card {
     border: 2px solid var(--primary-purple);
 }
 
-.cta-secondary:hover {
+.cta-secondary:hover,
+.cta-secondary:focus-visible {
     background: var(--primary-purple);
     color: white;
+}
+
+.cta-secondary:active {
+    transform: translateY(-1px);
 }
 
 /* Footer */
@@ -857,6 +878,11 @@ footer {
     transform: translateY(-3px);
 }
 
+.back-to-top:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.2);
+}
+
 .back-to-top:focus-visible {
     outline: 2px solid var(--primary-purple);
     outline-offset: 2px;
@@ -882,6 +908,10 @@ footer {
 
 .step-marker:hover {
     transform: scale(1.1);
+}
+
+.step-marker:active {
+    transform: scale(1.05);
 }
 
 .step-marker:focus-visible {
