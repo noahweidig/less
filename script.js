@@ -12,6 +12,33 @@ if (window.self !== window.top) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Security: Safe LocalStorage Wrapper ---
+    // Prevent unhandled SecurityError exceptions when cookies/storage are blocked
+    const safeStorage = {
+        getItem: (key) => {
+            try {
+                return localStorage.getItem(key);
+            } catch (e) {
+                console.warn('Security Warning: LocalStorage access blocked.');
+                return null;
+            }
+        },
+        setItem: (key, value) => {
+            try {
+                localStorage.setItem(key, value);
+            } catch (e) {
+                console.warn('Security Warning: LocalStorage access blocked.');
+            }
+        },
+        removeItem: (key) => {
+            try {
+                localStorage.removeItem(key);
+            } catch (e) {
+                console.warn('Security Warning: LocalStorage access blocked.');
+            }
+        }
+    };
+
     // --- Theme Toggle ---
     const themeToggle = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
@@ -38,14 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check for saved theme preference or system preference
     // Optimized to avoid blocking main thread with synchronous I/O
     const initTheme = () => {
-        const savedTheme = localStorage.getItem('theme');
+        const savedTheme = safeStorage.getItem('theme');
         if (savedTheme) {
             // Security: Validate untrusted data from localStorage
             if (savedTheme === 'light' || savedTheme === 'dark') {
                 htmlElement.setAttribute('data-theme', savedTheme);
             } else {
                 console.warn('Security Warning: Invalid theme value detected in localStorage. Removing tampered key.');
-                localStorage.removeItem('theme');
+                safeStorage.removeItem('theme');
             }
         }
         updateThemeLabel();
@@ -69,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
         htmlElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+        safeStorage.setItem('theme', newTheme);
         updateThemeLabel();
     });
 
@@ -379,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stepMarkers.forEach(marker => {
             const stepId = marker.getAttribute('data-step-id');
             // Optimized: Read from localStorage only once on load
-            const isCompleted = localStorage.getItem(stepId) === 'true';
+            const isCompleted = safeStorage.getItem(stepId) === 'true';
 
             if (isCompleted) {
                 marker.setAttribute('aria-pressed', 'true');
@@ -391,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 marker.setAttribute('aria-pressed', newState);
 
                 // Save to localStorage
-                localStorage.setItem(stepId, newState);
+                safeStorage.setItem(stepId, newState);
             });
         });
     }
