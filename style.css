@@ -144,6 +144,7 @@ header {
     background: linear-gradient(45deg, var(--primary-purple), var(--primary-orange));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-decoration: none;
 }
 
 .header-controls {
