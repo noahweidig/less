@@ -39,3 +39,6 @@
 ## 2026-03-02 - Tactile Feedback and Focus Parity
 **Learning:** Users lack physical confirmation of clicks on interactive components when `:active` states are missing. Furthermore, keyboard users don't get the same visual lift as mouse users if `:focus-visible` is not paired with `:hover`.
 **Action:** Always add `:active` states to provide visual feedback for clicks and ensure keyboard users get the same visual state as mouse users by pairing `:hover` and `:focus-visible`.
+## 2025-03-03 - Contextual Navigation Resets via Brand Logos
+**Learning:** Even well-styled static brand logos (e.g., `<div class="logo">`) can create subtle friction because users instinctively expect the top-left logo to act as a contextual reset/link back to the homepage. Making the logo interactive satisfies this established mental model.
+**Action:** Always wrap the site logo in an `<a>` tag pointing to the homepage, add an `aria-label="Home"`, and ensure styling (e.g., `text-decoration: none`) is preserved.
