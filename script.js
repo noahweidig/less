@@ -151,8 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             card.addEventListener('pointerenter', () => {
-                card.style.willChange = 'transform';
+                // ⚡ Bolt: Read layout (getBoundingClientRect) before writing to DOM (willChange) to prevent Forced Synchronous Layout.
                 const rect = card.getBoundingClientRect();
+                card.style.willChange = 'transform';
                 cardRect = {
                     left: rect.left + window.scrollX,
                     top: rect.top + window.scrollY,
