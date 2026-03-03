@@ -1,3 +1,16 @@
+// --- Security: Anti-Clickjacking Framebuster ---
+// Prevent the site from being maliciously embedded in an iframe.
+if (window.self !== window.top) {
+    try {
+        window.top.location.replace(window.location.href);
+    } catch (e) {
+        // If the browser blocks the navigation (e.g. sandbox attribute on iframe)
+        // hide the document content to prevent clickjacking.
+        document.documentElement.style.display = 'none';
+        console.error('Security Warning: Clickjacking attempt detected and blocked.');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- Theme Toggle ---
     const themeToggle = document.getElementById('theme-toggle');
