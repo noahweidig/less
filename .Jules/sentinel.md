@@ -29,3 +29,8 @@
 **Vulnerability:** The site was susceptible to clickjacking (UI redressing) because it lacked HTTP headers like `X-Frame-Options` or `Content-Security-Policy: frame-ancestors` to restrict embedding in iframes.
 **Learning:** For static sites where server-level header configuration might not be possible, a JavaScript framebuster provides a critical layer of defense-in-depth against clickjacking.
 **Prevention:** Added a JavaScript framebuster to `script.js` that attempts to redirect the top window to the current URL. Crucially, if this navigation is blocked (e.g., by a sandboxed iframe), it falls back securely by hiding the page content (`document.documentElement.style.display = 'none'`).
+
+## 2026-03-03 - [LocalStorage Error Handling]
+**Vulnerability:** Unhandled `SecurityError` exceptions when attempting to access `localStorage` in strict privacy environments (e.g., third-party cookies blocked, incognito mode) could crash script execution and leak stack traces to the console.
+**Learning:** Web Storage APIs (like `localStorage` and `sessionStorage`) are not guaranteed to be accessible. They must be treated as protected boundaries that can fail, rather than assumed features.
+**Prevention:** Always wrap `localStorage` access methods (`getItem`, `setItem`, `removeItem`) in `try...catch` blocks or utilize a safe wrapper utility to ensure the application fails securely without crashing or leaking sensitive error information.
