@@ -221,11 +221,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (steps.length > 0 && 'IntersectionObserver' in window) {
+        let observedStepsCount = steps.length;
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     observer.unobserve(entry.target); // Only animate once
+                    observedStepsCount--;
+                    // ⚡ Bolt: Completely disconnect observer once all elements are animated to free up memory
+                    if (observedStepsCount === 0) {
+                        observer.disconnect();
+                    }
                 }
             });
         }, observerOptions);
@@ -297,6 +303,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         screenTimeSection.classList.add('visible');
                         animateChart();
                         chartObserver.unobserve(entry.target);
+                        // ⚡ Bolt: Completely disconnect single-use observer to free memory
+                        chartObserver.disconnect();
                     }
                 });
             }, { threshold: 0.2 });
