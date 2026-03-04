@@ -374,6 +374,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 top: 0,
                 behavior: 'smooth'
             });
+            // Return focus to the top of the document for keyboard users
+            const mainContent = document.getElementById('main-content');
+            if (mainContent) {
+                mainContent.focus({ preventScroll: true });
+            }
         });
     }
 

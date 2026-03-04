@@ -874,7 +874,8 @@ footer {
     transform: translateY(0);
 }
 
-.back-to-top:hover {
+.back-to-top:hover,
+.back-to-top:focus-visible {
     background: var(--bg-color);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
     transform: translateY(-3px);
@@ -908,7 +909,8 @@ footer {
     margin-bottom: 0;
 }
 
-.step-marker:hover {
+.step-marker:hover,
+.step-marker:focus-visible {
     transform: scale(1.1);
 }
 
