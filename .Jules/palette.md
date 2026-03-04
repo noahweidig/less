@@ -42,3 +42,7 @@
 ## 2025-03-03 - Contextual Navigation Resets via Brand Logos
 **Learning:** Even well-styled static brand logos (e.g., `<div class="logo">`) can create subtle friction because users instinctively expect the top-left logo to act as a contextual reset/link back to the homepage. Making the logo interactive satisfies this established mental model.
 **Action:** Always wrap the site logo in an `<a>` tag pointing to the homepage, add an `aria-label="Home"`, and ensure styling (e.g., `text-decoration: none`) is preserved.
+
+## 2026-03-04 - Focus Restoration on Scroll-to-Top Actions
+**Learning:** Scrolling a page visually does not automatically move keyboard focus. A user tabbing to a "Back to Top" button at the end of the page and activating it will be visually scrolled to the top, but their keyboard focus remains trapped at the bottom. The next tab press will jump them unpredictably or leave them lost.
+**Action:** Always programmatically restore focus to a logical element at the top of the document (like `document.getElementById('main-content').focus({ preventScroll: true })`) when executing a programmatic scroll-to-top action, ensuring it has `tabindex="-1"` if it's not a naturally focusable element.
