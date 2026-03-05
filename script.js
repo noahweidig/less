@@ -127,6 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 navToggle.setAttribute('aria-label', 'Open menu');
             }
         });
+
+        // 🎨 Palette: Close mobile menu when clicking outside the header
+        document.addEventListener('click', (e) => {
+            const isMenuOpen = header.classList.contains('nav-open');
+            // If the menu is open and the click target is not within the header
+            if (isMenuOpen && !header.contains(e.target)) {
+                header.classList.add('nav-animate');
+                nav.addEventListener('transitionend', cleanup);
+                header.classList.remove('nav-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.setAttribute('aria-label', 'Open menu');
+            }
+        });
     }
 
     // --- Hero Intro Animation ---

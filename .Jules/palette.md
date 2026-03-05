@@ -46,3 +46,7 @@
 ## 2026-03-04 - Focus Restoration on Scroll-to-Top Actions
 **Learning:** Scrolling a page visually does not automatically move keyboard focus. A user tabbing to a "Back to Top" button at the end of the page and activating it will be visually scrolled to the top, but their keyboard focus remains trapped at the bottom. The next tab press will jump them unpredictably or leave them lost.
 **Action:** Always programmatically restore focus to a logical element at the top of the document (like `document.getElementById('main-content').focus({ preventScroll: true })`) when executing a programmatic scroll-to-top action, ensuring it has `tabindex="-1"` if it's not a naturally focusable element.
+
+## 2026-03-05 - Dismissible Transient UI via External Clicks
+**Learning:** For transient UI elements like mobile menus or dropdowns, relying solely on an explicit "close" button creates friction. Users naturally expect clicking anywhere outside the element to dismiss it.
+**Action:** Always implement a document-level click listener to close open transient UI elements when a click occurs outside their boundaries, ensuring ARIA attributes are updated accordingly.
