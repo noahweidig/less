@@ -47,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-links a');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const supportsHover = window.matchMedia('(hover: hover)').matches;
+    // ⚡ Bolt: Cache matchMedia for dark mode to avoid redundant evaluations
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
 
     const updateThemeLabel = () => {
         const currentTheme = htmlElement.getAttribute('data-theme');
@@ -54,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // If no attribute, check system preference
         if (!currentTheme) {
-            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            isDark = prefersDarkMode.matches;
         }
 
         const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
@@ -89,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // If no attribute, we are using system preference
         if (!currentTheme) {
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const systemPrefersDark = prefersDarkMode.matches;
             currentTheme = systemPrefersDark ? 'dark' : 'light';
         }
 
@@ -437,15 +439,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isCompleted) {
                 marker.setAttribute('aria-pressed', 'true');
             }
+        });
 
-            marker.addEventListener('click', () => {
+        // ⚡ Bolt: Use event delegation instead of attaching O(n) event listeners
+        document.addEventListener('click', (e) => {
+            const marker = e.target.closest('.step-marker');
+            if (marker) {
+                const stepId = marker.getAttribute('data-step-id');
                 const currentState = marker.getAttribute('aria-pressed') === 'true';
                 const newState = !currentState;
                 marker.setAttribute('aria-pressed', newState);
 
                 // Save to localStorage
                 safeStorage.setItem(stepId, newState);
-            });
+            }
         });
     }
 });

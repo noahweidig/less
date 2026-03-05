@@ -19,3 +19,7 @@
 ## 2026-03-04 - Disconnecting Single-Use IntersectionObservers
 **Learning:** Calling `IntersectionObserver.unobserve(target)` removes the target from the observer's internal list of monitored elements, but it does not fully garbage collect the observer instance itself or stop the browser's internal polling/monitoring loop associated with that observer, leading to wasted memory and CPU cycles for observers that are only used once (like scroll-into-view animations).
 **Action:** For single-use observers, keep track of the number of targets and call `observer.disconnect()` once all elements have been animated, or immediately call `.disconnect()` if there is only one target, to completely tear down the observer and free resources.
+
+## 2024-05-28 - Redundant matchMedia Queries in Event Listeners
+**Learning:** Calling `window.matchMedia('(prefers-color-scheme: dark)')` repeatedly inside an event handler (e.g., clicking a theme toggle) forces the browser to parse and evaluate the media query string on every interaction, which is unnecessary and wastes CPU cycles.
+**Action:** Cache the `MediaQueryList` object returned by `window.matchMedia()` at the top level of the script, and simply read its `.matches` property inside event listeners or functions that run frequently.
