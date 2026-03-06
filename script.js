@@ -409,6 +409,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Keyboard Shortcuts ---
     document.addEventListener('keydown', (e) => {
+        // ⚡ Bolt: Early return for non-shortcut keys to avoid unnecessary DOM access (document.activeElement) on every keystroke
+        if (e.key !== 't' && e.key !== 'T' && e.key !== 'Escape') return;
+
         const activeTag = document.activeElement ? document.activeElement.tagName : '';
 
         // Toggle Theme (T)

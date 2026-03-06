@@ -23,3 +23,7 @@
 ## 2024-05-28 - Redundant matchMedia Queries in Event Listeners
 **Learning:** Calling `window.matchMedia('(prefers-color-scheme: dark)')` repeatedly inside an event handler (e.g., clicking a theme toggle) forces the browser to parse and evaluate the media query string on every interaction, which is unnecessary and wastes CPU cycles.
 **Action:** Cache the `MediaQueryList` object returned by `window.matchMedia()` at the top level of the script, and simply read its `.matches` property inside event listeners or functions that run frequently.
+
+## 2024-05-28 - DOM Access in High-Frequency Global Listeners
+**Learning:** In global event listeners that fire rapidly (like `keydown` for typing or scrolling), performing DOM reads like `document.activeElement` on every event adds unnecessary CPU overhead, even if the result isn't used. While a single read is fast, doing it rapidly (e.g., holding an arrow key) compounds.
+**Action:** Always place an early return (e.g., checking `e.key`) *before* any DOM access or complex logic in global event listeners.
