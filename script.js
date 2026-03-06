@@ -440,6 +440,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (isCompleted) {
                 marker.setAttribute('aria-pressed', 'true');
+                // 🎨 Palette: Update screen reader text when initially loaded as complete
+                const currentLabel = marker.getAttribute('aria-label');
+                if (currentLabel && currentLabel.includes('complete')) {
+                    marker.setAttribute('aria-label', currentLabel.replace('complete', 'incomplete'));
+                }
             }
         });
 
@@ -451,6 +456,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const currentState = marker.getAttribute('aria-pressed') === 'true';
                 const newState = !currentState;
                 marker.setAttribute('aria-pressed', newState);
+
+                // 🎨 Palette: Dynamically update aria-label for accurate screen reader announcements
+                const currentLabel = marker.getAttribute('aria-label');
+                if (currentLabel) {
+                    if (newState) {
+                        marker.setAttribute('aria-label', currentLabel.replace('complete', 'incomplete'));
+                    } else {
+                        marker.setAttribute('aria-label', currentLabel.replace('incomplete', 'complete'));
+                    }
+                }
 
                 // Save to localStorage
                 safeStorage.setItem(stepId, newState);
