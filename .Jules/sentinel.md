@@ -39,3 +39,8 @@
 **Vulnerability:** A timing-based clickjacking vulnerability existed because the anti-clickjacking framebuster attempted to redirect (`window.top.location.replace()`) *before* hiding the page content (`display = 'none'`). This left a brief window where the iframe content was fully visible and interactive while the redirect network request was pending.
 **Learning:** Defenses that rely on asynchronous actions (like network navigation) must fail-safe immediately before initiating the action.
 **Prevention:** Ensure the application state is rendered inert or invisible immediately upon detecting a threat, prior to taking mitigative actions that may have a delay.
+
+## 2026-03-07 - [CSP Defense-in-Depth]
+**Vulnerability:** Even with a strict CSP, allowing unused resource types like frames, child processes, workers, media, and manifests unnecessarily increases the attack surface if another vulnerability is discovered.
+**Learning:** Content Security Policy should follow a default-deny approach not just for sources, but for resource types. If a site doesn't use web workers, iframes, or media, those directives should be explicitly set to 'none'.
+**Prevention:** Hardened CSP further by adding `frame-src 'none'; child-src 'none'; worker-src 'none'; media-src 'none'; manifest-src 'none';` to all HTML pages, enforcing a strict default-deny policy for unused features.
