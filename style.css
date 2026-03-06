@@ -924,6 +924,10 @@ footer {
     border-radius: 8px;
 }
 
+.step-marker[aria-pressed="true"]:focus-visible {
+    outline-color: var(--primary-green);
+}
+
 .step-check {
     font-size: 3rem;
     font-weight: 900;
@@ -940,6 +944,17 @@ footer {
 
 .step-marker[aria-pressed="true"] .step-number {
     display: none;
+}
+
+.step-marker[aria-pressed="true"] + .step-content {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.step-marker[aria-pressed="true"] + .step-content h3 {
+    text-decoration: line-through;
+    color: var(--primary-green);
+    transition: color 0.3s ease;
 }
 
 @keyframes popIn {

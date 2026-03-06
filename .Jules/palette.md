@@ -50,3 +50,7 @@
 ## 2026-03-05 - Dismissible Transient UI via External Clicks
 **Learning:** For transient UI elements like mobile menus or dropdowns, relying solely on an explicit "close" button creates friction. Users naturally expect clicking anywhere outside the element to dismiss it.
 **Action:** Always implement a document-level click listener to close open transient UI elements when a click occurs outside their boundaries, ensuring ARIA attributes are updated accordingly.
+
+## 2026-03-06 - Dynamic ARIA Context and Sibling Styling
+**Learning:** Toggle buttons with static ARIA labels that describe both state and action (e.g. "Mark step 1 as complete") become confusing once activated because the label contradicts the `aria-pressed="true"` state. Furthermore, using CSS adjacent sibling combinators (`+`) to style related content based on the toggle's `aria-pressed` attribute provides robust, JavaScript-free visual feedback.
+**Action:** Always dynamically update the verb in the `aria-label` (e.g., from "complete" to "incomplete") when a toggle button's state changes. Leverage `aria-pressed` in CSS to style adjacent semantic content, keeping the DOM structure clean.
