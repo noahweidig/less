@@ -34,3 +34,8 @@
 **Vulnerability:** Unhandled `SecurityError` exceptions when attempting to access `localStorage` in strict privacy environments (e.g., third-party cookies blocked, incognito mode) could crash script execution and leak stack traces to the console.
 **Learning:** Web Storage APIs (like `localStorage` and `sessionStorage`) are not guaranteed to be accessible. They must be treated as protected boundaries that can fail, rather than assumed features.
 **Prevention:** Always wrap `localStorage` access methods (`getItem`, `setItem`, `removeItem`) in `try...catch` blocks or utilize a safe wrapper utility to ensure the application fails securely without crashing or leaking sensitive error information.
+
+## 2026-03-05 - [Framebuster Race Condition]
+**Vulnerability:** A timing-based clickjacking vulnerability existed because the anti-clickjacking framebuster attempted to redirect (`window.top.location.replace()`) *before* hiding the page content (`display = 'none'`). This left a brief window where the iframe content was fully visible and interactive while the redirect network request was pending.
+**Learning:** Defenses that rely on asynchronous actions (like network navigation) must fail-safe immediately before initiating the action.
+**Prevention:** Ensure the application state is rendered inert or invisible immediately upon detecting a threat, prior to taking mitigative actions that may have a delay.
