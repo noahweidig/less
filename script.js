@@ -168,30 +168,33 @@ document.addEventListener('DOMContentLoaded', () => {
             let lastEvent = null;
             let cardRect = null;
 
+            // ⚡ Bolt: Extract updateTransform to prevent allocating a new anonymous function every frame
+            const updateTransform = () => {
+                if (!lastEvent || !cardRect) {
+                    rafId = null;
+                    return;
+                }
+
+                // Optimized: Use cached document-relative coordinates
+                const x = lastEvent.pageX - cardRect.left;
+                const y = lastEvent.pageY - cardRect.top;
+
+                const centerX = cardRect.width / 2;
+                const centerY = cardRect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+                const rotateY = ((x - centerX) / centerX) * 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                rafId = null;
+            };
+
             const handlePointerMove = (event) => {
                 lastEvent = event;
                 if (rafId) {
                     return;
                 }
-                rafId = window.requestAnimationFrame(() => {
-                    if (!lastEvent || !cardRect) {
-                        rafId = null;
-                        return;
-                    }
-
-                    // Optimized: Use cached document-relative coordinates
-                    const x = lastEvent.pageX - cardRect.left;
-                    const y = lastEvent.pageY - cardRect.top;
-
-                    const centerX = cardRect.width / 2;
-                    const centerY = cardRect.height / 2;
-
-                    const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
-                    const rotateY = ((x - centerX) / centerX) * 10;
-
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-                    rafId = null;
-                });
+                rafId = window.requestAnimationFrame(updateTransform);
             };
 
             card.addEventListener('pointerenter', () => {
