@@ -27,3 +27,7 @@
 ## 2024-05-28 - DOM Access in High-Frequency Global Listeners
 **Learning:** In global event listeners that fire rapidly (like `keydown` for typing or scrolling), performing DOM reads like `document.activeElement` on every event adds unnecessary CPU overhead, even if the result isn't used. While a single read is fast, doing it rapidly (e.g., holding an arrow key) compounds.
 **Action:** Always place an early return (e.g., checking `e.key`) *before* any DOM access or complex logic in global event listeners.
+
+## 2026-03-07 - GC Churn in High-Frequency Event Listeners
+**Learning:** In high-frequency event listeners like `pointermove` or `mousemove`, creating a new anonymous function every time `requestAnimationFrame` is called leads to rapid memory allocation. Because these events can fire 60-120 times per second, this creates a constant stream of garbage that forces the Garbage Collector (GC) to work harder, potentially resulting in frame drops or micro-stutters.
+**Action:** Extract anonymous functions passed to `requestAnimationFrame` (or other high-frequency callbacks) into named functions within the appropriate closure. This ensures the function is only allocated once per instance, reducing memory churn.
