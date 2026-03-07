@@ -54,3 +54,7 @@
 ## 2026-03-06 - Dynamic ARIA Context and Sibling Styling
 **Learning:** Toggle buttons with static ARIA labels that describe both state and action (e.g. "Mark step 1 as complete") become confusing once activated because the label contradicts the `aria-pressed="true"` state. Furthermore, using CSS adjacent sibling combinators (`+`) to style related content based on the toggle's `aria-pressed` attribute provides robust, JavaScript-free visual feedback.
 **Action:** Always dynamically update the verb in the `aria-label` (e.g., from "complete" to "incomplete") when a toggle button's state changes. Leverage `aria-pressed` in CSS to style adjacent semantic content, keeping the DOM structure clean.
+
+## 2026-03-07 - Hidden context for SVGs in Icon-only buttons
+**Learning:** Icon-only buttons correctly labeled with `aria-label` or `title` may still cause screen readers to read the child SVG element's contents (sometimes announcing the word 'image' or raw markup) if the SVG isn't explicitly hidden from the accessibility tree.
+**Action:** Always add `aria-hidden="true"` to `<svg>` elements that are used purely decoratively within interactive controls like `<button>` or `<a>` to prevent redundant or confusing screen reader announcements.
