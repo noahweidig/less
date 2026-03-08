@@ -58,3 +58,7 @@
 ## 2026-03-07 - Hidden context for SVGs in Icon-only buttons
 **Learning:** Icon-only buttons correctly labeled with `aria-label` or `title` may still cause screen readers to read the child SVG element's contents (sometimes announcing the word 'image' or raw markup) if the SVG isn't explicitly hidden from the accessibility tree.
 **Action:** Always add `aria-hidden="true"` to `<svg>` elements that are used purely decoratively within interactive controls like `<button>` or `<a>` to prevent redundant or confusing screen reader announcements.
+
+## 2026-03-08 - Initializing Animated DOM for Screen Readers
+**Learning:** Screen readers interact with the initial DOM state before scroll-triggered JS animations execute. Elements containing animated numbers starting at "0" will be incorrectly announced as such. Similarly, `<ul>` lists styled with `list-style: none` often lose their list semantics in screen readers (like VoiceOver).
+**Action:** Always initialize the DOM with the final target values for animated content (letting JS handle the initial reset to "0") to ensure accurate fallback and screen reader announcements. Additionally, explicitly declare `role="list"` on lists that have list-style removed.
