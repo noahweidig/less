@@ -44,3 +44,8 @@
 **Vulnerability:** Even with a strict CSP, allowing unused resource types like frames, child processes, workers, media, and manifests unnecessarily increases the attack surface if another vulnerability is discovered.
 **Learning:** Content Security Policy should follow a default-deny approach not just for sources, but for resource types. If a site doesn't use web workers, iframes, or media, those directives should be explicitly set to 'none'.
 **Prevention:** Hardened CSP further by adding `frame-src 'none'; child-src 'none'; worker-src 'none'; media-src 'none'; manifest-src 'none';` to all HTML pages, enforcing a strict default-deny policy for unused features.
+
+## 2026-03-08 - [Strict CSP Least Privilege Lockdown]
+**Vulnerability:** Using `'self'` for directives like `default-src`, `connect-src`, `base-uri`, and `form-action` on a purely static site that doesn't need them unnecessarily widens the attack surface. An attacker who finds an injection flaw might exploit these allowed origins.
+**Learning:** The Principle of Least Privilege applies strictly to CSP. Directives that govern unused functionalities (e.g., forms, XHR/fetch requests, base URI modification) should be explicitly disabled using `'none'`, rather than defaulting to `'self'`.
+**Prevention:** Hardened CSP by changing `default-src`, `connect-src`, `base-uri`, and `form-action` to `'none'` across all HTML files.
