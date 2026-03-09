@@ -49,3 +49,8 @@
 **Vulnerability:** Using `'self'` for directives like `default-src`, `connect-src`, `base-uri`, and `form-action` on a purely static site that doesn't need them unnecessarily widens the attack surface. An attacker who finds an injection flaw might exploit these allowed origins.
 **Learning:** The Principle of Least Privilege applies strictly to CSP. Directives that govern unused functionalities (e.g., forms, XHR/fetch requests, base URI modification) should be explicitly disabled using `'none'`, rather than defaulting to `'self'`.
 **Prevention:** Hardened CSP by changing `default-src`, `connect-src`, `base-uri`, and `form-action` to `'none'` across all HTML files.
+
+## 2026-03-08 - [Synchronous Anti-Clickjacking]
+**Vulnerability:** A timing-based clickjacking vulnerability (Flash of Unprotected Content) occurred because the anti-clickjacking framebuster was located inside `script.js` which had the `defer` attribute. This allowed the browser to parse and render the DOM fully before the framebuster executed, making the page vulnerable for a short window.
+**Learning:** Security controls that manipulate the document structure to prevent rendering (like framebusters) must execute synchronously *before* the DOM is parsed.
+**Prevention:** Extracted the framebuster logic into its own `security.js` file and included it synchronously in the `<head>` of all HTML files.
