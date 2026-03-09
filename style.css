@@ -21,7 +21,8 @@
 
     --mobile-nav-bg: rgba(255, 255, 255, 1);
 
-    --body-bg-gradient: var(--bg-gradient-light);
+    --light-bg-opacity: 1;
+    --dark-bg-opacity: 0;
     --sun-opacity: 1;
     --sun-transform: translate(-50%, -50%) rotate(0deg);
     --moon-opacity: 0;
@@ -41,7 +42,8 @@
 
         --mobile-nav-bg: rgba(26, 26, 26, 1);
 
-        --body-bg-gradient: var(--bg-gradient-dark);
+        --light-bg-opacity: 0;
+        --dark-bg-opacity: 1;
         --sun-opacity: 0;
         --sun-transform: translate(-50%, -50%) rotate(90deg);
         --moon-opacity: 1;
@@ -57,7 +59,8 @@
     --card-border: rgba(0, 0, 0, 0.05);
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
     --mobile-nav-bg: rgba(255, 255, 255, 1);
-    --body-bg-gradient: var(--bg-gradient-light);
+    --light-bg-opacity: 1;
+    --dark-bg-opacity: 0;
     --sun-opacity: 1;
     --sun-transform: translate(-50%, -50%) rotate(0deg);
     --moon-opacity: 0;
@@ -71,7 +74,8 @@
     --card-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     --mobile-nav-bg: rgba(26, 26, 26, 1);
-    --body-bg-gradient: var(--bg-gradient-dark);
+    --light-bg-opacity: 0;
+    --dark-bg-opacity: 1;
     --sun-opacity: 0;
     --sun-transform: translate(-50%, -50%) rotate(90deg);
     --moon-opacity: 1;
@@ -102,16 +106,26 @@ main {
 }
 
 /* Background Gradients */
-body::before {
+body::before,
+body::after {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--body-bg-gradient);
     z-index: -1;
-    transition: background 0.5s ease;
+    transition: opacity 0.5s ease;
+}
+
+body::before {
+    background: var(--bg-gradient-light);
+    opacity: var(--light-bg-opacity);
+}
+
+body::after {
+    background: var(--bg-gradient-dark);
+    opacity: var(--dark-bg-opacity);
 }
 
 /* Header */
@@ -1005,7 +1019,8 @@ footer {
     }
 
     /* Remove background gradients */
-    body::before {
+    body::before,
+    body::after {
         display: none !important;
     }
 

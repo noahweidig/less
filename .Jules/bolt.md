@@ -31,3 +31,7 @@
 ## 2026-03-07 - GC Churn in High-Frequency Event Listeners
 **Learning:** In high-frequency event listeners like `pointermove` or `mousemove`, creating a new anonymous function every time `requestAnimationFrame` is called leads to rapid memory allocation. Because these events can fire 60-120 times per second, this creates a constant stream of garbage that forces the Garbage Collector (GC) to work harder, potentially resulting in frame drops or micro-stutters.
 **Action:** Extract anonymous functions passed to `requestAnimationFrame` (or other high-frequency callbacks) into named functions within the appropriate closure. This ensures the function is only allocated once per instance, reducing memory churn.
+
+## 2026-03-09 - CSS Background Gradients Cause Layout Repaints
+**Learning:** Transitioning a CSS `background` property (especially full-screen complex radial gradients) triggers expensive repaints on every frame during the animation, degrading performance.
+**Action:** Use an opacity crossfade technique. Place the light gradient on a `body::before` pseudo-element and the dark gradient on a `body::after` pseudo-element. Transition the `opacity` property of both elements instead. This is hardware-accelerated and only requires compositing.
