@@ -62,3 +62,7 @@
 ## 2026-03-08 - Initializing Animated DOM for Screen Readers
 **Learning:** Screen readers interact with the initial DOM state before scroll-triggered JS animations execute. Elements containing animated numbers starting at "0" will be incorrectly announced as such. Similarly, `<ul>` lists styled with `list-style: none` often lose their list semantics in screen readers (like VoiceOver).
 **Action:** Always initialize the DOM with the final target values for animated content (letting JS handle the initial reset to "0") to ensure accurate fallback and screen reader announcements. Additionally, explicitly declare `role="list"` on lists that have list-style removed.
+
+## 2026-03-09 - Tactile Feedback on Mobile Menu Toggles
+**Learning:** Mobile menu toggles (hamburger icons) often get styled minimally, completely missing `:active` and `:focus-visible` states, leaving mobile users without physical confirmation of their tap and keyboard users without clear focus.
+**Action:** Always provide the same level of tactile feedback (`:active { transform: scale(0.95) }`) and visible focus to mobile-specific elements as you would for primary buttons.
