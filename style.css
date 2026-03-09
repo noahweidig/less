@@ -214,6 +214,17 @@ header {
     cursor: pointer;
     flex-direction: column;
     gap: 6px;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.nav-toggle:hover,
+.nav-toggle:focus-visible {
+    background: rgba(128, 128, 128, 0.1);
+}
+
+.nav-toggle:active {
+    transform: scale(0.95);
 }
 
 .nav-toggle-bar {
