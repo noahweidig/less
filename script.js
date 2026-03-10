@@ -315,78 +315,152 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Screen Time Chart Animation ---
-    const screenTimeSection = document.querySelector('.screen-time');
+    // --- Animated Value Counter ---
+    const animateValue = (element, end, duration) => {
+        const startTime = performance.now();
+        let lastValue = null;
+        const update = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const newValue = Math.round(end * eased);
 
-    if (screenTimeSection) {
-        const donutFill = screenTimeSection.querySelector('.donut-fill');
-        const donutNumber = screenTimeSection.querySelector('.donut-number');
-        const statNumbers = screenTimeSection.querySelectorAll('.stat-number');
-        const circumference = 2 * Math.PI * 80;
-        const targetPercent = donutNumber ? parseInt(donutNumber.getAttribute('data-target'), 10) : 44;
+            // ⚡ Bolt: Cache value to prevent unnecessary DOM writes
+            if (newValue !== lastValue) {
+                element.textContent = newValue;
+                lastValue = newValue;
+            }
 
-        const animateValue = (element, end, duration) => {
-            const startTime = performance.now();
-            let lastValue = null;
-            const update = (currentTime) => {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 3);
-                const newValue = Math.round(end * eased);
-
-                // ⚡ Bolt: Cache value to prevent unnecessary DOM writes
-                // Only update textContent if the integer value has actually changed
-                if (newValue !== lastValue) {
-                    element.textContent = newValue;
-                    lastValue = newValue;
-                }
-
-                if (progress < 1) {
-                    requestAnimationFrame(update);
-                }
-            };
-            requestAnimationFrame(update);
-        };
-
-        const animateChart = () => {
-            const targetOffset = circumference * (1 - targetPercent / 100);
-
-            if (prefersReducedMotion) {
-                if (donutFill) donutFill.style.strokeDashoffset = targetOffset;
-                if (donutNumber) donutNumber.textContent = targetPercent;
-                statNumbers.forEach(el => {
-                    el.textContent = el.getAttribute('data-target');
-                });
-            } else {
-                const duration = 1500;
-                if (donutFill) {
-                    donutFill.style.transition = 'stroke-dashoffset ' + duration + 'ms cubic-bezier(0.4, 0, 0.2, 1)';
-                    donutFill.style.strokeDashoffset = targetOffset;
-                }
-                if (donutNumber) animateValue(donutNumber, targetPercent, duration);
-                statNumbers.forEach(el => {
-                    animateValue(el, parseInt(el.getAttribute('data-target'), 10), duration);
-                });
+            if (progress < 1) {
+                requestAnimationFrame(update);
             }
         };
+        requestAnimationFrame(update);
+    };
 
-        if ('IntersectionObserver' in window) {
-            const chartObserver = new IntersectionObserver((entries) => {
+    // --- Crisis Dashboard: Tab System + Panel Animations ---
+    const tabBtns = document.querySelectorAll('.tab-btn[role="tab"]');
+    const tabPanels = document.querySelectorAll('.tab-panel[role="tabpanel"]');
+    // Track which panels have already been animated to avoid replaying
+    const animatedPanels = new Set();
+
+    const animatePanel = (panelEl) => {
+        const panelId = panelEl.id;
+        if (animatedPanels.has(panelId)) return;
+        animatedPanels.add(panelId);
+
+        const duration = 1500;
+
+        if (prefersReducedMotion) {
+            // Set all final states immediately
+            panelEl.querySelectorAll('.stat-number[data-target]').forEach(el => {
+                el.textContent = el.getAttribute('data-target');
+            });
+            panelEl.querySelectorAll('.bar-fill').forEach(fill => {
+                fill.classList.add('animated');
+            });
+            panelEl.querySelectorAll('.time-seg').forEach(seg => {
+                seg.classList.add('animated');
+            });
+            const donutFill = panelEl.querySelector('.donut-fill');
+            const donutNumber = panelEl.querySelector('.donut-number');
+            if (donutFill && donutNumber) {
+                const circumference = 2 * Math.PI * 80;
+                const target = parseInt(donutNumber.getAttribute('data-target'), 10);
+                donutFill.style.strokeDashoffset = circumference * (1 - target / 100);
+                donutNumber.textContent = target;
+            }
+            return;
+        }
+
+        // Animate stat counters
+        panelEl.querySelectorAll('.stat-number[data-target]').forEach(el => {
+            animateValue(el, parseInt(el.getAttribute('data-target'), 10), duration);
+        });
+
+        // Animate donut chart if present in this panel
+        const donutFill = panelEl.querySelector('.donut-fill');
+        const donutNumber = panelEl.querySelector('.donut-number');
+        if (donutFill && donutNumber) {
+            const circumference = 2 * Math.PI * 80;
+            const targetPercent = parseInt(donutNumber.getAttribute('data-target'), 10);
+            const targetOffset = circumference * (1 - targetPercent / 100);
+            donutFill.style.transition = 'stroke-dashoffset ' + duration + 'ms cubic-bezier(0.4, 0, 0.2, 1)';
+            donutFill.style.strokeDashoffset = targetOffset;
+            animateValue(donutNumber, targetPercent, duration);
+        }
+
+        // Animate waking-hours time bar segments (staggered)
+        panelEl.querySelectorAll('.time-seg').forEach((seg, i) => {
+            setTimeout(() => {
+                seg.classList.add('animated');
+            }, i * 180);
+        });
+
+        // Animate horizontal bar fills (staggered)
+        panelEl.querySelectorAll('.bar-fill').forEach((fill, i) => {
+            setTimeout(() => {
+                fill.classList.add('animated');
+            }, i * 110);
+        });
+    };
+
+    if (tabBtns.length > 0) {
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Deactivate all tabs and hide all panels
+                tabBtns.forEach(b => b.setAttribute('aria-selected', 'false'));
+                tabPanels.forEach(p => { p.hidden = true; });
+
+                // Activate the clicked tab
+                btn.setAttribute('aria-selected', 'true');
+                const targetId = btn.getAttribute('aria-controls');
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) {
+                    targetPanel.hidden = false;
+                    animatePanel(targetPanel);
+                }
+            });
+
+            // Keyboard navigation: left/right arrow keys between tabs
+            btn.addEventListener('keydown', (e) => {
+                const allBtns = Array.from(tabBtns);
+                const currentIndex = allBtns.indexOf(btn);
+                let newIndex = -1;
+                if (e.key === 'ArrowRight') {
+                    newIndex = (currentIndex + 1) % allBtns.length;
+                } else if (e.key === 'ArrowLeft') {
+                    newIndex = (currentIndex - 1 + allBtns.length) % allBtns.length;
+                } else if (e.key === 'Home') {
+                    newIndex = 0;
+                } else if (e.key === 'End') {
+                    newIndex = allBtns.length - 1;
+                }
+                if (newIndex >= 0) {
+                    e.preventDefault();
+                    allBtns[newIndex].focus();
+                    allBtns[newIndex].click();
+                }
+            });
+        });
+
+        // Animate the first (active) panel when the crisis section scrolls into view
+        const crisisSection = document.querySelector('.crisis-section');
+        if (crisisSection && 'IntersectionObserver' in window) {
+            const crisisObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        screenTimeSection.classList.add('visible');
-                        animateChart();
-                        chartObserver.unobserve(entry.target);
-                        // ⚡ Bolt: Completely disconnect single-use observer to free memory
-                        chartObserver.disconnect();
+                        const activePanel = crisisSection.querySelector('.tab-panel:not([hidden])');
+                        if (activePanel) animatePanel(activePanel);
+                        // ⚡ Bolt: Disconnect single-use observer to free memory
+                        crisisObserver.disconnect();
                     }
                 });
-            }, { threshold: 0.2 });
-
-            chartObserver.observe(screenTimeSection);
-        } else {
-            screenTimeSection.classList.add('visible');
-            animateChart();
+            }, { threshold: 0.15 });
+            crisisObserver.observe(crisisSection);
+        } else if (crisisSection) {
+            const activePanel = crisisSection.querySelector('.tab-panel:not([hidden])');
+            if (activePanel) animatePanel(activePanel);
         }
     }
 

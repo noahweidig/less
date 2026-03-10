@@ -112,46 +112,263 @@
             </div>
         </section>
 
-        <section class="content-section screen-time" id="consumerism" tabindex="-1">
+        <section class="content-section crisis-section" id="consumerism" tabindex="-1">
             <h2>The Cost of More</h2>
-            <p class="section-intro">Modern life was engineered to make you want more — more things, more options, more noise. The system works brilliantly, for everyone except you. Here's what it's actually costing.</p>
-            <div class="screen-time-layout">
-                <div class="donut-wrapper">
-                    <svg class="donut-chart" viewBox="0 0 200 200" role="img" aria-label="Chart showing 80 percent of owned items are never used">
-                        <defs>
-                            <linearGradient id="donut-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#6c5ce7" />
-                                <stop offset="100%" stop-color="#e17055" />
-                            </linearGradient>
-                        </defs>
-                        <circle class="donut-track" cx="100" cy="100" r="80" />
-                        <circle class="donut-fill" cx="100" cy="100" r="80" />
-                    </svg>
-                    <div class="donut-center" aria-hidden="true">
-                        <div class="donut-value">
-                            <span class="donut-number" data-target="80">0</span><span class="donut-symbol">%</span>
+            <p class="section-intro">Modern life was engineered to make you want more — more things, more screens, more noise. Here's the data on what it's actually costing you across every dimension of your life.</p>
+
+            <div class="tab-nav" role="tablist" aria-label="Explore the cost by category">
+                <button class="tab-btn" role="tab" id="tab-clutter" aria-selected="true" aria-controls="panel-clutter">Clutter</button>
+                <button class="tab-btn" role="tab" id="tab-tech" aria-selected="false" aria-controls="panel-tech">Tech</button>
+                <button class="tab-btn" role="tab" id="tab-money" aria-selected="false" aria-controls="panel-money">Money</button>
+                <button class="tab-btn" role="tab" id="tab-mind" aria-selected="false" aria-controls="panel-mind">Mind</button>
+            </div>
+
+            <!-- Panel 1: Clutter -->
+            <div id="panel-clutter" role="tabpanel" aria-labelledby="tab-clutter" class="tab-panel">
+                <div class="panel-layout">
+                    <div class="panel-chart">
+                        <div class="donut-wrapper" aria-hidden="true">
+                            <svg class="donut-chart" viewBox="0 0 200 200">
+                                <defs>
+                                    <linearGradient id="donut-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#6c5ce7" />
+                                        <stop offset="100%" stop-color="#a29bfe" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="donut-track" cx="100" cy="100" r="80" />
+                                <circle class="donut-fill" cx="100" cy="100" r="80" />
+                            </svg>
+                            <div class="donut-center">
+                                <div class="donut-value">
+                                    <span class="donut-number" data-target="80">0</span><span class="donut-symbol">%</span>
+                                </div>
+                                <span class="donut-text">never used</span>
+                            </div>
                         </div>
-                        <span class="donut-text">of what we own<br>is never used</span>
+                        <div class="bar-chart" role="img" aria-label="Percentage of each category actually used regularly">
+                            <p class="chart-caption">Items actually used, by category</p>
+                            <div class="bar-row">
+                                <span class="bar-label">Clothing worn</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--purple" style="--bar-width: 20%"><span class="bar-pct">20%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Kitchen gadgets</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--purple" style="--bar-width: 25%"><span class="bar-pct">25%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Books read</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--purple" style="--bar-width: 38%"><span class="bar-pct">38%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Active electronics</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--purple" style="--bar-width: 15%"><span class="bar-pct">15%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-cards panel-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-number" data-target="300">0</span><span class="stat-suffix">K</span>
+                            </div>
+                            <span class="stat-label">items in the average American home</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-suffix">$</span><span class="stat-number" data-target="18">0</span><span class="stat-suffix">K</span>
+                            </div>
+                            <span class="stat-label">spent on non-essentials every year</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-number" data-target="1">0</span><span class="stat-suffix"> in 10</span>
+                            </div>
+                            <span class="stat-label">Americans rents a storage unit for their overflow</span>
+                        </div>
                     </div>
                 </div>
-                <div class="stat-cards">
-                    <div class="stat-card">
-                        <div class="stat-value">
-                            <span class="stat-number" data-target="300">0</span><span class="stat-suffix">K</span>
+            </div>
+
+            <!-- Panel 2: Tech -->
+            <div id="panel-tech" role="tabpanel" aria-labelledby="tab-tech" class="tab-panel" hidden>
+                <div class="panel-layout panel-layout--wide">
+                    <div class="panel-chart">
+                        <p class="chart-caption">Your 16 waking hours, on average</p>
+                        <div class="time-bar" role="img" aria-label="Waking hours: 7 hours on screens, 5 hours working, 4 hours on everything else combined">
+                            <div class="time-seg time-seg--screens" style="--seg-width: 43.75%">
+                                <span class="time-seg-label">Screens<br><strong>7h</strong></span>
+                            </div>
+                            <div class="time-seg time-seg--work" style="--seg-width: 31.25%">
+                                <span class="time-seg-label">Work<br><strong>5h</strong></span>
+                            </div>
+                            <div class="time-seg time-seg--other" style="--seg-width: 25%">
+                                <span class="time-seg-label">Other<br><strong>4h</strong></span>
+                            </div>
                         </div>
-                        <span class="stat-label">items in the average American home</span>
+                        <div class="bar-chart" role="img" aria-label="Digital habit statistics as percentages">
+                            <p class="chart-caption">Digital habits at a glance</p>
+                            <div class="bar-row">
+                                <span class="bar-label">Waking hours on screens</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--orange" style="--bar-width: 44%"><span class="bar-pct">44%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Phone checks per day</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--orange" style="--bar-width: 96%"><span class="bar-pct">96×</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Feel phone controls them</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--orange" style="--bar-width: 73%"><span class="bar-pct">73%</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-value">
-                            <span class="stat-suffix">$</span><span class="stat-number" data-target="18">0</span><span class="stat-suffix">K</span>
+                    <div class="stat-cards panel-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-number" data-target="7">0</span><span class="stat-suffix">hrs</span>
+                            </div>
+                            <span class="stat-label">average daily screen time per adult</span>
                         </div>
-                        <span class="stat-label">spent on non-essentials per year</span>
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-number" data-target="96">0</span><span class="stat-suffix">×</span>
+                            </div>
+                            <span class="stat-label">times the average person checks their phone per day</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-number" data-target="11">0</span><span class="stat-suffix">yrs</span>
+                            </div>
+                            <span class="stat-label">of a lifetime consumed by screens at current rates</span>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-value">
-                            <span class="stat-number" data-target="1">0</span><span class="stat-suffix"> in 10</span>
+                </div>
+            </div>
+
+            <!-- Panel 3: Money -->
+            <div id="panel-money" role="tabpanel" aria-labelledby="tab-money" class="tab-panel" hidden>
+                <div class="panel-layout panel-layout--wide">
+                    <div class="panel-chart">
+                        <p class="chart-caption">Where the average American's income goes</p>
+                        <div class="bar-chart" role="img" aria-label="Spending breakdown: housing and essentials 62%, impulse purchases 14%, dining and entertainment 12%, unused subscriptions 8%, savings only 4%">
+                            <div class="bar-row">
+                                <span class="bar-label">Housing &amp; essentials</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--green" style="--bar-width: 62%"><span class="bar-pct">62%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Impulse purchases</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--orange" style="--bar-width: 14%"><span class="bar-pct">14%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Dining &amp; entertainment</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--orange" style="--bar-width: 12%"><span class="bar-pct">12%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Unused subscriptions</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--orange" style="--bar-width: 8%"><span class="bar-pct">8%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Actual savings</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--green" style="--bar-width: 4%"><span class="bar-pct">4%</span></div>
+                                </div>
+                            </div>
                         </div>
-                        <span class="stat-label">Americans rents a storage unit</span>
+                    </div>
+                    <div class="stat-cards panel-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-suffix">$</span><span class="stat-number" data-target="18">0</span><span class="stat-suffix">K</span>
+                            </div>
+                            <span class="stat-label">spent on non-essentials per year</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-number" data-target="12">0</span>
+                            </div>
+                            <span class="stat-label">average subscriptions per household — only 3 actively used</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-suffix">$</span><span class="stat-number" data-target="6">0</span><span class="stat-suffix">K</span>
+                            </div>
+                            <span class="stat-label">average American credit card debt</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 4: Mind -->
+            <div id="panel-mind" role="tabpanel" aria-labelledby="tab-mind" class="tab-panel" hidden>
+                <div class="panel-layout panel-layout--wide">
+                    <div class="panel-chart">
+                        <p class="chart-caption">The mental burden of modern life — % of Americans affected</p>
+                        <div class="bar-chart" role="img" aria-label="Mental health statistics: 85% overwhelmed by information, 77% have physical stress symptoms, 61% report loneliness, 40% say anxiety disrupts daily life">
+                            <div class="bar-row">
+                                <span class="bar-label">Overwhelmed by info</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--mind" style="--bar-width: 85%"><span class="bar-pct">85%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Physical stress symptoms</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--mind" style="--bar-width: 77%"><span class="bar-pct">77%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Report loneliness</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--mind" style="--bar-width: 61%"><span class="bar-pct">61%</span></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">Anxiety disrupts daily life</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill--mind" style="--bar-width: 40%"><span class="bar-pct">40%</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stat-cards panel-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-number" data-target="35">0</span><span class="stat-suffix">K</span>
+                            </div>
+                            <span class="stat-label">decisions the average adult makes every single day</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-number" data-target="34">0</span><span class="stat-suffix">GB</span>
+                            </div>
+                            <span class="stat-label">of information consumed per person per day</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">
+                                <span class="stat-number" data-target="5">0</span><span class="stat-suffix">×</span>
+                            </div>
+                            <span class="stat-label">more information than people processed in 1986</span>
+                        </div>
                     </div>
                 </div>
             </div>
