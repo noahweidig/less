@@ -1174,9 +1174,10 @@ footer {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    padding: 0.65rem 1.6rem;
+    padding: calc(0.65rem + 2px) calc(1.6rem + 2px);
     border-radius: 50px;
-    border: 2px solid var(--card-border);
+    border: none;
+    box-shadow: 0 0 0 2px var(--card-border);
     background: var(--card-bg);
     color: var(--text-color);
     cursor: pointer;
@@ -1185,7 +1186,7 @@ footer {
     font-size: 0.9rem;
     letter-spacing: 0.03em;
     backdrop-filter: blur(5px);
-    transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease,
+    transition: color 0.3s ease, background 0.3s ease,
                 box-shadow 0.3s ease, transform 0.2s ease;
 }
 
@@ -1198,7 +1199,7 @@ footer {
 
 .tab-btn:hover,
 .tab-btn:focus-visible {
-    border-color: var(--primary-purple);
+    box-shadow: 0 0 0 2px var(--primary-purple);
     color: var(--primary-purple);
     transform: translateY(-2px);
 }
@@ -1210,7 +1211,6 @@ footer {
 .tab-btn[aria-selected="true"] {
     background: linear-gradient(45deg, var(--primary-purple), var(--primary-orange));
     color: white;
-    border-color: transparent;
     box-shadow: 0 4px 18px rgba(108, 92, 231, 0.4);
 }
 
