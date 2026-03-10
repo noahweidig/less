@@ -464,6 +464,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- Standalone Cost Sections (section overview pages without tabs) ---
+    const standaloneCostSections = document.querySelectorAll('.standalone-crisis-section');
+    if (standaloneCostSections.length > 0) {
+        if ('IntersectionObserver' in window) {
+            const standaloneObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animatePanel(entry.target);
+                        standaloneObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            standaloneCostSections.forEach(section => standaloneObserver.observe(section));
+        } else {
+            standaloneCostSections.forEach(section => animatePanel(section));
+        }
+    }
+
     // --- Active Navigation Link ---
     const currentPath = window.location.pathname;
     // ⚡ Bolt: Reused cached navLinks NodeList instead of redundant DOM query
