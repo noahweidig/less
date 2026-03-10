@@ -9,3 +9,6 @@
 ## 2024-05-24 - Reassuring Quotes as Bridges
 **Learning:** Quotes that reassure the user (e.g., "you don't have to give up the internet") belong immediately before the philosophy or process that explains how, not right after presenting the problem.
 **Action:** When evaluating landing page flow, use quotes as narrative bridges to transition from the problem/benefits into the "how it works" philosophy.
+## 2024-05-18 - Quote Placement as Narrative Bridge
+**Learning:** Quotes placed immediately after a problem statement ("Why") interrupt the flow to the value proposition/benefits. They function better as a reassuring bridge from the benefits into the actionable "How it works" or "Habits" sections.
+**Action:** Reorder sections to ensure value propositions immediately follow problem statements, and use quotes to transition into the action/process steps.
