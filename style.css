@@ -430,6 +430,10 @@ header {
     gap: 2rem;
 }
 
+#pillars .cards {
+    grid-template-columns: repeat(2, 1fr);
+}
+
 .card {
     background: var(--card-bg);
     padding: 2rem;
@@ -822,6 +826,9 @@ footer {
     .next-step-links {
         flex-direction: column;
         align-items: center;
+    }
+    #pillars .cards {
+        grid-template-columns: 1fr;
     }
 }
 
