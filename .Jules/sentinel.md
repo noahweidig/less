@@ -54,3 +54,8 @@
 **Vulnerability:** A timing-based clickjacking vulnerability (Flash of Unprotected Content) occurred because the anti-clickjacking framebuster was located inside `script.js` which had the `defer` attribute. This allowed the browser to parse and render the DOM fully before the framebuster executed, making the page vulnerable for a short window.
 **Learning:** Security controls that manipulate the document structure to prevent rendering (like framebusters) must execute synchronously *before* the DOM is parsed.
 **Prevention:** Extracted the framebuster logic into its own `security.js` file and included it synchronously in the `<head>` of all HTML files.
+
+## 2026-03-09 - [Storage Quota Exhaustion Prevention]
+**Vulnerability:** Unbounded writes to `localStorage` could allow tampered data or a malicious script (if XSS was achieved) to exceed the storage quota, causing a denial of service (DoS) for the application's legitimate storage needs.
+**Learning:** `localStorage` is a shared resource per origin with a strict size limit. Any wrapper around it must enforce input length limits to prevent resource exhaustion attacks and ensure the application degrades gracefully.
+**Prevention:** Added string type coercion and strict length limits (100 chars for keys, 1000 chars for values) to the `safeStorage.setItem` method.

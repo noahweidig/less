@@ -12,9 +12,16 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         setItem: (key, value) => {
             try {
-                localStorage.setItem(key, value);
+                const strKey = String(key);
+                const strValue = String(value);
+                // 🛡️ Sentinel: Enforce input length limits to prevent LocalStorage exhaustion (DoS)
+                if (strKey.length > 100 || strValue.length > 1000) {
+                    console.warn('Security Warning: Storage input exceeds length limit.');
+                    return;
+                }
+                localStorage.setItem(strKey, strValue);
             } catch (e) {
-                console.warn('Security Warning: LocalStorage access blocked.');
+                console.warn('Security Warning: LocalStorage access blocked or quota exceeded.');
             }
         },
         removeItem: (key) => {
