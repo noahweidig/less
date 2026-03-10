@@ -109,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // ⚡ Bolt: Use event delegation instead of attaching O(n) event listeners
         nav.addEventListener('click', (e) => {
             if (e.target.closest('a')) {
+                closeAllDropdowns();
                 header.classList.add('nav-animate');
                 nav.addEventListener('transitionend', cleanup);
                 header.classList.remove('nav-open');
@@ -131,23 +132,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Dropdown Navigation (hover-based) ---
-    // Dropdowns open on hover via CSS; this handles keyboard focus and Escape key
+    // --- Dropdown Navigation (hover-based on desktop, click-based on mobile) ---
+
+    const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
     const closeAllDropdowns = () => {
+        document.querySelectorAll('.nav-dropdown').forEach(d => {
+            d.removeAttribute('data-open');
+        });
         document.querySelectorAll('.nav-dropdown-toggle').forEach(btn => {
             btn.setAttribute('aria-expanded', 'false');
         });
     };
 
-    // Update aria-expanded to reflect hover state for accessibility
+    // Update aria-expanded to reflect hover state for accessibility (desktop)
+    // and handle click toggling on mobile
     document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
         const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+
+        // Mobile: toggle dropdown open/closed on button click
+        if (toggle) {
+            toggle.addEventListener('click', (e) => {
+                if (!isMobile()) return;
+                e.stopPropagation();
+                const isOpen = dropdown.getAttribute('data-open') === 'true';
+                // Close all others first
+                document.querySelectorAll('.nav-dropdown').forEach(d => {
+                    if (d !== dropdown) {
+                        d.removeAttribute('data-open');
+                        const t = d.querySelector('.nav-dropdown-toggle');
+                        if (t) t.setAttribute('aria-expanded', 'false');
+                    }
+                });
+                // Toggle this one
+                if (isOpen) {
+                    dropdown.removeAttribute('data-open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                } else {
+                    dropdown.setAttribute('data-open', 'true');
+                    toggle.setAttribute('aria-expanded', 'true');
+                }
+            });
+        }
+
+        // Desktop: update aria-expanded to reflect hover state
         dropdown.addEventListener('mouseenter', () => {
-            if (toggle) toggle.setAttribute('aria-expanded', 'true');
+            if (!isMobile() && toggle) toggle.setAttribute('aria-expanded', 'true');
         });
         dropdown.addEventListener('mouseleave', () => {
-            if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            if (!isMobile() && toggle) toggle.setAttribute('aria-expanded', 'false');
         });
         dropdown.addEventListener('focusin', () => {
             if (toggle) toggle.setAttribute('aria-expanded', 'true');
@@ -155,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdown.addEventListener('focusout', (e) => {
             if (!dropdown.contains(e.relatedTarget)) {
                 if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                if (isMobile()) dropdown.removeAttribute('data-open');
             }
         });
     });

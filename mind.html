@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 🛡️ Sentinel: Strict Content Security Policy (CSP) -->
+    <!-- Enforces default-deny for unused resource types (frames, workers, media) to minimize attack surface -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'; worker-src 'none'; media-src 'none'; manifest-src 'none'; require-trusted-types-for 'script'; upgrade-insecure-requests;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>Mental Habits — Less.</title>
+    <title>Mental Minimalism — Less.</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,50 +24,50 @@
                 <li><a href="index.html">Home</a></li>
                 <li class="nav-dropdown">
                     <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
-                        Lifestyle
+                        Life
                         <svg class="dropdown-arrow" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </button>
                     <ul class="nav-dropdown-menu" role="list">
-                        <li><a href="lifestyle.html">Overview</a></li>
-                        <li><a href="lifestyle-tools.html">Tools</a></li>
-                        <li><a href="lifestyle-habits.html">Habits</a></li>
-                        <li><a href="lifestyle-community.html">Community</a></li>
+                        <li><a href="life.html">Overview</a></li>
+                        <li><a href="life-tools.html">Tools</a></li>
+                        <li><a href="life-habits.html">Habits</a></li>
+                        <li><a href="life-community.html">Community</a></li>
                     </ul>
                 </li>
                 <li class="nav-dropdown">
                     <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
-                        Digital
+                        Tech
                         <svg class="dropdown-arrow" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </button>
                     <ul class="nav-dropdown-menu" role="list">
-                        <li><a href="digital.html">Overview</a></li>
-                        <li><a href="tools.html">Tools</a></li>
-                        <li><a href="habits.html">Habits</a></li>
-                        <li><a href="community.html">Community</a></li>
+                        <li><a href="tech.html">Overview</a></li>
+                        <li><a href="tech-tools.html">Tools</a></li>
+                        <li><a href="tech-habits.html">Habits</a></li>
+                        <li><a href="tech-community.html">Community</a></li>
                     </ul>
                 </li>
                 <li class="nav-dropdown">
                     <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
-                        Finances
+                        Money
                         <svg class="dropdown-arrow" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </button>
                     <ul class="nav-dropdown-menu" role="list">
-                        <li><a href="finances.html">Overview</a></li>
-                        <li><a href="finances-tools.html">Tools</a></li>
-                        <li><a href="finances-habits.html">Habits</a></li>
-                        <li><a href="finances-community.html">Community</a></li>
+                        <li><a href="money.html">Overview</a></li>
+                        <li><a href="money-tools.html">Tools</a></li>
+                        <li><a href="money-habits.html">Habits</a></li>
+                        <li><a href="money-community.html">Community</a></li>
                     </ul>
                 </li>
                 <li class="nav-dropdown">
                     <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
-                        Mental
+                        Mind
                         <svg class="dropdown-arrow" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </button>
                     <ul class="nav-dropdown-menu" role="list">
-                        <li><a href="mental.html">Overview</a></li>
-                        <li><a href="mental-tools.html">Tools</a></li>
-                        <li><a href="mental-habits.html">Habits</a></li>
-                        <li><a href="mental-community.html">Community</a></li>
+                        <li><a href="mind.html">Overview</a></li>
+                        <li><a href="mind-tools.html">Tools</a></li>
+                        <li><a href="mind-habits.html">Habits</a></li>
+                        <li><a href="mind-community.html">Community</a></li>
                     </ul>
                 </li>
             </ul>
@@ -98,83 +100,96 @@
     <main id="main-content" tabindex="-1">
         <section class="hero small">
             <div class="hero-content">
-                <h1>Mental Habits</h1>
-                <p class="subtitle">Practices for clarity and calm.</p>
+                <h1>Mind</h1>
+                <p class="subtitle">A quiet mind is the most productive tool you own.</p>
             </div>
             <div class="hero-shapes">
                 <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
             </div>
         </section>
 
         <section class="content-section">
-            <h2>Essential Practices</h2>
-            <p class="section-intro">Mental clarity isn't about thinking harder — it's about creating conditions where clear thinking can happen naturally.</p>
+            <h2>The Overcrowded Mind</h2>
+            <p class="section-intro">We declutter our homes and budgets, then wonder why life still feels overwhelming. The most cluttered space in most people's lives isn't the closet — it's the mind.</p>
             <div class="cards">
                 <div class="card" data-tilt>
-                    <h3>Morning Pages</h3>
-                    <p>Three pages of longhand stream-of-consciousness writing first thing every morning. No editing, no rereading — just clearing mental clutter before the day begins.</p>
+                    <h3>35,000 Decisions a Day</h3>
+                    <p>Research estimates the average adult makes roughly 35,000 decisions daily. Decision fatigue is real: the more choices we make, the worse the quality of each subsequent one. Simplifying options is not laziness — it's cognitive hygiene.</p>
                 </div>
                 <div class="card" data-tilt>
-                    <h3>Single-Tasking</h3>
-                    <p>Do one thing at a time with full attention. Close all other tabs. Put your phone away. Multitasking is a myth — focused attention is the real skill.</p>
+                    <h3>The Information Flood</h3>
+                    <p>We now consume an estimated 34 GB of information per day — five times more than people did in 1986. Most of it is noise. The brain wasn't designed to process this volume, and anxiety is often just the overflow valve.</p>
                 </div>
                 <div class="card" data-tilt>
-                    <h3>The Power of No</h3>
-                    <p>Every "yes" is a "no" to something else. Practice saying no to requests that don't align with your priorities — without guilt, without explanation.</p>
+                    <h3>The Cost of Overcommitment</h3>
+                    <p>Most people say yes to requests out of social habit, not genuine desire. Each over-committed hour is an hour stolen from your priorities. A full calendar is not a sign of a full life — it's often the opposite.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section interactive-quote">
+            <blockquote>
+                "It is not daily increase but daily decrease — hack away the unessential."
+            </blockquote>
+            <cite>— Bruce Lee</cite>
+        </section>
+
+        <section class="content-section">
+            <h2>Core Practices</h2>
+            <p class="section-intro">Mental minimalism isn't emptiness. It's the discipline of protecting your focus for what actually deserves it.</p>
+            <div class="cards">
+                <div class="card" data-tilt>
+                    <h3>The Information Diet</h3>
+                    <p>Curate your inputs the way you'd curate your food. Unsubscribe from newsletters you skim. Mute accounts that don't add value. Read fewer, better things — deeply. Your mental environment shapes your thinking as surely as your physical one shapes your mood.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <h3>The Art of No</h3>
+                    <p>Every yes is a no to something else. Before agreeing to any new commitment, ask: if this were next week instead of six months from now, would I still say yes? If not, decline gracefully. Time is the only resource you cannot earn back.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <h3>Scheduled Stillness</h3>
+                    <p>Protect time for thinking, not just doing. Block time in your week for walks without podcasts, for sitting with a problem, for doing nothing in particular. Boredom is where insight lives. We've accidentally engineered it out of our lives.</p>
                 </div>
             </div>
         </section>
 
         <section class="content-section steps">
             <h2>The Mental Declutter</h2>
-            <p class="section-intro">A structured process for clearing the cognitive clutter that builds up invisibly over time.</p>
+            <p class="section-intro">Clarity doesn't come from adding more productivity systems. It comes from removing everything that doesn't belong.</p>
             <ul class="step-list" role="list">
                 <li class="step">
-                    <button class="step-marker" aria-label="Mark step 1 as complete" aria-pressed="false" data-step-id="mental-step-1">
-                        <span class="step-number">01</span>
-                        <span class="step-check" aria-hidden="true" hidden>✓</span>
-                    </button>
+                    <span class="step-number">01</span>
                     <div class="step-content">
-                        <h3>Brain Dump</h3>
-                        <p>Write down every open loop in your mind — tasks, worries, ideas, decisions. Getting it out of your head and onto paper reduces cognitive load immediately.</p>
+                        <h3>Audit your commitments</h3>
+                        <p>Write down every recurring obligation: meetings, social events, volunteer work, side projects. Be honest about which ones you chose and which ones just accumulated. Anything you can't enthusiastically justify gets a serious review.</p>
                     </div>
                 </li>
                 <li class="step">
-                    <button class="step-marker" aria-label="Mark step 2 as complete" aria-pressed="false" data-step-id="mental-step-2">
-                        <span class="step-number">02</span>
-                        <span class="step-check" aria-hidden="true" hidden>✓</span>
-                    </button>
+                    <span class="step-number">02</span>
                     <div class="step-content">
-                        <h3>Eliminate or Delegate</h3>
-                        <p>For each item: can it be dropped entirely? Can someone else handle it? Protect your attention for the things only you can do.</p>
+                        <h3>Name your three priorities</h3>
+                        <p>If everything is important, nothing is. Write down the three areas of your life that matter most right now. Use them as a filter: anything that doesn't serve these three priorities is optional — no matter how reasonable it sounds.</p>
                     </div>
                 </li>
                 <li class="step">
-                    <button class="step-marker" aria-label="Mark step 3 as complete" aria-pressed="false" data-step-id="mental-step-3">
-                        <span class="step-number">03</span>
-                        <span class="step-check" aria-hidden="true" hidden>✓</span>
-                    </button>
+                    <span class="step-number">03</span>
                     <div class="step-content">
-                        <h3>Protect Stillness</h3>
-                        <p>Schedule unstructured time every day — no phone, no content, no productivity. Boredom is not the enemy. It's where insight lives.</p>
+                        <h3>Eliminate or delegate the rest</h3>
+                        <p>Most obligations can be declined, delegated, or reduced without consequence. The fear that everything will collapse if you step back is almost always unfounded. Start small — drop one thing this week and observe what actually happens.</p>
                     </div>
                 </li>
             </ul>
         </section>
 
-        <section class="content-section interactive-quote">
-            <blockquote>
-                "It is not that we have a short time to live, but that we waste a great deal of it."
-            </blockquote>
-            <cite>— Seneca</cite>
-        </section>
-
         <section class="content-section next-step">
-            <h2>You're Not Alone in This</h2>
-            <p class="section-intro">Books, teachers, and communities that make the journey toward clarity a shared one.</p>
+            <h2>The Whole Picture</h2>
+            <p class="section-intro">You've explored all four dimensions. The simplest life isn't built in a day — it's built one subtraction at a time.</p>
             <div class="next-step-links">
-                <a href="mental-community.html" class="cta-button">Join the Community</a>
+                <a href="index.html" class="cta-button">Back to the Beginning</a>
+                <a href="life.html" class="cta-button cta-secondary">Life</a>
+                <a href="money.html" class="cta-button cta-secondary">Money</a>
+                <a href="tech-tools.html" class="cta-button cta-secondary">Technology</a>
             </div>
         </section>
     </main>
