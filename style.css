@@ -776,6 +776,10 @@ footer {
         transform: none;
     }
 
+    .nav-dropdown[data-open="true"] .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+
     .nav-dropdown-menu a {
         font-size: 0.9rem;
         padding: 0.4rem 0.75rem;
