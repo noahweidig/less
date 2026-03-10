@@ -348,32 +348,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // Track which panels have already been animated to avoid replaying
     const animatedPanels = new Set();
 
+    // Mini donut circumference: 2π × r=38
+    const MINI_CIRC = 2 * Math.PI * 38;
+
     const animatePanel = (panelEl) => {
         const panelId = panelEl.id;
         if (animatedPanels.has(panelId)) return;
         animatedPanels.add(panelId);
 
-        const duration = 1500;
+        const duration = 1400;
+
+        // Reveal cost cards with a stagger
+        panelEl.querySelectorAll('.cost-card').forEach((card, i) => {
+            if (prefersReducedMotion) {
+                card.classList.add('cost-card--visible');
+            } else {
+                setTimeout(() => card.classList.add('cost-card--visible'), i * 90);
+            }
+        });
 
         if (prefersReducedMotion) {
             // Set all final states immediately
             panelEl.querySelectorAll('.stat-number[data-target]').forEach(el => {
                 el.textContent = el.getAttribute('data-target');
             });
-            panelEl.querySelectorAll('.bar-fill').forEach(fill => {
-                fill.classList.add('animated');
+            panelEl.querySelectorAll('.mini-donut-fill[data-pct]').forEach(fill => {
+                const pct = parseInt(fill.getAttribute('data-pct'), 10);
+                fill.style.strokeDashoffset = String(MINI_CIRC * (1 - pct / 100));
             });
-            panelEl.querySelectorAll('.time-seg').forEach(seg => {
-                seg.classList.add('animated');
-            });
-            const donutFill = panelEl.querySelector('.donut-fill');
-            const donutNumber = panelEl.querySelector('.donut-number');
-            if (donutFill && donutNumber) {
-                const circumference = 2 * Math.PI * 80;
-                const target = parseInt(donutNumber.getAttribute('data-target'), 10);
-                donutFill.style.strokeDashoffset = circumference * (1 - target / 100);
-                donutNumber.textContent = target;
-            }
             return;
         }
 
@@ -382,49 +384,43 @@ document.addEventListener('DOMContentLoaded', () => {
             animateValue(el, parseInt(el.getAttribute('data-target'), 10), duration);
         });
 
-        // Animate donut chart if present in this panel
-        const donutFill = panelEl.querySelector('.donut-fill');
-        const donutNumber = panelEl.querySelector('.donut-number');
-        if (donutFill && donutNumber) {
-            const circumference = 2 * Math.PI * 80;
-            const targetPercent = parseInt(donutNumber.getAttribute('data-target'), 10);
-            const targetOffset = circumference * (1 - targetPercent / 100);
-            donutFill.style.transition = 'stroke-dashoffset ' + duration + 'ms cubic-bezier(0.4, 0, 0.2, 1)';
-            donutFill.style.strokeDashoffset = targetOffset;
-            animateValue(donutNumber, targetPercent, duration);
+        // Animate mini donut fills (staggered)
+        panelEl.querySelectorAll('.mini-donut-fill[data-pct]').forEach((fill, i) => {
+            const pct = parseInt(fill.getAttribute('data-pct'), 10);
+            const targetOffset = MINI_CIRC * (1 - pct / 100);
+            setTimeout(() => {
+                fill.style.transition = `stroke-dashoffset ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+                fill.style.strokeDashoffset = String(targetOffset);
+            }, i * 90);
+        });
+    };
+
+    const switchToPanel = (btn) => {
+        // Deactivate all tabs and hide all panels
+        tabBtns.forEach(b => b.setAttribute('aria-selected', 'false'));
+        tabPanels.forEach(p => { p.hidden = true; });
+
+        // Activate the clicked tab
+        btn.setAttribute('aria-selected', 'true');
+        const targetId = btn.getAttribute('aria-controls');
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) {
+            targetPanel.hidden = false;
+            // Trigger panel slide-in animation
+            if (!prefersReducedMotion) {
+                void targetPanel.offsetWidth; // reflow to reset animation
+                targetPanel.classList.add('panel-entering');
+                targetPanel.addEventListener('animationend', () => {
+                    targetPanel.classList.remove('panel-entering');
+                }, { once: true });
+            }
+            animatePanel(targetPanel);
         }
-
-        // Animate waking-hours time bar segments (staggered)
-        panelEl.querySelectorAll('.time-seg').forEach((seg, i) => {
-            setTimeout(() => {
-                seg.classList.add('animated');
-            }, i * 180);
-        });
-
-        // Animate horizontal bar fills (staggered)
-        panelEl.querySelectorAll('.bar-fill').forEach((fill, i) => {
-            setTimeout(() => {
-                fill.classList.add('animated');
-            }, i * 110);
-        });
     };
 
     if (tabBtns.length > 0) {
         tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Deactivate all tabs and hide all panels
-                tabBtns.forEach(b => b.setAttribute('aria-selected', 'false'));
-                tabPanels.forEach(p => { p.hidden = true; });
-
-                // Activate the clicked tab
-                btn.setAttribute('aria-selected', 'true');
-                const targetId = btn.getAttribute('aria-controls');
-                const targetPanel = document.getElementById(targetId);
-                if (targetPanel) {
-                    targetPanel.hidden = false;
-                    animatePanel(targetPanel);
-                }
-            });
+            btn.addEventListener('click', () => switchToPanel(btn));
 
             // Keyboard navigation: left/right arrow keys between tabs
             btn.addEventListener('keydown', (e) => {
