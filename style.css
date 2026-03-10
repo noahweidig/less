@@ -1171,7 +1171,10 @@ footer {
 }
 
 .tab-btn {
-    padding: 0.6rem 1.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.6rem;
     border-radius: 50px;
     border: 2px solid var(--card-border);
     background: var(--card-bg);
@@ -1184,6 +1187,13 @@ footer {
     backdrop-filter: blur(5px);
     transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease,
                 box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.tab-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    stroke-width: 2;
 }
 
 .tab-btn:hover,
@@ -1209,216 +1219,208 @@ footer {
     display: none;
 }
 
-/* Panel layout: chart column + stats column */
-.panel-layout {
+/* Panel entry animation */
+@keyframes panelSlideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.tab-panel.panel-entering {
+    animation: panelSlideIn 0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ============================================================
+   Cost Stat Cards Grid
+   ============================================================ */
+.cost-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
-    align-items: start;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
 }
 
-.panel-layout--wide {
-    grid-template-columns: 1.6fr 1fr;
-}
-
-/* Panel chart area stacks its children */
-.panel-chart {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-/* Panel stat cards: stacked vertically */
-.panel-stats {
-    grid-template-columns: 1fr !important;
-    max-width: none !important;
-    align-self: start;
-}
-
-/* Chart caption label */
-.chart-caption {
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    opacity: 0.5;
-    margin-bottom: -0.25rem;
-}
-
-/* ============================================================
-   Horizontal Bar Chart
-   ============================================================ */
-.bar-chart {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-}
-
-.bar-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.bar-label {
-    font-size: 0.82rem;
-    font-weight: 600;
-    min-width: 148px;
-    flex-shrink: 0;
-    opacity: 0.8;
-    line-height: 1.3;
-}
-
-.bar-track {
-    flex: 1;
-    height: 28px;
-    border-radius: 50px;
-    background: rgba(128, 128, 128, 0.12);
-    overflow: hidden;
-    position: relative;
-}
-
-.bar-fill {
-    height: 100%;
-    border-radius: 50px;
-    width: 0;
-    /* CSS custom property set inline; transitioned when .animated is added */
-    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 0.65rem;
-    min-width: 0;
-}
-
-.bar-fill.animated {
-    width: var(--bar-width);
-}
-
-/* Color variants */
-.bar-fill--purple {
-    background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-}
-
-.bar-fill--orange {
-    background: linear-gradient(90deg, #e17055, #fdcb6e);
-}
-
-.bar-fill--green {
-    background: linear-gradient(90deg, #00b894, #55efc4);
-}
-
-.bar-fill--mind {
-    background: linear-gradient(90deg, #e17055, #6c5ce7);
-}
-
-.bar-pct {
-    color: white;
-    font-size: 0.73rem;
-    font-weight: 700;
-    white-space: nowrap;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-}
-
-/* ============================================================
-   Waking Hours Time Bar (Tech panel)
-   ============================================================ */
-.time-bar {
-    display: flex;
-    height: 76px;
-    border-radius: 16px;
-    overflow: hidden;
-    gap: 3px;
-    margin-bottom: 0.25rem;
-}
-
-.time-seg {
-    width: 0;
-    transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 12px;
-    flex-shrink: 0;
-}
-
-.time-seg.animated {
-    width: var(--seg-width);
-}
-
-.time-seg--screens {
-    background: linear-gradient(135deg, #6c5ce7, #e17055);
-}
-
-.time-seg--work {
-    background: linear-gradient(135deg, #00b894, #00cec9);
-}
-
-.time-seg--other {
-    background: rgba(128, 128, 128, 0.1);
+.cost-card {
+    background: var(--card-bg);
     border: 1px solid var(--card-border);
-}
-
-.time-seg-label {
-    font-size: 0.75rem;
-    font-weight: 600;
+    border-radius: 24px;
+    padding: 2rem 1.25rem 1.75rem;
     text-align: center;
-    line-height: 1.35;
-    color: white;
-    padding: 0 0.5rem;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    white-space: nowrap;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(6px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    /* Start hidden; JS reveals on scroll */
+    opacity: 0;
+    transform: translateY(18px);
 }
 
-.time-seg--other .time-seg-label {
-    color: var(--text-color);
-    text-shadow: none;
-    opacity: 0.65;
+.cost-card.cost-card--visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.55s ease, transform 0.55s ease,
+                box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.cost-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(108, 92, 231, 0.15);
+    border-color: rgba(108, 92, 231, 0.2);
+}
+
+/* Visualization container */
+.cost-card-viz {
+    position: relative;
+    width: 108px;
+    height: 108px;
+    flex-shrink: 0;
 }
 
 /* ============================================================
-   Responsive overrides for dashboard
+   Mini Donut Chart
    ============================================================ */
-@media (max-width: 900px) {
-    .panel-layout,
-    .panel-layout--wide {
-        grid-template-columns: 1fr;
-    }
+.mini-donut {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    overflow: visible;
+}
 
-    .panel-stats {
-        grid-template-columns: repeat(3, 1fr) !important;
-        max-width: 100% !important;
+.mini-donut-track {
+    fill: none;
+    stroke: var(--card-border);
+    stroke-width: 9;
+}
+
+.mini-donut-fill {
+    fill: none;
+    stroke-width: 9;
+    stroke-linecap: round;
+    /* circumference for r=38: 2π×38 ≈ 238.76 */
+    stroke-dasharray: 238.76;
+    stroke-dashoffset: 238.76; /* hidden until animated */
+}
+
+/* ============================================================
+   Dot Grid (for "1 in N" stats)
+   ============================================================ */
+.dot-grid {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.dot {
+    transition: opacity 0.4s ease;
+}
+
+.dot--dim {
+    fill: var(--text-color);
+    opacity: 0.12;
+}
+
+.dot--lit {
+    opacity: 1;
+}
+
+.dot--purple { fill: #6c5ce7; }
+.dot--orange { fill: #e17055; }
+.dot--green  { fill: #00b894; }
+
+/* ============================================================
+   Stat Number inside cost card
+   ============================================================ */
+.cost-card-stat {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--text-color), var(--primary-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: flex;
+    align-items: baseline;
+    gap: 0.1rem;
+}
+
+.cost-card-stat .stat-number {
+    /* Inherits gradient from parent */
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    color: transparent;
+}
+
+.cost-card-stat .stat-suffix {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    -webkit-text-fill-color: transparent;
+}
+
+.cost-card-stat .stat-prefix {
+    font-size: 1.1rem;
+}
+
+.cost-card-label {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    opacity: 0.65;
+    max-width: 160px;
+    margin: 0;
+}
+
+/* ============================================================
+   Responsive overrides for cost grid
+   ============================================================ */
+@media (max-width: 960px) {
+    .cost-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 768px) {
-    .panel-stats {
-        grid-template-columns: 1fr !important;
-        max-width: 320px !important;
-        margin: 0 auto;
+@media (max-width: 480px) {
+    .cost-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
 
-    .bar-label {
-        min-width: 100px;
+    .cost-card {
+        padding: 1.5rem 0.9rem 1.25rem;
+        border-radius: 18px;
+    }
+
+    .cost-card-viz {
+        width: 86px;
+        height: 86px;
+    }
+
+    .cost-card-stat {
+        font-size: 2rem;
+    }
+
+    .cost-card-stat .stat-suffix,
+    .cost-card-stat .stat-prefix {
+        font-size: 0.9rem;
+    }
+
+    .cost-card-label {
         font-size: 0.75rem;
-    }
-
-    .time-bar {
-        height: 56px;
-    }
-
-    .time-seg-label {
-        font-size: 0.68rem;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .bar-fill {
+    .cost-card {
+        opacity: 1;
+        transform: none;
         transition: none;
     }
-    .time-seg {
+    .cost-card.cost-card--visible {
+        transition: none;
+    }
+    .mini-donut-fill {
         transition: none;
     }
 }
