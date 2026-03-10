@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- 🛡️ Sentinel: Strict Content Security Policy (CSP) -->
+    <!-- 🛡️ Sentinel: Strict Content Security Policy (CSP) -->
     <!-- Enforces default-deny for unused resource types (frames, workers, media) to minimize attack surface -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'; worker-src 'none'; media-src 'none'; manifest-src 'none'; require-trusted-types-for 'script'; upgrade-insecure-requests;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>Community & Resources — Less.</title>
+    <title>Digital Minimalism — Less.</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,70 +100,87 @@
     <main id="main-content" tabindex="-1">
         <section class="hero small">
             <div class="hero-content">
-                <h1>Community</h1>
-                <p class="subtitle">The ideas and people that make this journey sustainable.</p>
+                <h1>Digital.</h1>
+                <p class="subtitle">Reclaim your attention from the devices that claim it.</p>
             </div>
             <div class="hero-shapes">
                 <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
                 <div class="shape shape-3"></div>
             </div>
         </section>
 
-        <section class="content-section">
-            <h2>Recommended Reading</h2>
-            <p class="section-intro">These books shaped the movement. Start here to understand the deeper case for living with less technology.</p>
-            <div class="cards">
-                <a href="https://calnewport.com/writing/#deep-work" class="card" data-tilt target="_blank" rel="noopener noreferrer">
-                    <h3>Deep Work</h3>
-                    <p>By Cal Newport. Rules for focused success in a distracted world. A must-read for knowledge workers.</p>
-                    <span class="sr-only">(opens in a new tab)</span>
-                </a>
-                <a href="https://calnewport.com/writing/#digital-minimalism" class="card" data-tilt target="_blank" rel="noopener noreferrer">
-                    <h3>Digital Minimalism</h3>
-                    <p>By Cal Newport. The foundational text that argues for a philosophy of technology use based on your values.</p>
-                    <span class="sr-only">(opens in a new tab)</span>
-                </a>
-                <a href="https://www.nicholascarr.com/?page_id=16" class="card" data-tilt target="_blank" rel="noopener noreferrer">
-                    <h3>The Shallows</h3>
-                    <p>By Nicholas Carr. How the internet is changing the way we think, read, and remember.</p>
-                    <span class="sr-only">(opens in a new tab)</span>
-                </a>
+        <section class="content-section screen-time" tabindex="-1">
+            <h2>Where Your Day Goes</h2>
+            <p class="section-intro">The average person spends nearly half their waking hours looking at a screen. That's not an accident — it's by design.</p>
+            <div class="screen-time-layout">
+                <div class="donut-wrapper">
+                    <svg class="donut-chart" viewBox="0 0 200 200" role="img" aria-label="Chart showing 44 percent of waking hours spent on screens">
+                        <defs>
+                            <linearGradient id="donut-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#6c5ce7" />
+                                <stop offset="100%" stop-color="#e17055" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="donut-track" cx="100" cy="100" r="80" />
+                        <circle class="donut-fill" cx="100" cy="100" r="80" />
+                    </svg>
+                    <div class="donut-center" aria-hidden="true">
+                        <div class="donut-value">
+                            <span class="donut-number" data-target="44">0</span><span class="donut-symbol">%</span>
+                        </div>
+                        <span class="donut-text">of waking hours<br>spent on screens</span>
+                    </div>
+                </div>
+                <div class="stat-cards">
+                    <div class="stat-card">
+                        <div class="stat-value">
+                            <span class="stat-number" data-target="7">0</span><span class="stat-suffix">hrs</span>
+                        </div>
+                        <span class="stat-label">average daily screen time per adult</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">
+                            <span class="stat-number" data-target="96">0</span><span class="stat-suffix">×</span>
+                        </div>
+                        <span class="stat-label">times the average person checks their phone per day</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">
+                            <span class="stat-number" data-target="11">0</span><span class="stat-suffix">yrs</span>
+                        </div>
+                        <span class="stat-label">of a lifetime consumed by screens at current rates</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="content-section interactive-quote">
-            <blockquote>
-                "To be everywhere is to be nowhere."
-            </blockquote>
-            <cite>— Seneca</cite>
-        </section>
-
-        <section class="content-section">
-            <h2>Online Communities</h2>
-            <p class="section-intro">Connect with others who are reclaiming their attention. The irony of an online community isn't lost — use it intentionally.</p>
+        <section class="content-section benefits">
+            <h2>What You Get Back</h2>
+            <p class="section-intro">Digital minimalism isn't about rejecting technology. It's about choosing which tools serve your life — and which ones consume it.</p>
             <div class="cards">
-                <a href="https://www.reddit.com/r/digitalminimalism/" class="card" data-tilt target="_blank" rel="noopener noreferrer">
-                    <h3>r/digitalminimalism</h3>
-                    <p>A Reddit community dedicated to sharing tips, success stories, and struggles with digital clutter.</p>
-                    <span class="sr-only">(opens in a new tab)</span>
-                </a>
-                <a href="https://www.humanetech.com/" class="card" data-tilt target="_blank" rel="noopener noreferrer">
-                    <h3>The Center for Humane Technology</h3>
-                    <p>An organization dedicated to realigning technology with humanity's best interests.</p>
-                    <span class="sr-only">(opens in a new tab)</span>
-                </a>
-                <a href="https://en.slow-media.net/manifest" class="card" data-tilt target="_blank" rel="noopener noreferrer">
-                    <h3>Slow Media</h3>
-                    <p>A movement advocating for the consumption of media that is thoughtful, verifiable, and sustainable.</p>
-                    <span class="sr-only">(opens in a new tab)</span>
-                </a>
+                <div class="card" data-tilt>
+                    <h3>Attention</h3>
+                    <p>Your ability to focus is a finite resource. Every notification, scroll, and tab switch fragments it. Guard it like the asset it is.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <h3>Presence</h3>
+                    <p>Being physically present while mentally somewhere else is its own form of absence. A quieter phone makes for a fuller life.</p>
+                </div>
+                <div class="card" data-tilt>
+                    <h3>Time</h3>
+                    <p>Cutting two hours of daily screen time gives you back 730 hours per year — nearly a month of waking life returned to you.</p>
+                </div>
             </div>
         </section>
+
         <section class="content-section next-step">
-            <h2>The Journey Starts Now</h2>
-            <p class="section-intro">You've seen the problem, learned the philosophy, and found the community. The only step left is yours.</p>
+            <h2>Take the First Step</h2>
+            <p class="section-intro">Start with the tools and habits that make digital minimalism practical, not painful.</p>
             <div class="next-step-links">
-                <a href="index.html" class="cta-button">Back to the Beginning</a>
+                <a href="tools.html" class="cta-button">Explore Tools</a>
+                <a href="habits.html" class="cta-button cta-secondary">Build Habits</a>
+                <a href="community.html" class="cta-button cta-secondary">Join the Community</a>
             </div>
         </section>
     </main>
