@@ -131,41 +131,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Dropdown Navigation ---
-    const dropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
+    // --- Dropdown Navigation (hover-based) ---
+    // Dropdowns open on hover via CSS; this handles keyboard focus and Escape key
 
     const closeAllDropdowns = () => {
-        document.querySelectorAll('.nav-dropdown[data-open="true"]').forEach(d => {
-            d.removeAttribute('data-open');
-            const btn = d.querySelector('.nav-dropdown-toggle');
-            if (btn) btn.setAttribute('aria-expanded', 'false');
+        document.querySelectorAll('.nav-dropdown-toggle').forEach(btn => {
+            btn.setAttribute('aria-expanded', 'false');
         });
     };
 
-    dropdownToggles.forEach(toggle => {
-        const dropdown = toggle.closest('.nav-dropdown');
-
-        toggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isOpen = dropdown.getAttribute('data-open') === 'true';
-            // Close other dropdowns before toggling this one
-            document.querySelectorAll('.nav-dropdown[data-open="true"]').forEach(d => {
-                if (d !== dropdown) {
-                    d.removeAttribute('data-open');
-                    const btn = d.querySelector('.nav-dropdown-toggle');
-                    if (btn) btn.setAttribute('aria-expanded', 'false');
-                }
-            });
-            dropdown.setAttribute('data-open', String(!isOpen));
-            toggle.setAttribute('aria-expanded', String(!isOpen));
+    // Update aria-expanded to reflect hover state for accessibility
+    document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+        const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+        dropdown.addEventListener('mouseenter', () => {
+            if (toggle) toggle.setAttribute('aria-expanded', 'true');
         });
-    });
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.nav-dropdown')) {
-            closeAllDropdowns();
-        }
+        dropdown.addEventListener('mouseleave', () => {
+            if (toggle) toggle.setAttribute('aria-expanded', 'false');
+        });
+        dropdown.addEventListener('focusin', () => {
+            if (toggle) toggle.setAttribute('aria-expanded', 'true');
+        });
+        dropdown.addEventListener('focusout', (e) => {
+            if (!dropdown.contains(e.relatedTarget)) {
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
     });
 
     // --- Hero Intro Animation ---
