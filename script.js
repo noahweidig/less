@@ -131,6 +131,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Dropdown Navigation ---
+    const dropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
+
+    const closeAllDropdowns = () => {
+        document.querySelectorAll('.nav-dropdown[data-open="true"]').forEach(d => {
+            d.removeAttribute('data-open');
+            const btn = d.querySelector('.nav-dropdown-toggle');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+    };
+
+    dropdownToggles.forEach(toggle => {
+        const dropdown = toggle.closest('.nav-dropdown');
+
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = dropdown.getAttribute('data-open') === 'true';
+            // Close other dropdowns before toggling this one
+            document.querySelectorAll('.nav-dropdown[data-open="true"]').forEach(d => {
+                if (d !== dropdown) {
+                    d.removeAttribute('data-open');
+                    const btn = d.querySelector('.nav-dropdown-toggle');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+            dropdown.setAttribute('data-open', String(!isOpen));
+            toggle.setAttribute('aria-expanded', String(!isOpen));
+        });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav-dropdown')) {
+            closeAllDropdowns();
+        }
+    });
+
     // --- Hero Intro Animation ---
     const heroContents = document.querySelectorAll('.hero-content');
 
@@ -254,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const donutNumber = screenTimeSection.querySelector('.donut-number');
         const statNumbers = screenTimeSection.querySelectorAll('.stat-number');
         const circumference = 2 * Math.PI * 80;
-        const targetPercent = 44;
+        const targetPercent = donutNumber ? parseInt(donutNumber.getAttribute('data-target'), 10) : 44;
 
         const animateValue = (element, end, duration) => {
             const startTime = performance.now();
@@ -341,6 +378,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Also check dropdown menu links and mark parent dropdown active
+    const dropdownLinks = document.querySelectorAll('.nav-dropdown-menu a');
+    dropdownLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath && currentPath.endsWith(linkPath)) {
+            link.setAttribute('aria-current', 'page');
+            link.classList.add('active');
+            const parentDropdown = link.closest('.nav-dropdown');
+            if (parentDropdown) {
+                parentDropdown.classList.add('dropdown-active');
+            }
+        }
+    });
+
     // --- Back to Top Button ---
     const backToTopButton = document.getElementById('back-to-top');
 
@@ -409,6 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Close Mobile Menu (Escape)
         if (e.key === 'Escape') {
+            closeAllDropdowns();
             const isMenuOpen = header && header.classList.contains('nav-open');
             if (isMenuOpen) {
                 // Simulate click on nav toggle to close

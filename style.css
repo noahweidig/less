@@ -200,7 +200,8 @@ header {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 1.25rem;
+    align-items: center;
 }
 
 .nav-links a {
@@ -735,9 +736,49 @@ footer {
     }
     .nav-links {
         flex-direction: column;
+        align-items: flex-start;
         padding: 1rem 1.5rem;
         gap: 1rem;
         font-size: 0.95rem;
+    }
+
+    .nav-dropdown {
+        width: 100%;
+    }
+
+    .nav-dropdown-toggle {
+        width: 100%;
+        justify-content: space-between;
+        font-size: 0.95rem;
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        background: none;
+        border: none;
+        border-left: 2px solid var(--card-border);
+        border-radius: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+        padding: 0.25rem 0 0.25rem 1rem;
+        min-width: unset;
+        width: 100%;
+        display: none;
+        transition: none;
+    }
+
+    .nav-dropdown[data-open="true"] .nav-dropdown-menu {
+        display: block;
+        transform: none;
+    }
+
+    .nav-dropdown-menu a {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.75rem;
     }
     .nav-toggle {
         display: flex;
@@ -859,6 +900,123 @@ footer {
     border-radius: 2px;
     transform: scaleX(1);
     transition: transform 0.3s ease;
+}
+
+/* Dropdown Navigation */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: inherit;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0;
+    transition: color 0.3s;
+    line-height: inherit;
+}
+
+.nav-dropdown-toggle:hover,
+.nav-dropdown-toggle:focus-visible {
+    color: var(--primary-purple);
+}
+
+.nav-dropdown-toggle:active {
+    transform: translateY(1px);
+}
+
+.dropdown-arrow {
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.nav-dropdown[data-open="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.85rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: var(--glass-shadow);
+    list-style: none;
+    padding: 0.4rem;
+    min-width: 148px;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 200;
+}
+
+.nav-dropdown[data-open="true"] .nav-dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-dropdown-menu a:hover,
+.nav-dropdown-menu a:focus-visible {
+    background: rgba(108, 92, 231, 0.1);
+    color: var(--primary-purple);
+}
+
+.nav-dropdown-menu a[aria-current="page"],
+.nav-dropdown-menu a.active {
+    color: var(--primary-purple);
+}
+
+/* Highlight dropdown toggle when a child page is active */
+.nav-dropdown.dropdown-active .nav-dropdown-toggle {
+    color: var(--primary-purple);
+    position: relative;
+}
+
+.nav-dropdown.dropdown-active .nav-dropdown-toggle::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-purple);
+    border-radius: 2px;
+}
+
+/* Pillar cards (clickable) */
+.pillar-card h3 {
+    transition: color 0.3s;
+}
+
+.pillar-card:hover h3,
+.pillar-card:focus-visible h3 {
+    color: var(--primary-orange);
 }
 
 /* Accessibility - Remove outline for non-interactive scroll targets */
