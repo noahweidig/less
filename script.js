@@ -489,6 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Active Navigation Link ---
     const currentPath = window.location.pathname;
     // ⚡ Bolt: Reused cached navLinks NodeList instead of redundant DOM query
+    // Consolidated redundant loop: .nav-links a already includes .nav-dropdown-menu a
 
     navLinks.forEach(link => {
         const linkPath = link.getAttribute('href');
@@ -502,20 +503,12 @@ document.addEventListener('DOMContentLoaded', () => {
             ) {
                 link.setAttribute('aria-current', 'page');
                 link.classList.add('active');
-            }
-        }
-    });
 
-    // Also check dropdown menu links and mark parent dropdown active
-    const dropdownLinks = document.querySelectorAll('.nav-dropdown-menu a');
-    dropdownLinks.forEach(link => {
-        const linkPath = link.getAttribute('href');
-        if (linkPath && currentPath.endsWith(linkPath)) {
-            link.setAttribute('aria-current', 'page');
-            link.classList.add('active');
-            const parentDropdown = link.closest('.nav-dropdown');
-            if (parentDropdown) {
-                parentDropdown.classList.add('dropdown-active');
+                // If it's a dropdown link, mark the parent dropdown as active too
+                const parentDropdown = link.closest('.nav-dropdown');
+                if (parentDropdown) {
+                    parentDropdown.classList.add('dropdown-active');
+                }
             }
         }
     });
