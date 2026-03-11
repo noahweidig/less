@@ -66,3 +66,7 @@
 ## 2026-03-09 - Tactile Feedback on Mobile Menu Toggles
 **Learning:** Mobile menu toggles (hamburger icons) often get styled minimally, completely missing `:active` and `:focus-visible` states, leaving mobile users without physical confirmation of their tap and keyboard users without clear focus.
 **Action:** Always provide the same level of tactile feedback (`:active { transform: scale(0.95) }`) and visible focus to mobile-specific elements as you would for primary buttons.
+
+## 2026-03-10 - Single Tab Stop for ARIA Tablists
+**Learning:** Adding `role="tablist"` to a set of tabs does not automatically manage focus. If all tab buttons remain focusable (`tabindex="0"`), keyboard users must tediously tab through every inactive tab to reach the content. W3C ARIA practices dictate that a tablist should be a single tab stop.
+**Action:** Always implement a roving `tabindex` for `role="tablist"`. Ensure only the active tab has `tabindex="0"`, while all inactive tabs have `tabindex="-1"`. Additionally, ensure the associated `role="tabpanel"` elements have `tabindex="0"` if they contain no inherently focusable elements, allowing users to Tab directly from the active tab into the content.
