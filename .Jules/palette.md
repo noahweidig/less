@@ -70,3 +70,7 @@
 ## 2026-03-10 - Single Tab Stop for ARIA Tablists
 **Learning:** Adding `role="tablist"` to a set of tabs does not automatically manage focus. If all tab buttons remain focusable (`tabindex="0"`), keyboard users must tediously tab through every inactive tab to reach the content. W3C ARIA practices dictate that a tablist should be a single tab stop.
 **Action:** Always implement a roving `tabindex` for `role="tablist"`. Ensure only the active tab has `tabindex="0"`, while all inactive tabs have `tabindex="-1"`. Additionally, ensure the associated `role="tabpanel"` elements have `tabindex="0"` if they contain no inherently focusable elements, allowing users to Tab directly from the active tab into the content.
+
+## 2026-03-11 - Accessible Dropdown Keyboard Navigation
+**Learning:** Using `:focus-within` in CSS to automatically display dropdown menus forces keyboard users to tab through every sub-menu link when trying to navigate past the primary navigation. This creates a tedious and frustrating experience.
+**Action:** Always control dropdown visibility via an explicit state (like `aria-expanded` or a `data-open` attribute) manipulated by JavaScript on explicit user actions (like `Enter` or `Space`), rather than relying solely on `:focus-within`. Additionally, ensure the `Escape` key closes the dropdown and explicitly returns focus to the toggle button.
