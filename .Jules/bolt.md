@@ -35,3 +35,7 @@
 ## 2026-03-09 - CSS Background Gradients Cause Layout Repaints
 **Learning:** Transitioning a CSS `background` property (especially full-screen complex radial gradients) triggers expensive repaints on every frame during the animation, degrading performance.
 **Action:** Use an opacity crossfade technique. Place the light gradient on a `body::before` pseudo-element and the dark gradient on a `body::after` pseudo-element. Transition the `opacity` property of both elements instead. This is hardware-accelerated and only requires compositing.
+
+## 2026-03-09 - Overlapping NodeList Iterations and Redundant Queries
+**Learning:** Performing `document.querySelectorAll` and iterating over specific nested elements (e.g., `.nav-dropdown-menu a`) immediately after already iterating over a broader cached NodeList (`.nav-links a`) that inherently includes those same nested elements wastes CPU cycles on redundant DOM queries and repeated O(n) loops.
+**Action:** Always verify if a broader cached NodeList already captures the elements needed for a subsequent operation. If so, consolidate the logic into the single existing iteration, checking element characteristics (like `.closest('.nav-dropdown')`) within the same loop to prevent redundant DOM traversal and layout reads.
