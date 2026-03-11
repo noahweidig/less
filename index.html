@@ -117,26 +117,26 @@
             <p class="section-intro">Modern life was engineered to make you want more — more things, more screens, more noise. Here's the data on what it's actually costing you across every dimension of your life.</p>
 
             <div class="tab-nav" role="tablist" aria-label="Explore the cost by category">
-                <button class="tab-btn" role="tab" id="tab-clutter" aria-selected="true" aria-controls="panel-clutter">
+                <button class="tab-btn" role="tab" id="tab-clutter" aria-selected="true" aria-controls="panel-clutter" tabindex="0">
                     <svg class="tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                     Clutter
                 </button>
-                <button class="tab-btn" role="tab" id="tab-tech" aria-selected="false" aria-controls="panel-tech">
+                <button class="tab-btn" role="tab" id="tab-tech" aria-selected="false" aria-controls="panel-tech" tabindex="-1">
                     <svg class="tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
                     Tech
                 </button>
-                <button class="tab-btn" role="tab" id="tab-money" aria-selected="false" aria-controls="panel-money">
+                <button class="tab-btn" role="tab" id="tab-money" aria-selected="false" aria-controls="panel-money" tabindex="-1">
                     <svg class="tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                     Money
                 </button>
-                <button class="tab-btn" role="tab" id="tab-mind" aria-selected="false" aria-controls="panel-mind">
+                <button class="tab-btn" role="tab" id="tab-mind" aria-selected="false" aria-controls="panel-mind" tabindex="-1">
                     <svg class="tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.84A2.5 2.5 0 0 1 9.5 2"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.84A2.5 2.5 0 0 0 14.5 2"/></svg>
                     Mind
                 </button>
             </div>
 
             <!-- Panel 1: Clutter -->
-            <div id="panel-clutter" role="tabpanel" aria-labelledby="tab-clutter" class="tab-panel">
+            <div id="panel-clutter" role="tabpanel" aria-labelledby="tab-clutter" class="tab-panel" tabindex="0">
                 <div class="cost-grid">
                     <!-- Card 1 -->
                     <div class="cost-card">
@@ -211,7 +211,7 @@
             </div>
 
             <!-- Panel 2: Tech -->
-            <div id="panel-tech" role="tabpanel" aria-labelledby="tab-tech" class="tab-panel" hidden>
+            <div id="panel-tech" role="tabpanel" aria-labelledby="tab-tech" class="tab-panel" tabindex="0" hidden>
                 <div class="cost-grid">
                     <!-- Card 1 -->
                     <div class="cost-card">
@@ -281,7 +281,7 @@
             </div>
 
             <!-- Panel 3: Money -->
-            <div id="panel-money" role="tabpanel" aria-labelledby="tab-money" class="tab-panel" hidden>
+            <div id="panel-money" role="tabpanel" aria-labelledby="tab-money" class="tab-panel" tabindex="0" hidden>
                 <div class="cost-grid">
                     <!-- Card 1 -->
                     <div class="cost-card">
@@ -358,7 +358,7 @@
             </div>
 
             <!-- Panel 4: Mind -->
-            <div id="panel-mind" role="tabpanel" aria-labelledby="tab-mind" class="tab-panel" hidden>
+            <div id="panel-mind" role="tabpanel" aria-labelledby="tab-mind" class="tab-panel" tabindex="0" hidden>
                 <div class="cost-grid">
                     <!-- Card 1 -->
                     <div class="cost-card">

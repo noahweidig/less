@@ -397,11 +397,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const switchToPanel = (btn) => {
         // Deactivate all tabs and hide all panels
-        tabBtns.forEach(b => b.setAttribute('aria-selected', 'false'));
+        tabBtns.forEach(b => {
+            b.setAttribute('aria-selected', 'false');
+            b.setAttribute('tabindex', '-1');
+        });
         tabPanels.forEach(p => { p.hidden = true; });
 
         // Activate the clicked tab
         btn.setAttribute('aria-selected', 'true');
+        btn.setAttribute('tabindex', '0');
         const targetId = btn.getAttribute('aria-controls');
         const targetPanel = document.getElementById(targetId);
         if (targetPanel) {
