@@ -16,3 +16,7 @@
 ## 2025-03-09 - Avoiding Repeated Statistics
 **Learning:** Presenting the exact same statistics in two consecutive sections (even with different visual treatments like charts vs cards) breaks narrative momentum and causes redundancy that stops the user's reading flow.
 **Action:** When evaluating a page's structure, remove or consolidate sections that repeat the same data points to ensure the page progresses logically without stalling on redundant information.
+
+## 2025-03-11 - Eliminating Redundant Problem Sections
+**Learning:** Having two consecutive problem sections (e.g., a "Cost" stats grid followed by a text section explaining the same stats) breaks narrative momentum and causes redundancy. Category pages flow much better when the problem statement immediately transitions into the benefits of solving it.
+**Action:** Replace redundant secondary problem sections with "What You Stand to Gain" (Benefits) sections to maintain forward momentum and unify the storytelling structure across all category pages.
