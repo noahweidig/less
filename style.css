@@ -949,7 +949,7 @@ footer {
 }
 
 .nav-dropdown:hover .dropdown-arrow,
-.nav-dropdown:focus-within .dropdown-arrow {
+.nav-dropdown[data-open="true"] .dropdown-arrow {
     transform: rotate(180deg);
 }
 
@@ -974,7 +974,7 @@ footer {
 }
 
 .nav-dropdown:hover .nav-dropdown-menu,
-.nav-dropdown:focus-within .nav-dropdown-menu {
+.nav-dropdown[data-open="true"] .nav-dropdown-menu {
     opacity: 1;
     pointer-events: auto;
     visibility: visible;

@@ -161,10 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
     navDropdownsList.forEach(dropdown => {
         const toggle = dropdown.querySelector('.nav-dropdown-toggle');
 
-        // Mobile: toggle dropdown open/closed on button click
+        // Mobile & Desktop Keyboard: toggle dropdown open/closed on button click
         if (toggle) {
             toggle.addEventListener('click', (e) => {
-                if (!isMobile()) return;
                 e.stopPropagation();
                 const isOpen = dropdown.getAttribute('data-open') === 'true';
                 // Close all others first
@@ -186,20 +185,29 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Desktop: update aria-expanded to reflect hover state
+        // Desktop: update aria-expanded and open state to reflect hover state
         dropdown.addEventListener('mouseenter', () => {
-            if (!isMobile() && toggle) toggle.setAttribute('aria-expanded', 'true');
+            if (!isMobile() && toggle) {
+                toggle.setAttribute('aria-expanded', 'true');
+                dropdown.setAttribute('data-open', 'true');
+            }
         });
         dropdown.addEventListener('mouseleave', () => {
-            if (!isMobile() && toggle) toggle.setAttribute('aria-expanded', 'false');
-        });
-        dropdown.addEventListener('focusin', () => {
-            if (toggle) toggle.setAttribute('aria-expanded', 'true');
+            if (!isMobile() && toggle) {
+                // Do not close if the user has keyboard focus inside the dropdown
+                if (!dropdown.contains(document.activeElement)) {
+                    toggle.setAttribute('aria-expanded', 'false');
+                    dropdown.removeAttribute('data-open');
+                }
+            }
         });
         dropdown.addEventListener('focusout', (e) => {
             if (!dropdown.contains(e.relatedTarget)) {
-                if (toggle) toggle.setAttribute('aria-expanded', 'false');
-                if (isMobile()) dropdown.removeAttribute('data-open');
+                // Do not close if the user's mouse is still hovering over the dropdown
+                if (!dropdown.matches(':hover')) {
+                    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                    dropdown.removeAttribute('data-open');
+                }
             }
         });
     });
@@ -579,8 +587,14 @@ document.addEventListener('DOMContentLoaded', () => {
             themeToggle.click();
         }
 
-        // Close Mobile Menu (Escape)
+        // Close Mobile Menu or active dropdown (Escape)
         if (e.key === 'Escape') {
+            const activeDropdown = document.activeElement ? document.activeElement.closest('.nav-dropdown') : null;
+            let focusTarget = null;
+            if (activeDropdown) {
+                focusTarget = activeDropdown.querySelector('.nav-dropdown-toggle');
+            }
+
             closeAllDropdowns();
             const isMenuOpen = header && header.classList.contains('nav-open');
             if (isMenuOpen) {
@@ -589,6 +603,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     navToggle.click();
                     navToggle.focus();
                 }
+            } else if (focusTarget) {
+                focusTarget.focus();
             }
         }
     });
