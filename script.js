@@ -689,4 +689,73 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Scroll Exit Fade Effect ---
+    // Blur and darken (dark mode) or lighten (light mode) sections as they scroll past the top
+    if (!prefersReducedMotion) {
+        const mainEl = document.querySelector('main');
+        const scrollFadeSections = mainEl ? Array.from(mainEl.children) : [];
+
+        if (scrollFadeSections.length > 0) {
+            // px range over which the exit effect builds (trailing edge of section)
+            const FADE_RANGE = 200;
+            // Maximum blur applied at full progress
+            const MAX_BLUR_PX = 8;
+            // Brightness delta for dark mode (subtractive) and light mode (additive)
+            const DARK_BRIGHTNESS_FACTOR = 0.8;
+            const LIGHT_BRIGHTNESS_FACTOR = 1.5;
+
+            const getIsDark = () => {
+                const theme = htmlElement.getAttribute('data-theme');
+                if (theme === 'dark') return true;
+                if (theme === 'light') return false;
+                return prefersDarkMode.matches;
+            };
+
+            const getNavBottom = () => (header ? header.getBoundingClientRect().bottom : 80);
+
+            let scrollFadeRafId = null;
+
+            const updateScrollFade = () => {
+                const dark = getIsDark();
+                const navBottom = getNavBottom();
+                scrollFadeSections.forEach(section => {
+                    const bottom = section.getBoundingClientRect().bottom;
+                    if (bottom <= navBottom) {
+                        // Section has fully scrolled above the nav — clear effect
+                        section.style.filter = '';
+                        section.style.willChange = '';
+                    } else {
+                        // progress: 0 = section trailing edge is FADE_RANGE px below nav,
+                        //           1 = section trailing edge is at the nav (about to disappear)
+                        const progress = Math.max(0, Math.min(1, 1 - (bottom - navBottom) / FADE_RANGE));
+                        if (progress > 0) {
+                            const blur = progress * MAX_BLUR_PX;
+                            // Dark mode: darken toward black background
+                            // Light mode: lighten toward white background
+                            const brightness = dark ? 1 - progress * DARK_BRIGHTNESS_FACTOR : 1 + progress * LIGHT_BRIGHTNESS_FACTOR;
+                            section.style.filter = `blur(${blur}px) brightness(${brightness})`;
+                            section.style.willChange = 'filter';
+                        } else {
+                            section.style.filter = '';
+                            section.style.willChange = '';
+                        }
+                    }
+                });
+                scrollFadeRafId = null;
+            };
+
+            window.addEventListener('scroll', () => {
+                if (!scrollFadeRafId) {
+                    scrollFadeRafId = requestAnimationFrame(updateScrollFade);
+                }
+            }, { passive: true });
+
+            // Re-run when theme changes so brightness direction updates immediately
+            prefersDarkMode.addEventListener('change', () => requestAnimationFrame(updateScrollFade));
+            themeToggle.addEventListener('click', () => requestAnimationFrame(updateScrollFade));
+
+            updateScrollFade();
+        }
+    }
 });
