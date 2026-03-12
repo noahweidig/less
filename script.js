@@ -653,7 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let scrollRafId = null;
 
         // Height of the fade zone below the nav — larger = slower, gentler fade
-        const FADE_HEIGHT = 80;
+        const FADE_HEIGHT = 40;
 
         const updateScrollBlur = () => {
             scrollRafId = null;
