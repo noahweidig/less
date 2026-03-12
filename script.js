@@ -646,65 +646,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Scroll Exit Fade Effect (top-edge mask only) ---
-    const mainEl = document.querySelector('main');
-    if (mainEl && !prefersReducedMotion) {
-        const blurElements = Array.from(mainEl.children);
-        let scrollRafId = null;
-
-        // Height of the fade zone below the nav — larger = slower, gentler fade
-        const FADE_HEIGHT = 40;
-
-        // ⚡ Bolt: Cache header to avoid querying DOM on every scroll frame
-        const fadeHeader = document.querySelector('header');
-
-        const updateScrollBlur = () => {
-            scrollRafId = null;
-            const navBottom = fadeHeader ? fadeHeader.getBoundingClientRect().bottom : 96;
-
-            // ⚡ Bolt: Phase 1 - Read layout (getBoundingClientRect)
-            const offsets = [];
-            blurElements.forEach(el => {
-                const elTop = el.getBoundingClientRect().top;
-                offsets.push(navBottom - elTop);
-            });
-
-            // ⚡ Bolt: Phase 2 - Write to DOM (style) to prevent Layout Thrashing
-            blurElements.forEach((el, index) => {
-                const offset = offsets[index];
-
-                if (offset <= 0) {
-                    // Element top is at or below the nav — fully visible, clear mask
-                    if (el.dataset.blurActive) {
-                        el.style.maskImage = '';
-                        el.style.webkitMaskImage = '';
-                        el.style.willChange = '';
-                        delete el.dataset.blurActive;
-                    }
-                } else {
-                    // Element is scrolling under the nav — apply a top-edge fade mask.
-                    // transparent at the nav bottom, fully opaque FADE_HEIGHT px below that.
-                    const fadeEnd = Math.round(offset + FADE_HEIGHT);
-                    const gradient = `linear-gradient(to bottom, transparent ${Math.round(offset)}px, black ${fadeEnd}px)`;
-                    el.style.maskImage = gradient;
-                    el.style.webkitMaskImage = gradient;
-                    if (!el.dataset.blurActive) {
-                        el.style.willChange = 'mask-image';
-                        el.dataset.blurActive = '1';
-                    }
-                }
-            });
-        };
-
-        window.addEventListener('scroll', () => {
-            if (!scrollRafId) {
-                scrollRafId = requestAnimationFrame(updateScrollBlur);
-            }
-        }, { passive: true });
-
-        // Run once on load in case page is already scrolled
-        updateScrollBlur();
-    }
+    // --- Scroll Exit Fade Effect ---
+    // Disabled: CSS masks with a translucent, backdrop-filtered navbar can cause
+    // severe color artifacts while scrolling in both light and dark modes.
 
     // --- Interactive Habits Checklist ---
     const stepMarkers = document.querySelectorAll('.step-marker');
