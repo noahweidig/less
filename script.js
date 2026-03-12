@@ -521,6 +521,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Navbar Scroll Effect ---
+    if (header) {
+        if ('IntersectionObserver' in window) {
+            const navSentinel = document.createElement('div');
+            Object.assign(navSentinel.style, {
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                width: '1px',
+                height: '1px',
+                pointerEvents: 'none',
+                opacity: '0'
+            });
+            document.body.prepend(navSentinel);
+
+            const navObserver = new IntersectionObserver((entries) => {
+                if (!entries[0].isIntersecting) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            navObserver.observe(navSentinel);
+        } else {
+            // Fallback for older browsers
+            const updateNavScrolled = () => {
+                if (window.scrollY > 0) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            };
+            window.addEventListener('scroll', updateNavScrolled, { passive: true });
+            updateNavScrolled();
+        }
+    }
+
     // --- Back to Top Button ---
     const backToTopButton = document.getElementById('back-to-top');
 

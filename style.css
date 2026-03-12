@@ -20,6 +20,7 @@
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
 
     --mobile-nav-bg: rgba(255, 255, 255, 1);
+    --nav-scrolled-bg: rgba(255, 255, 255, 0.85);
 
     --light-bg-opacity: 1;
     --dark-bg-opacity: 0;
@@ -41,6 +42,7 @@
         --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 
         --mobile-nav-bg: rgba(26, 26, 26, 1);
+        --nav-scrolled-bg: rgba(26, 26, 26, 0.85);
 
         --light-bg-opacity: 0;
         --dark-bg-opacity: 1;
@@ -59,6 +61,7 @@
     --card-border: rgba(0, 0, 0, 0.05);
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
     --mobile-nav-bg: rgba(255, 255, 255, 1);
+    --nav-scrolled-bg: rgba(255, 255, 255, 0.85);
     --light-bg-opacity: 1;
     --dark-bg-opacity: 0;
     --sun-opacity: 1;
@@ -74,6 +77,7 @@
     --card-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     --mobile-nav-bg: rgba(26, 26, 26, 1);
+    --nav-scrolled-bg: rgba(26, 26, 26, 0.85);
     --light-bg-opacity: 0;
     --dark-bg-opacity: 1;
     --sun-opacity: 0;
@@ -143,11 +147,17 @@ header {
     margin: 0 auto;
     top: 1rem;
     z-index: 100;
+    background: transparent;
     backdrop-filter: blur(10px);
     border: 1px solid var(--card-border);
     border-radius: 9999px;
     box-shadow: var(--glass-shadow);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+header.scrolled {
+    background: var(--nav-scrolled-bg);
+    backdrop-filter: blur(20px);
 }
 
 .logo {
@@ -853,6 +863,10 @@ footer {
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
+    }
+    header,
+    header.scrolled {
+        transition: none;
     }
     .hero-content {
         opacity: 1;
