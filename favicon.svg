@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="45" stroke="#6c5ce7" stroke-width="10" fill="none" />
-  <circle cx="50" cy="50" r="20" fill="#6c5ce7" />
+  <defs>
+    <linearGradient id="logo-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6c5ce7"/>
+      <stop offset="100%" stop-color="#e17055"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="45" stroke="url(#logo-gradient)" stroke-width="10" fill="none"/>
+  <circle cx="50" cy="50" r="20" fill="url(#logo-gradient)"/>
 </svg>
