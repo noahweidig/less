@@ -155,10 +155,24 @@ header {
     font-weight: 700;
     font-size: 1.5rem;
     letter-spacing: 1px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+}
+
+.logo-text {
     background: linear-gradient(45deg, var(--primary-purple), var(--primary-orange));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-decoration: none;
+    color: transparent;
 }
 
 .header-controls {
@@ -796,6 +810,10 @@ footer {
     }
     .logo {
         font-size: 1.2rem;
+    }
+    .logo-icon {
+        width: 1.2rem;
+        height: 1.2rem;
     }
     .hero-content h1 {
         font-size: 2.5rem;
