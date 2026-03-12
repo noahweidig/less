@@ -655,15 +655,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // Height of the fade zone below the nav — larger = slower, gentler fade
         const FADE_HEIGHT = 40;
 
+        // ⚡ Bolt: Cache header to avoid querying DOM on every scroll frame
+        const fadeHeader = document.querySelector('header');
+
         const updateScrollBlur = () => {
             scrollRafId = null;
-            const header = document.querySelector('header');
-            const navBottom = header ? header.getBoundingClientRect().bottom : 96;
+            const navBottom = fadeHeader ? fadeHeader.getBoundingClientRect().bottom : 96;
 
+            // ⚡ Bolt: Phase 1 - Read layout (getBoundingClientRect)
+            const offsets = [];
             blurElements.forEach(el => {
                 const elTop = el.getBoundingClientRect().top;
-                // How many px of the element are hidden behind/above the nav
-                const offset = navBottom - elTop;
+                offsets.push(navBottom - elTop);
+            });
+
+            // ⚡ Bolt: Phase 2 - Write to DOM (style) to prevent Layout Thrashing
+            blurElements.forEach((el, index) => {
+                const offset = offsets[index];
 
                 if (offset <= 0) {
                     // Element top is at or below the nav — fully visible, clear mask
