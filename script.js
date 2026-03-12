@@ -691,14 +691,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Scroll Exit Fade Effect ---
-    // Blur and darken (dark mode) or lighten (light mode) sections as they scroll past the top
+    // Blur and darken (dark mode) or lighten (light mode) individual elements as they scroll past the nav
     if (!prefersReducedMotion) {
         const mainEl = document.querySelector('main');
-        const scrollFadeSections = mainEl ? Array.from(mainEl.children) : [];
 
-        if (scrollFadeSections.length > 0) {
-            // px range over which the exit effect builds (trailing edge of section)
-            const FADE_RANGE = 200;
+        // Collect elements to fade individually.
+        // Card/cost-grid containers are expanded one level so each item fades on its own;
+        // everything else (headings, paragraphs, tab-navs, etc.) is added as a single unit.
+        const GRID_SELECTORS = ['.cards', '.cost-grid'];
+        const fadeElements = [];
+        if (mainEl) {
+            Array.from(mainEl.querySelectorAll(':scope > section')).forEach(section => {
+                Array.from(section.children).forEach(child => {
+                    const isGrid = GRID_SELECTORS.some(sel => child.matches(sel));
+                    if (isGrid) {
+                        Array.from(child.children).forEach(item => fadeElements.push(item));
+                    } else {
+                        fadeElements.push(child);
+                    }
+                });
+            });
+        }
+
+        if (fadeElements.length > 0) {
+            // px below the nav bottom at which the fade starts building for each element
+            const FADE_RANGE = 150;
             // Maximum blur applied at full progress
             const MAX_BLUR_PX = 8;
             // Brightness delta for dark mode (subtractive) and light mode (additive)
@@ -719,26 +736,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const updateScrollFade = () => {
                 const dark = getIsDark();
                 const navBottom = getNavBottom();
-                scrollFadeSections.forEach(section => {
-                    const bottom = section.getBoundingClientRect().bottom;
-                    if (bottom <= navBottom) {
-                        // Section has fully scrolled above the nav — clear effect
-                        section.style.filter = '';
-                        section.style.willChange = '';
+                fadeElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.bottom <= navBottom) {
+                        // Element is fully above the nav — clear effect
+                        el.style.filter = '';
+                        el.style.willChange = '';
+                    } else if (rect.top <= navBottom) {
+                        // Element top has crossed the nav — hold at maximum effect
+                        const brightness = dark ? 1 - DARK_BRIGHTNESS_FACTOR : 1 + LIGHT_BRIGHTNESS_FACTOR;
+                        el.style.filter = `blur(${MAX_BLUR_PX}px) brightness(${brightness})`;
+                        el.style.willChange = 'filter';
                     } else {
-                        // progress: 0 = section trailing edge is FADE_RANGE px below nav,
-                        //           1 = section trailing edge is at the nav (about to disappear)
-                        const progress = Math.max(0, Math.min(1, 1 - (bottom - navBottom) / FADE_RANGE));
+                        // progress: 0 = element top is FADE_RANGE px below nav,
+                        //           1 = element top reaches the nav
+                        const progress = Math.max(0, Math.min(1, 1 - (rect.top - navBottom) / FADE_RANGE));
                         if (progress > 0) {
                             const blur = progress * MAX_BLUR_PX;
                             // Dark mode: darken toward black background
                             // Light mode: lighten toward white background
                             const brightness = dark ? 1 - progress * DARK_BRIGHTNESS_FACTOR : 1 + progress * LIGHT_BRIGHTNESS_FACTOR;
-                            section.style.filter = `blur(${blur}px) brightness(${brightness})`;
-                            section.style.willChange = 'filter';
+                            el.style.filter = `blur(${blur}px) brightness(${brightness})`;
+                            el.style.willChange = 'filter';
                         } else {
-                            section.style.filter = '';
-                            section.style.willChange = '';
+                            el.style.filter = '';
+                            el.style.willChange = '';
                         }
                     }
                 });
