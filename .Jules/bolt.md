@@ -39,3 +39,7 @@
 ## 2026-03-09 - Overlapping NodeList Iterations and Redundant Queries
 **Learning:** Performing `document.querySelectorAll` and iterating over specific nested elements (e.g., `.nav-dropdown-menu a`) immediately after already iterating over a broader cached NodeList (`.nav-links a`) that inherently includes those same nested elements wastes CPU cycles on redundant DOM queries and repeated O(n) loops.
 **Action:** Always verify if a broader cached NodeList already captures the elements needed for a subsequent operation. If so, consolidate the logic into the single existing iteration, checking element characteristics (like `.closest('.nav-dropdown')`) within the same loop to prevent redundant DOM traversal and layout reads.
+
+## 2026-03-09 - Layout Thrashing in Scroll Handlers
+**Learning:** Interleaving DOM layout reads (`el.getBoundingClientRect().top`) and style writes (`el.style.maskImage`) within a single loop connected to a scroll event forces the browser to recalculate layout (Forced Synchronous Layout) on every element, on every scroll frame. This severely impacts scrolling performance.
+**Action:** Strictly separate DOM reads and DOM writes into two distinct phases. Use two separate loops (or array methods): the first to cache all layout measurements, and the second to apply all style changes.
