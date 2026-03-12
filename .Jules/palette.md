@@ -74,3 +74,7 @@
 ## 2026-03-11 - Accessible Dropdown Keyboard Navigation
 **Learning:** Using `:focus-within` in CSS to automatically display dropdown menus forces keyboard users to tab through every sub-menu link when trying to navigate past the primary navigation. This creates a tedious and frustrating experience.
 **Action:** Always control dropdown visibility via an explicit state (like `aria-expanded` or a `data-open` attribute) manipulated by JavaScript on explicit user actions (like `Enter` or `Space`), rather than relying solely on `:focus-within`. Additionally, ensure the `Escape` key closes the dropdown and explicitly returns focus to the toggle button.
+
+## 2026-03-12 - Focus Parity for Visual Hover States on Non-Interactive Elements
+**Learning:** Elements that visually respond to user interaction (e.g., using CSS transforms or box-shadows on `:hover`) but are not inherently interactive (like a `<div>` used for a stat card) will completely exclude keyboard users from experiencing that visual feedback unless they are explicitly added to the tab order.
+**Action:** Always assign `tabindex="0"` to non-interactive structural elements that feature rich, interactive `:hover` styles, and pair their `:hover` CSS selectors with `:focus-visible` to ensure feature parity for keyboard users.
