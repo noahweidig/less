@@ -646,6 +646,63 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Scroll Exit Blur/Fade Effect ---
+    const mainEl = document.querySelector('main');
+    if (mainEl && !prefersReducedMotion) {
+        const blurElements = Array.from(mainEl.children);
+        let scrollRafId = null;
+
+        const updateScrollBlur = () => {
+            scrollRafId = null;
+            const header = document.querySelector('header');
+            const navBottom = header ? header.getBoundingClientRect().bottom : 96;
+
+            // Zone: blur starts 80px below nav bottom, fully gone 80px above viewport top
+            const BLUR_START = navBottom + 80;
+            const GONE_AT = -80;
+            const totalRange = BLUR_START - GONE_AT;
+
+            blurElements.forEach(el => {
+                const elTop = el.getBoundingClientRect().top;
+
+                if (elTop >= BLUR_START) {
+                    // Fully below the blur zone — clear
+                    if (el.dataset.blurActive) {
+                        el.style.filter = '';
+                        el.style.opacity = '';
+                        el.style.willChange = '';
+                        delete el.dataset.blurActive;
+                    }
+                } else if (elTop <= GONE_AT) {
+                    // Fully scrolled past — invisible
+                    el.style.filter = 'blur(10px)';
+                    el.style.opacity = '0';
+                    el.dataset.blurActive = '1';
+                } else {
+                    // In the transition zone
+                    const progress = (BLUR_START - elTop) / totalRange; // 0 → 1
+                    const blur = progress * 10;
+                    const opacity = Math.max(0, 1 - progress * 1.15);
+                    el.style.filter = `blur(${blur.toFixed(2)}px)`;
+                    el.style.opacity = opacity.toFixed(3);
+                    if (!el.dataset.blurActive) {
+                        el.style.willChange = 'filter, opacity';
+                        el.dataset.blurActive = '1';
+                    }
+                }
+            });
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!scrollRafId) {
+                scrollRafId = requestAnimationFrame(updateScrollBlur);
+            }
+        }, { passive: true });
+
+        // Run once on load in case page is already scrolled
+        updateScrollBlur();
+    }
+
     // --- Interactive Habits Checklist ---
     const stepMarkers = document.querySelectorAll('.step-marker');
 
