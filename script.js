@@ -646,47 +646,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Scroll Exit Blur/Fade Effect ---
+    // --- Scroll Exit Fade Effect (top-edge mask only) ---
     const mainEl = document.querySelector('main');
     if (mainEl && !prefersReducedMotion) {
         const blurElements = Array.from(mainEl.children);
         let scrollRafId = null;
+
+        // Height of the fade zone below the nav — larger = slower, gentler fade
+        const FADE_HEIGHT = 180;
 
         const updateScrollBlur = () => {
             scrollRafId = null;
             const header = document.querySelector('header');
             const navBottom = header ? header.getBoundingClientRect().bottom : 96;
 
-            // Zone: blur starts 80px below nav bottom, fully gone 80px above viewport top
-            const BLUR_START = navBottom + 80;
-            const GONE_AT = -80;
-            const totalRange = BLUR_START - GONE_AT;
-
             blurElements.forEach(el => {
                 const elTop = el.getBoundingClientRect().top;
+                // How many px of the element are hidden behind/above the nav
+                const offset = navBottom - elTop;
 
-                if (elTop >= BLUR_START) {
-                    // Fully below the blur zone — clear
+                if (offset <= 0) {
+                    // Element top is at or below the nav — fully visible, clear mask
                     if (el.dataset.blurActive) {
-                        el.style.filter = '';
-                        el.style.opacity = '';
+                        el.style.maskImage = '';
+                        el.style.webkitMaskImage = '';
                         el.style.willChange = '';
                         delete el.dataset.blurActive;
                     }
-                } else if (elTop <= GONE_AT) {
-                    // Fully scrolled past — invisible
-                    el.style.filter = 'blur(10px)';
-                    el.style.opacity = '0';
-                    el.dataset.blurActive = '1';
                 } else {
-                    // In the transition zone
-                    const progress = (BLUR_START - elTop) / totalRange; // 0 → 1
-                    const blur = progress * 10;
-                    const opacity = Math.max(0, 1 - progress * 1.15);
-                    el.style.filter = `blur(${blur.toFixed(2)}px)`;
-                    el.style.opacity = opacity.toFixed(3);
+                    // Element is scrolling under the nav — apply a top-edge fade mask.
+                    // transparent at the nav bottom, fully opaque FADE_HEIGHT px below that.
+                    const fadeEnd = Math.round(offset + FADE_HEIGHT);
+                    const gradient = `linear-gradient(to bottom, transparent ${Math.round(offset)}px, black ${fadeEnd}px)`;
+                    el.style.maskImage = gradient;
+                    el.style.webkitMaskImage = gradient;
                     if (!el.dataset.blurActive) {
-                        el.style.willChange = 'filter, opacity';
+                        el.style.willChange = 'mask-image';
                         el.dataset.blurActive = '1';
                     }
                 }
