@@ -743,7 +743,7 @@ footer {
         top: calc(var(--nav-height) + 0.5rem);
         left: 0;
         width: 100%;
-        max-height: calc(100dvh - var(--nav-height) - 1.5rem);
+        max-height: none;
         background: var(--mobile-nav-bg);
         border: 1px solid var(--card-border);
         border-radius: 0.75rem;
@@ -754,7 +754,7 @@ footer {
         visibility: hidden;
         transition: none;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: visible;
     }
     .nav-animate nav {
         transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
