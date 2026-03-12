@@ -20,3 +20,7 @@
 ## 2025-03-11 - Eliminating Redundant Problem Sections
 **Learning:** Having two consecutive problem sections (e.g., a "Cost" stats grid followed by a text section explaining the same stats) breaks narrative momentum and causes redundancy. Category pages flow much better when the problem statement immediately transitions into the benefits of solving it.
 **Action:** Replace redundant secondary problem sections with "What You Stand to Gain" (Benefits) sections to maintain forward momentum and unify the storytelling structure across all category pages.
+
+## 2025-03-12 - Unified Category Terminology
+**Learning:** Inconsistent section headings across parallel pages (e.g., "Mindful Spending" vs "Core Practices", or "The 30-Day Digital Reset" vs "The Financial Declutter") break the narrative that the exact same principles apply across all domains. Furthermore, contradictory advice across different pages (e.g., "One room at a time" on the main page vs "Category by category" on the habits/tools pages) breaks the "one mind speaking" coherence rule.
+**Action:** Unify headings across parallel category pages to use identical terminology (e.g., "Core Practices", "The [Domain] Declutter") to reinforce the site's central framework, and ensure specific methodologies (like KonMari) are consistent across all mentions within a domain.
