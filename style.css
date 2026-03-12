@@ -1462,6 +1462,10 @@ footer {
     .mini-donut-fill {
         transition: none;
     }
+    /* Disable scroll exit fade effect for users who prefer reduced motion */
+    main > * {
+        filter: none !important;
+    }
 }
 
 /* Print Styles */
@@ -1498,6 +1502,12 @@ footer {
     main {
         padding-top: 0 !important;
         margin: 0 !important;
+    }
+
+    /* Clear scroll exit fade filters for clean printing */
+    main > * {
+        filter: none !important;
+        will-change: auto !important;
     }
 
     /* Expand content width */
