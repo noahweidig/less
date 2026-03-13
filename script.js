@@ -148,7 +148,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // ⚡ Bolt: Cache DOM queries for navigation dropdowns to prevent repeated layout reads
     const navDropdownsList = document.querySelectorAll('.nav-dropdown');
 
+    const syncMobileDropdownState = () => {
+        navDropdownsList.forEach(d => {
+            const btn = d.querySelector('.nav-dropdown-toggle');
+            if (!btn) return;
+
+            if (isMobile()) {
+                d.setAttribute('data-open', 'true');
+                btn.setAttribute('aria-expanded', 'true');
+            } else {
+                d.removeAttribute('data-open');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    };
+
     const closeAllDropdowns = () => {
+        if (isMobile()) return;
         navDropdownsList.forEach(d => {
             d.removeAttribute('data-open');
             const btn = d.querySelector('.nav-dropdown-toggle');
@@ -165,6 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (toggle) {
             toggle.addEventListener('click', (e) => {
                 e.stopPropagation();
+                if (isMobile()) return;
+
                 const isOpen = dropdown.getAttribute('data-open') === 'true';
                 // Close all others first
                 navDropdownsList.forEach(d => {
@@ -211,6 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    syncMobileDropdownState();
+    mobileMedia.addEventListener('change', syncMobileDropdownState);
 
     // --- Hero Intro Animation ---
     const heroContents = document.querySelectorAll('.hero-content');
