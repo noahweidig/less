@@ -112,12 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
             navToggle.setAttribute('aria-expanded', isOpen);
             navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
             document.body.style.overflow = isOpen ? 'hidden' : '';
+            if (!isOpen) collapseAllDropdowns();
         });
 
         // ⚡ Bolt: Use event delegation instead of attaching O(n) event listeners
         nav.addEventListener('click', (e) => {
             if (e.target.closest('a')) {
-                closeAllDropdowns();
+                collapseAllDropdowns();
                 header.classList.add('nav-animate');
                 nav.addEventListener('transitionend', cleanup);
                 header.classList.remove('nav-open');
@@ -132,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isMenuOpen = header.classList.contains('nav-open');
             // If the menu is open and the click target is not within the header
             if (isMenuOpen && !header.contains(e.target)) {
+                collapseAllDropdowns();
                 header.classList.add('nav-animate');
                 nav.addEventListener('transitionend', cleanup);
                 header.classList.remove('nav-open');
@@ -175,6 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const collapseAllDropdowns = () => {
+        navDropdownsList.forEach(d => {
+            d.removeAttribute('data-open');
+            const btn = d.querySelector('.nav-dropdown-toggle');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+    };
+
     // Update aria-expanded to reflect hover state for accessibility (desktop)
     // and handle click toggling on mobile
     navDropdownsList.forEach(dropdown => {
@@ -185,14 +195,16 @@ document.addEventListener('DOMContentLoaded', () => {
             toggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const isOpen = dropdown.getAttribute('data-open') === 'true';
-                // Close all others first
-                navDropdownsList.forEach(d => {
-                    if (d !== dropdown) {
-                        d.removeAttribute('data-open');
-                        const t = d.querySelector('.nav-dropdown-toggle');
-                        if (t) t.setAttribute('aria-expanded', 'false');
-                    }
-                });
+                // On desktop, close all others first; on mobile allow multiple open
+                if (!isMobile()) {
+                    navDropdownsList.forEach(d => {
+                        if (d !== dropdown) {
+                            d.removeAttribute('data-open');
+                            const t = d.querySelector('.nav-dropdown-toggle');
+                            if (t) t.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                }
                 // Toggle this one
                 if (isOpen) {
                     dropdown.removeAttribute('data-open');

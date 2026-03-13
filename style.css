@@ -745,8 +745,7 @@ footer {
         margin: 0;
         padding: 0 1rem;
         border-radius: 0;
-        border-left: 0;
-        border-right: 0;
+        border: none;
         background: var(--mobile-nav-bg);
         backdrop-filter: blur(14px);
     }
@@ -796,7 +795,9 @@ footer {
     }
     .nav-open nav {
         order: 3;
-        flex-basis: 100%;
+        flex-basis: calc(100% + 2rem);
+        margin-left: -1rem;
+        margin-right: -1rem;
         max-height: calc(100vh - var(--nav-height)); /* fallback for browsers without dvh support */
         max-height: calc(100dvh - var(--nav-height));
         min-height: calc(100vh - var(--nav-height)); /* fallback for browsers without dvh support */
@@ -804,14 +805,13 @@ footer {
         overflow-y: auto;
         overflow-x: hidden;
         pointer-events: auto;
-        border-top: 1px solid var(--card-border);
     }
     .nav-links {
         flex-direction: column;
         align-items: flex-start;
-        padding: 1rem 1.5rem 2rem;
-        gap: 0.25rem;
-        font-size: 1.1rem;
+        padding: 1.5rem 1.5rem 2.5rem;
+        gap: 0.5rem;
+        font-size: 1.2rem;
         width: 100%;
     }
 
@@ -822,7 +822,7 @@ footer {
     .nav-links a {
         display: block;
         width: 100%;
-        padding: 0.75rem 0;
+        padding: 1rem 0;
     }
 
     .nav-dropdown {
@@ -832,8 +832,8 @@ footer {
     .nav-dropdown-toggle {
         width: 100%;
         justify-content: space-between;
-        font-size: 1.1rem;
-        padding: 0.75rem 0;
+        font-size: 1.2rem;
+        padding: 1rem 0;
     }
 
     .nav-dropdown-menu {
@@ -870,7 +870,7 @@ footer {
 
     .nav-dropdown-menu a {
         font-size: 1rem;
-        padding: 0.7rem 0;
+        padding: 0.85rem 0;
     }
     .nav-toggle {
         display: flex;
