@@ -101,13 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const cleanup = (e) => {
             if (e.target !== nav) return;
+            collapseAllDropdowns();
             header.classList.remove('nav-animate');
             header.classList.remove('nav-closing');
             nav.removeEventListener('transitionend', cleanup);
         };
 
         const closeMenu = () => {
-            collapseAllDropdowns();
             header.classList.add('nav-animate');
             header.classList.add('nav-closing');
             nav.addEventListener('transitionend', cleanup);
