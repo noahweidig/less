@@ -102,29 +102,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const cleanup = (e) => {
             if (e.target !== nav) return;
             header.classList.remove('nav-animate');
+            header.classList.remove('nav-closing');
             nav.removeEventListener('transitionend', cleanup);
         };
 
-        navToggle.addEventListener('click', () => {
+        const closeMenu = () => {
+            collapseAllDropdowns();
             header.classList.add('nav-animate');
+            header.classList.add('nav-closing');
             nav.addEventListener('transitionend', cleanup);
-            const isOpen = header.classList.toggle('nav-open');
-            navToggle.setAttribute('aria-expanded', isOpen);
-            navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-            document.body.style.overflow = isOpen ? 'hidden' : '';
-            if (!isOpen) collapseAllDropdowns();
+            header.classList.remove('nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.setAttribute('aria-label', 'Open menu');
+            document.body.style.overflow = '';
+        };
+
+        navToggle.addEventListener('click', () => {
+            const wasOpen = header.classList.contains('nav-open');
+            if (wasOpen) {
+                closeMenu();
+            } else {
+                header.classList.add('nav-animate');
+                nav.addEventListener('transitionend', cleanup);
+                header.classList.add('nav-open');
+                navToggle.setAttribute('aria-expanded', 'true');
+                navToggle.setAttribute('aria-label', 'Close menu');
+                document.body.style.overflow = 'hidden';
+            }
         });
 
         // ⚡ Bolt: Use event delegation instead of attaching O(n) event listeners
         nav.addEventListener('click', (e) => {
             if (e.target.closest('a')) {
-                collapseAllDropdowns();
-                header.classList.add('nav-animate');
-                nav.addEventListener('transitionend', cleanup);
-                header.classList.remove('nav-open');
-                navToggle.setAttribute('aria-expanded', 'false');
-                navToggle.setAttribute('aria-label', 'Open menu');
-                document.body.style.overflow = '';
+                closeMenu();
             }
         });
 
@@ -133,13 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isMenuOpen = header.classList.contains('nav-open');
             // If the menu is open and the click target is not within the header
             if (isMenuOpen && !header.contains(e.target)) {
-                collapseAllDropdowns();
-                header.classList.add('nav-animate');
-                nav.addEventListener('transitionend', cleanup);
-                header.classList.remove('nav-open');
-                navToggle.setAttribute('aria-expanded', 'false');
-                navToggle.setAttribute('aria-label', 'Open menu');
-                document.body.style.overflow = '';
+                closeMenu();
             }
         });
     }
@@ -233,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         dropdown.addEventListener('focusout', (e) => {
+            if (isMobile()) return;
             if (!dropdown.contains(e.relatedTarget)) {
                 // Do not close if the user's mouse is still hovering over the dropdown
                 if (!dropdown.matches(':hover')) {
