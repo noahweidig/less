@@ -20,7 +20,7 @@
     --card-border: rgba(0, 0, 0, 0.05);
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
 
-    --mobile-nav-bg: rgba(255, 255, 255, 1);
+    --mobile-nav-bg: rgba(255, 255, 255, 0.85);
     --nav-scrolled-bg: rgba(255, 255, 255, 0.85);
 
     --light-bg-opacity: 1;
@@ -43,7 +43,7 @@
         --card-border: rgba(255, 255, 255, 0.1);
         --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 
-        --mobile-nav-bg: rgba(26, 26, 26, 1);
+        --mobile-nav-bg: rgba(26, 26, 26, 0.85);
         --nav-scrolled-bg: rgba(26, 26, 26, 0.85);
 
         --light-bg-opacity: 0;
@@ -63,7 +63,7 @@
     --dropdown-bg: rgba(255, 255, 255, 0.96);
     --card-border: rgba(0, 0, 0, 0.05);
     --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-    --mobile-nav-bg: rgba(255, 255, 255, 1);
+    --mobile-nav-bg: rgba(255, 255, 255, 0.85);
     --nav-scrolled-bg: rgba(255, 255, 255, 0.85);
     --light-bg-opacity: 1;
     --dark-bg-opacity: 0;
@@ -80,7 +80,7 @@
     --dropdown-bg: rgba(26, 26, 26, 0.94);
     --card-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    --mobile-nav-bg: rgba(26, 26, 26, 1);
+    --mobile-nav-bg: rgba(26, 26, 26, 0.85);
     --nav-scrolled-bg: rgba(26, 26, 26, 0.85);
     --light-bg-opacity: 0;
     --dark-bg-opacity: 1;
@@ -761,7 +761,7 @@ footer {
         visibility: visible;
         transition: none;
         overflow: hidden;
-        padding-top: 0.25rem;
+        padding-top: 0;
         z-index: 5;
     }
     .nav-animate nav {
@@ -805,6 +805,20 @@ footer {
         overflow-y: auto;
         overflow-x: hidden;
         pointer-events: auto;
+        padding-top: 0.25rem;
+    }
+    .nav-closing {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+    .nav-closing nav {
+        pointer-events: none;
     }
     .nav-links {
         flex-direction: column;
@@ -866,6 +880,8 @@ footer {
 
     .dropdown-arrow {
         display: inline-block;
+        width: 18px;
+        height: 18px;
     }
 
     .nav-dropdown-menu a {
