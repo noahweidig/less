@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isOpen = header.classList.toggle('nav-open');
             navToggle.setAttribute('aria-expanded', isOpen);
             navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+            document.body.style.overflow = isOpen ? 'hidden' : '';
         });
 
         // ⚡ Bolt: Use event delegation instead of attaching O(n) event listeners
@@ -122,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 header.classList.remove('nav-open');
                 navToggle.setAttribute('aria-expanded', 'false');
                 navToggle.setAttribute('aria-label', 'Open menu');
+                document.body.style.overflow = '';
             }
         });
 
@@ -135,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 header.classList.remove('nav-open');
                 navToggle.setAttribute('aria-expanded', 'false');
                 navToggle.setAttribute('aria-label', 'Open menu');
+                document.body.style.overflow = '';
             }
         });
     }
