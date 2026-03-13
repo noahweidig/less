@@ -774,7 +774,7 @@ footer {
         transition: max-height 0.3s ease;
     }
     .nav-open nav {
-        max-height: calc(100dvh - var(--nav-height));
+        max-height: calc(100svh - var(--nav-height));
         pointer-events: auto;
     }
     .nav-links {
@@ -819,17 +819,24 @@ footer {
         border-radius: 0;
         box-shadow: none;
         backdrop-filter: none;
-        padding: 0 0 0.25rem 1rem;
+        padding: 0;
         min-width: unset;
         width: 100%;
+        display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease;
+    }
+
+    .nav-dropdown[data-open="true"] .nav-dropdown-menu {
         display: block;
-        max-height: none;
-        overflow: visible;
-        transition: none;
+        max-height: 320px;
+        padding: 0 0 0.25rem 1rem;
+        overflow-y: auto;
     }
 
     .dropdown-arrow {
-        display: none;
+        display: inline-block;
     }
 
     .nav-dropdown-menu a {

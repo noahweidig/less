@@ -154,8 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!btn) return;
 
             if (isMobile()) {
-                d.setAttribute('data-open', 'true');
-                btn.setAttribute('aria-expanded', 'true');
+                d.removeAttribute('data-open');
+                btn.setAttribute('aria-expanded', 'false');
             } else {
                 d.removeAttribute('data-open');
                 btn.setAttribute('aria-expanded', 'false');
@@ -181,8 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (toggle) {
             toggle.addEventListener('click', (e) => {
                 e.stopPropagation();
-                if (isMobile()) return;
-
                 const isOpen = dropdown.getAttribute('data-open') === 'true';
                 // Close all others first
                 navDropdownsList.forEach(d => {
