@@ -751,10 +751,7 @@ footer {
         backdrop-filter: blur(14px);
     }
     nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
+        position: static;
         width: 100%;
         max-height: 0;
         background: var(--mobile-nav-bg);
@@ -765,8 +762,7 @@ footer {
         pointer-events: none;
         visibility: visible;
         transition: none;
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
         padding-top: 0.25rem;
         z-index: 5;
     }
@@ -774,7 +770,8 @@ footer {
         transition: max-height 0.3s ease;
     }
     .nav-open nav {
-        max-height: calc(100svh - var(--nav-height));
+        max-height: 2000px;
+        overflow: visible;
         pointer-events: auto;
     }
     .nav-links {
@@ -815,7 +812,7 @@ footer {
         pointer-events: auto;
         background: none;
         border: none;
-        border-left: 1px solid var(--card-border);
+        border-top: 1px solid var(--card-border);
         border-radius: 0;
         box-shadow: none;
         backdrop-filter: none;
@@ -830,9 +827,9 @@ footer {
 
     .nav-dropdown[data-open="true"] .nav-dropdown-menu {
         display: block;
-        max-height: 320px;
-        padding: 0 0 0.25rem 1rem;
-        overflow-y: auto;
+        max-height: 1000px;
+        padding: 0.25rem 0 0.5rem;
+        overflow: visible;
     }
 
     .dropdown-arrow {
@@ -841,7 +838,7 @@ footer {
 
     .nav-dropdown-menu a {
         font-size: 0.9rem;
-        padding: 0.65rem 0.75rem;
+        padding: 0.7rem 0;
     }
     .nav-toggle {
         display: flex;
