@@ -366,8 +366,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const duration = 1400;
 
+        // ⚡ Bolt: Cache DOM queries to avoid redundant O(n) DOM traversals during animation
+        const costCards = panelEl.querySelectorAll('.cost-card');
+        const statNumbers = panelEl.querySelectorAll('.stat-number[data-target]');
+        const miniDonutFills = panelEl.querySelectorAll('.mini-donut-fill[data-pct]');
+
         // Reveal cost cards with a stagger
-        panelEl.querySelectorAll('.cost-card').forEach((card, i) => {
+        costCards.forEach((card, i) => {
             if (prefersReducedMotion) {
                 card.classList.add('cost-card--visible');
             } else {
@@ -377,10 +382,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (prefersReducedMotion) {
             // Set all final states immediately
-            panelEl.querySelectorAll('.stat-number[data-target]').forEach(el => {
+            statNumbers.forEach(el => {
                 el.textContent = el.getAttribute('data-target');
             });
-            panelEl.querySelectorAll('.mini-donut-fill[data-pct]').forEach(fill => {
+            miniDonutFills.forEach(fill => {
                 const pct = parseInt(fill.getAttribute('data-pct'), 10);
                 fill.style.strokeDashoffset = String(MINI_CIRC * (1 - pct / 100));
             });
@@ -388,12 +393,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Animate stat counters
-        panelEl.querySelectorAll('.stat-number[data-target]').forEach(el => {
+        statNumbers.forEach(el => {
             animateValue(el, parseInt(el.getAttribute('data-target'), 10), duration);
         });
 
         // Animate mini donut fills (staggered)
-        panelEl.querySelectorAll('.mini-donut-fill[data-pct]').forEach((fill, i) => {
+        miniDonutFills.forEach((fill, i) => {
             const pct = parseInt(fill.getAttribute('data-pct'), 10);
             const targetOffset = MINI_CIRC * (1 - pct / 100);
             setTimeout(() => {
@@ -480,11 +485,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const standaloneCostSections = document.querySelectorAll('.standalone-crisis-section');
     if (standaloneCostSections.length > 0) {
         if ('IntersectionObserver' in window) {
+            let observedStandaloneCount = standaloneCostSections.length;
             const standaloneObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         animatePanel(entry.target);
                         standaloneObserver.unobserve(entry.target);
+                        observedStandaloneCount--;
+                        // ⚡ Bolt: Completely disconnect observer once all elements are animated to free up memory
+                        if (observedStandaloneCount === 0) {
+                            standaloneObserver.disconnect();
+                        }
                     }
                 });
             }, { threshold: 0.15 });
