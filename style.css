@@ -738,40 +738,44 @@ footer {
 /* Responsive */
 @media (max-width: 768px) {
     header {
-        width: calc(100% - 1rem);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        max-width: none;
+        margin: 0;
         padding: 0 1rem;
-        top: 0.5rem;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        background: var(--mobile-nav-bg);
+        backdrop-filter: blur(14px);
     }
     nav {
-        position: fixed;
-        top: 0;
+        position: absolute;
+        top: 100%;
         left: 0;
         right: 0;
-        width: 100vw;
-        height: 100dvh;
-        max-height: 100dvh;
+        width: 100%;
+        max-height: 0;
         background: var(--mobile-nav-bg);
-        border: none;
-        border-radius: 0;
-        box-shadow: var(--glass-shadow);
-        transform: translateY(-100%);
-        opacity: 0;
+        border-top: 1px solid var(--card-border);
+        box-shadow: 0 16px 24px rgba(0, 0, 0, 0.08);
+        transform: none;
+        opacity: 1;
         pointer-events: none;
-        visibility: hidden;
+        visibility: visible;
         transition: none;
         overflow-x: hidden;
         overflow-y: auto;
-        padding-top: calc(var(--nav-height) + 1.25rem);
-        z-index: 95;
+        padding-top: 0.25rem;
+        z-index: 5;
     }
     .nav-animate nav {
-        transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+        transition: max-height 0.3s ease;
     }
     .nav-open nav {
-        transform: translateY(0);
-        opacity: 1;
+        max-height: calc(100dvh - var(--nav-height));
         pointer-events: auto;
-        visibility: visible;
     }
     .nav-links {
         flex-direction: column;
@@ -811,34 +815,33 @@ footer {
         pointer-events: auto;
         background: none;
         border: none;
-        border-left: 2px solid var(--card-border);
+        border-left: 1px solid var(--card-border);
         border-radius: 0;
         box-shadow: none;
         backdrop-filter: none;
-        padding: 0.25rem 0 0.25rem 1rem;
+        padding: 0 0 0.25rem 1rem;
         min-width: unset;
         width: 100%;
         display: block;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
+        max-height: none;
+        overflow: visible;
+        transition: none;
     }
 
-    .nav-dropdown[data-open="true"] .nav-dropdown-menu {
-        max-height: 32rem;
-        transform: none;
-    }
-
-    .nav-dropdown[data-open="true"] .dropdown-arrow {
-        transform: rotate(180deg);
+    .dropdown-arrow {
+        display: none;
     }
 
     .nav-dropdown-menu a {
         font-size: 0.9rem;
-        padding: 0.75rem 0.75rem;
+        padding: 0.65rem 0.75rem;
     }
     .nav-toggle {
         display: flex;
+    }
+
+    .nav-open .nav-toggle {
+        transform: scale(1.06);
     }
     .header-controls {
         margin-left: auto;
