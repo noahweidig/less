@@ -756,7 +756,6 @@ footer {
         max-height: 0;
         background: var(--mobile-nav-bg);
         border-top: 1px solid var(--card-border);
-        box-shadow: 0 16px 24px rgba(0, 0, 0, 0.08);
         transform: none;
         opacity: 1;
         pointer-events: none;
@@ -769,9 +768,39 @@ footer {
     .nav-animate nav {
         transition: max-height 0.3s ease;
     }
+    .nav-open {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100vh; /* fallback for browsers without dvh support */
+        height: 100dvh;
+        overflow: hidden;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+    .nav-open .logo {
+        order: 1;
+        height: var(--nav-height);
+        display: flex;
+        align-items: center;
+    }
+    .nav-open .header-controls {
+        order: 2;
+        height: var(--nav-height);
+        display: flex;
+        align-items: center;
+    }
     .nav-open nav {
-        max-height: 2000px;
-        overflow: visible;
+        order: 3;
+        flex-basis: 100%;
+        max-height: calc(100vh - var(--nav-height)); /* fallback for browsers without dvh support */
+        max-height: calc(100dvh - var(--nav-height));
+        overflow-y: auto;
+        overflow-x: hidden;
         pointer-events: auto;
     }
     .nav-links {
