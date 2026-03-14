@@ -154,46 +154,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMedia = window.matchMedia('(max-width: 768px)');
     const isMobile = () => mobileMedia.matches;
 
-    // ⚡ Bolt: Cache DOM queries for navigation dropdowns to prevent repeated layout reads
-    const navDropdownsList = document.querySelectorAll('.nav-dropdown');
+    // ⚡ Bolt: Cache DOM queries for navigation dropdowns and their toggles to prevent repeated layout reads and O(N²) traversal
+    const navDropdownsData = Array.from(document.querySelectorAll('.nav-dropdown')).map(dropdown => ({
+        dropdown,
+        toggle: dropdown.querySelector('.nav-dropdown-toggle')
+    }));
 
     const syncMobileDropdownState = () => {
-        navDropdownsList.forEach(d => {
-            const btn = d.querySelector('.nav-dropdown-toggle');
-            if (!btn) return;
+        navDropdownsData.forEach(({ dropdown, toggle }) => {
+            if (!toggle) return;
 
             if (isMobile()) {
-                d.removeAttribute('data-open');
-                btn.setAttribute('aria-expanded', 'false');
+                dropdown.removeAttribute('data-open');
+                toggle.setAttribute('aria-expanded', 'false');
             } else {
-                d.removeAttribute('data-open');
-                btn.setAttribute('aria-expanded', 'false');
+                dropdown.removeAttribute('data-open');
+                toggle.setAttribute('aria-expanded', 'false');
             }
         });
     };
 
     const closeAllDropdowns = () => {
         if (isMobile()) return;
-        navDropdownsList.forEach(d => {
-            d.removeAttribute('data-open');
-            const btn = d.querySelector('.nav-dropdown-toggle');
-            if (btn) btn.setAttribute('aria-expanded', 'false');
+        navDropdownsData.forEach(({ dropdown, toggle }) => {
+            dropdown.removeAttribute('data-open');
+            if (toggle) toggle.setAttribute('aria-expanded', 'false');
         });
     };
 
     const collapseAllDropdowns = () => {
-        navDropdownsList.forEach(d => {
-            d.removeAttribute('data-open');
-            const btn = d.querySelector('.nav-dropdown-toggle');
-            if (btn) btn.setAttribute('aria-expanded', 'false');
+        navDropdownsData.forEach(({ dropdown, toggle }) => {
+            dropdown.removeAttribute('data-open');
+            if (toggle) toggle.setAttribute('aria-expanded', 'false');
         });
     };
 
     // Update aria-expanded to reflect hover state for accessibility (desktop)
     // and handle click toggling on mobile
-    navDropdownsList.forEach(dropdown => {
-        const toggle = dropdown.querySelector('.nav-dropdown-toggle');
-
+    navDropdownsData.forEach(({ dropdown, toggle }) => {
         // Mobile & Desktop Keyboard: toggle dropdown open/closed on button click
         if (toggle) {
             toggle.addEventListener('click', (e) => {
@@ -201,11 +199,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isOpen = dropdown.getAttribute('data-open') === 'true';
                 // On desktop, close all others first; on mobile allow multiple open
                 if (!isMobile()) {
-                    navDropdownsList.forEach(d => {
-                        if (d !== dropdown) {
-                            d.removeAttribute('data-open');
-                            const t = d.querySelector('.nav-dropdown-toggle');
-                            if (t) t.setAttribute('aria-expanded', 'false');
+                    navDropdownsData.forEach(other => {
+                        if (other.dropdown !== dropdown) {
+                            other.dropdown.removeAttribute('data-open');
+                            if (other.toggle) other.toggle.setAttribute('aria-expanded', 'false');
                         }
                     });
                 }
