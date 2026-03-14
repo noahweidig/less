@@ -1324,16 +1324,22 @@ footer {
 
 /* Tab Navigation */
 .tab-nav {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
     margin-bottom: 2.5rem;
+}
+
+@media (max-width: 600px) {
+    .tab-nav {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .tab-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.45rem;
     padding: calc(0.65rem + 2px) calc(1.6rem + 2px);
     border-radius: 50px;
