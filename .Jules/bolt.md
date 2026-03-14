@@ -43,3 +43,7 @@
 ## 2026-03-09 - Layout Thrashing in Scroll Handlers
 **Learning:** Interleaving DOM layout reads (`el.getBoundingClientRect().top`) and style writes (`el.style.maskImage`) within a single loop connected to a scroll event forces the browser to recalculate layout (Forced Synchronous Layout) on every element, on every scroll frame. This severely impacts scrolling performance.
 **Action:** Strictly separate DOM reads and DOM writes into two distinct phases. Use two separate loops (or array methods): the first to cache all layout measurements, and the second to apply all style changes.
+
+## 2026-03-09 - Redundant Child DOM Queries Inside NodeList Iterations
+**Learning:** Repeating `querySelector` inside `.forEach` loops for static child elements (like finding `.nav-dropdown-toggle` inside each `.nav-dropdown`) causes redundant DOM traversals. Since these elements are static and don't change after load, re-querying them on every interaction (like hover, click, or resize) wastes CPU cycles and creates an O(N²) traversal pattern when nesting loops.
+**Action:** Map the parent NodeList into an array of objects caching both the parent element and its specific child elements during initialization, and iterate over this cached structure instead.
