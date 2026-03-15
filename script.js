@@ -472,27 +472,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (tabBtns.length > 0) {
+        // ⚡ Bolt: Cache Array.from conversion of tabBtns to avoid O(N) array allocation inside keydown listener
+        const allTabBtns = Array.from(tabBtns);
+
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => switchToPanel(btn));
 
             // Keyboard navigation: left/right arrow keys between tabs
             btn.addEventListener('keydown', (e) => {
-                const allBtns = Array.from(tabBtns);
-                const currentIndex = allBtns.indexOf(btn);
+                const currentIndex = allTabBtns.indexOf(btn);
                 let newIndex = -1;
                 if (e.key === 'ArrowRight') {
-                    newIndex = (currentIndex + 1) % allBtns.length;
+                    newIndex = (currentIndex + 1) % allTabBtns.length;
                 } else if (e.key === 'ArrowLeft') {
-                    newIndex = (currentIndex - 1 + allBtns.length) % allBtns.length;
+                    newIndex = (currentIndex - 1 + allTabBtns.length) % allTabBtns.length;
                 } else if (e.key === 'Home') {
                     newIndex = 0;
                 } else if (e.key === 'End') {
-                    newIndex = allBtns.length - 1;
+                    newIndex = allTabBtns.length - 1;
                 }
                 if (newIndex >= 0) {
                     e.preventDefault();
-                    allBtns[newIndex].focus();
-                    allBtns[newIndex].click();
+                    allTabBtns[newIndex].focus();
+                    allTabBtns[newIndex].click();
                 }
             });
         });
