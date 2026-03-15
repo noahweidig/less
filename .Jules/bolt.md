@@ -47,3 +47,7 @@
 ## 2026-03-09 - Redundant Child DOM Queries Inside NodeList Iterations
 **Learning:** Repeating `querySelector` inside `.forEach` loops for static child elements (like finding `.nav-dropdown-toggle` inside each `.nav-dropdown`) causes redundant DOM traversals. Since these elements are static and don't change after load, re-querying them on every interaction (like hover, click, or resize) wastes CPU cycles and creates an O(N²) traversal pattern when nesting loops.
 **Action:** Map the parent NodeList into an array of objects caching both the parent element and its specific child elements during initialization, and iterate over this cached structure instead.
+
+## 2026-03-15 - Array Conversion Caching in Loops
+**Learning:** Calling `Array.from(NodeList)` inside an event listener that can fire rapidly or repeatedly (e.g., `keydown` within a `forEach` loop attaching listeners) allocates a new Array in memory on every single event trigger. This adds unnecessary memory allocation and garbage collection overhead, especially in UI interaction loops.
+**Action:** When working with static NodeLists that don't change after initialization, convert the NodeList to an Array once outside of any loops or event handlers and cache the result.
