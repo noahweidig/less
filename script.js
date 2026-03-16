@@ -101,20 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const cleanup = (e) => {
             if (e.target !== nav) return;
-            collapseAllDropdowns();
             header.classList.remove('nav-animate');
-            header.classList.remove('nav-closing');
             nav.removeEventListener('transitionend', cleanup);
         };
 
         const closeMenu = () => {
-            header.classList.add('nav-animate');
-            header.classList.add('nav-closing');
-            nav.addEventListener('transitionend', cleanup);
             header.classList.remove('nav-open');
             navToggle.setAttribute('aria-expanded', 'false');
             navToggle.setAttribute('aria-label', 'Open menu');
             document.body.style.overflow = '';
+            collapseAllDropdowns();
         };
 
         navToggle.addEventListener('click', () => {
