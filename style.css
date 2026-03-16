@@ -808,27 +808,6 @@ footer {
         pointer-events: auto;
         padding-top: 0.25rem;
     }
-    .nav-closing {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100vh;
-        height: 100dvh;
-        overflow: hidden;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        border-radius: 0;
-        border: none;
-        box-shadow: none;
-    }
-    .nav-closing nav {
-        flex-basis: calc(100% + 2rem);
-        margin-left: -1rem;
-        margin-right: -1rem;
-        overflow: hidden;
-        pointer-events: none;
-    }
     .nav-links {
         flex-direction: column;
         align-items: flex-start;
