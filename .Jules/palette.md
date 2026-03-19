@@ -78,3 +78,6 @@
 ## 2026-03-12 - Focus Parity for Visual Hover States on Non-Interactive Elements
 **Learning:** Elements that visually respond to user interaction (e.g., using CSS transforms or box-shadows on `:hover`) but are not inherently interactive (like a `<div>` used for a stat card) will completely exclude keyboard users from experiencing that visual feedback unless they are explicitly added to the tab order.
 **Action:** Always assign `tabindex="0"` to non-interactive structural elements that feature rich, interactive `:hover` styles, and pair their `:hover` CSS selectors with `:focus-visible` to ensure feature parity for keyboard users.
+## 2026-03-19 - Adding Tooltips to Custom Icon Buttons for Sighted Mouse Users
+**Learning:** While `aria-label` provides necessary context for screen reader users on icon-only interactive elements (like custom checkmarks or markers), sighted mouse users rely on the `title` attribute to see native browser tooltips. Without it, the function of the icon might be ambiguous or frustrating to discover.
+**Action:** When implementing icon-only buttons or interactive elements that use `aria-label` for state (e.g., 'Mark step as complete'), always sync a `title` attribute to match the `aria-label` dynamically. This ensures UX parity for both mouse hover and screen reader interactions.

@@ -712,6 +712,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     marker.setAttribute('aria-label', currentLabel.replace('complete', 'incomplete'));
                 }
             }
+
+            // 🎨 Palette: Add tooltip parity for sighted mouse users based on the current aria-label
+            const initialLabel = marker.getAttribute('aria-label');
+            if (initialLabel) {
+                marker.setAttribute('title', initialLabel);
+            }
         });
 
         // ⚡ Bolt: Use event delegation instead of attaching O(n) event listeners
@@ -726,11 +732,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 🎨 Palette: Dynamically update aria-label for accurate screen reader announcements
                 const currentLabel = marker.getAttribute('aria-label');
                 if (currentLabel) {
-                    if (newState) {
-                        marker.setAttribute('aria-label', currentLabel.replace('complete', 'incomplete'));
-                    } else {
-                        marker.setAttribute('aria-label', currentLabel.replace('incomplete', 'complete'));
-                    }
+                    const newLabel = newState
+                        ? currentLabel.replace('complete', 'incomplete')
+                        : currentLabel.replace('incomplete', 'complete');
+
+                    marker.setAttribute('aria-label', newLabel);
+                    marker.setAttribute('title', newLabel); // Add tooltip parity
                 }
 
                 // Save to localStorage
