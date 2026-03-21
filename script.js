@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (navToggle && header) {
+        // 🎨 Palette: Set initial tooltip parity for sighted mouse users
+        navToggle.setAttribute('title', 'Open menu');
+
         const nav = header.querySelector('nav');
 
         const cleanup = (e) => {
@@ -109,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             header.classList.remove('nav-open');
             navToggle.setAttribute('aria-expanded', 'false');
             navToggle.setAttribute('aria-label', 'Open menu');
+            navToggle.setAttribute('title', 'Open menu');
             document.body.style.overflow = '';
             collapseAllDropdowns();
         };
@@ -123,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 header.classList.add('nav-open');
                 navToggle.setAttribute('aria-expanded', 'true');
                 navToggle.setAttribute('aria-label', 'Close menu');
+                navToggle.setAttribute('title', 'Close menu (Esc)');
                 document.body.style.overflow = 'hidden';
             }
         });
