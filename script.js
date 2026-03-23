@@ -696,6 +696,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- External Links ---
+    const externalLinks = document.querySelectorAll('a[target="_blank"]');
+    if (externalLinks.length > 0) {
+        externalLinks.forEach(link => {
+            // Add visually hidden text for screen readers
+            const srText = document.createElement('span');
+            srText.className = 'sr-only';
+            srText.textContent = ' (opens in a new tab)';
+            link.appendChild(srText);
+
+            // Add tooltip parity for sighted mouse users
+            if (!link.hasAttribute('title')) {
+                link.setAttribute('title', 'Opens in a new tab');
+            }
+        });
+    }
+
     // --- Scroll Exit Fade Effect ---
     // Disabled: CSS masks with a translucent, backdrop-filtered navbar can cause
     // severe color artifacts while scrolling in both light and dark modes.
