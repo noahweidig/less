@@ -81,3 +81,7 @@
 ## 2026-03-19 - Adding Tooltips to Custom Icon Buttons for Sighted Mouse Users
 **Learning:** While `aria-label` provides necessary context for screen reader users on icon-only interactive elements (like custom checkmarks or markers), sighted mouse users rely on the `title` attribute to see native browser tooltips. Without it, the function of the icon might be ambiguous or frustrating to discover.
 **Action:** When implementing icon-only buttons or interactive elements that use `aria-label` for state (e.g., 'Mark step as complete'), always sync a `title` attribute to match the `aria-label` dynamically. This ensures UX parity for both mouse hover and screen reader interactions.
+
+## 2026-03-23 - Explicit Context Shifts for External Links
+**Learning:** External links (`target="_blank"`) create abrupt context shifts that can be disorienting for screen reader users and unexpected for mouse users, particularly on static or simple content sites where external links aren't clearly marked.
+**Action:** Always append visually hidden text (e.g., `<span class="sr-only"> (opens in a new tab)</span>`) to links that open in a new tab to notify screen readers. Additionally, add a `title="Opens in a new tab"` attribute to provide a native browser tooltip for sighted mouse users, ensuring feature parity.
