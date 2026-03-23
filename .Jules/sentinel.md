@@ -59,3 +59,8 @@
 **Vulnerability:** Unbounded writes to `localStorage` could allow tampered data or a malicious script (if XSS was achieved) to exceed the storage quota, causing a denial of service (DoS) for the application's legitimate storage needs.
 **Learning:** `localStorage` is a shared resource per origin with a strict size limit. Any wrapper around it must enforce input length limits to prevent resource exhaustion attacks and ensure the application degrades gracefully.
 **Prevention:** Added string type coercion and strict length limits (100 chars for keys, 1000 chars for values) to the `safeStorage.setItem` method.
+
+## 2026-03-10 - [Dynamic Reverse Tabnabbing Defense]
+**Vulnerability:** Reverse tabnabbing is a vulnerability where newly opened tabs (`target="_blank"`) can gain access to the `window.opener` object and navigate the original page to a malicious URL, creating a phishing risk. Modern browsers mitigate this by default, but defense-in-depth is required.
+**Learning:** While the codebase correctly uses `rel="noopener noreferrer"` in the HTML source, relying purely on manual addition by authors is prone to human error, particularly as the site scales and more external links are added.
+**Prevention:** Implemented a dynamic client-side defense-in-depth mechanism in `script.js` that automatically enforces `noopener` and `noreferrer` on all `a[target="_blank"]` elements, guarding against future omissions in the HTML.
