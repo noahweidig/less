@@ -710,6 +710,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!link.hasAttribute('title')) {
                 link.setAttribute('title', 'Opens in a new tab');
             }
+
+            // 🛡️ Sentinel: Defense-in-depth against reverse tabnabbing.
+            // Ensure all external links have rel="noopener noreferrer" dynamically
+            // in case they are omitted from the HTML source.
+            const currentRel = link.getAttribute('rel') || '';
+            const relParts = currentRel.split(' ').filter(Boolean);
+            let relChanged = false;
+
+            if (!relParts.includes('noopener')) {
+                relParts.push('noopener');
+                relChanged = true;
+            }
+            if (!relParts.includes('noreferrer')) {
+                relParts.push('noreferrer');
+                relChanged = true;
+            }
+
+            if (relChanged) {
+                link.setAttribute('rel', relParts.join(' '));
+            }
         });
     }
 
