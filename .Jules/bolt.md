@@ -51,3 +51,7 @@
 ## 2026-03-15 - Array Conversion Caching in Loops
 **Learning:** Calling `Array.from(NodeList)` inside an event listener that can fire rapidly or repeatedly (e.g., `keydown` within a `forEach` loop attaching listeners) allocates a new Array in memory on every single event trigger. This adds unnecessary memory allocation and garbage collection overhead, especially in UI interaction loops.
 **Action:** When working with static NodeLists that don't change after initialization, convert the NodeList to an Array once outside of any loops or event handlers and cache the result.
+
+## 2026-03-24 - Consolidating Sequential DOM Loops
+**Learning:** Resetting an entire collection and then setting a specific element's state causes redundant DOM writes and requires multiple passes. However, when consolidating loops, one must be careful not to remove early returns (like `isMobile()`) that previously bypassed the loop entirely, which would introduce an O(n) regression.
+**Action:** Consolidate class list manipulations and state updates into a single iteration over the collection, using an if/else check to set the correct state for each item, but ensure that any broad early-exit conditions are preserved outside the loop.
