@@ -446,20 +446,35 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const switchToPanel = (btn) => {
-        // Deactivate all tabs and hide all panels
-        tabBtns.forEach(b => {
-            b.setAttribute('aria-selected', 'false');
-            b.setAttribute('tabindex', '-1');
-        });
-        tabPanels.forEach(p => { p.hidden = true; });
-
-        // Activate the clicked tab
-        btn.setAttribute('aria-selected', 'true');
-        btn.setAttribute('tabindex', '0');
         const targetId = btn.getAttribute('aria-controls');
-        const targetPanel = document.getElementById(targetId);
+
+        // ⚡ Bolt: Consolidate state updates into a single iteration for tabs
+        tabBtns.forEach(b => {
+            const isTargetTab = b === btn;
+            const currentSelected = b.getAttribute('aria-selected');
+
+            if (isTargetTab && currentSelected !== 'true') {
+                b.setAttribute('aria-selected', 'true');
+                b.setAttribute('tabindex', '0');
+            } else if (!isTargetTab && currentSelected !== 'false') {
+                b.setAttribute('aria-selected', 'false');
+                b.setAttribute('tabindex', '-1');
+            }
+        });
+
+        let targetPanel = null;
+
+        // ⚡ Bolt: Consolidate state updates into a single iteration for panels
+        tabPanels.forEach(p => {
+            if (p.id === targetId) {
+                targetPanel = p;
+                if (p.hidden) p.hidden = false;
+            } else {
+                if (!p.hidden) p.hidden = true;
+            }
+        });
+
         if (targetPanel) {
-            targetPanel.hidden = false;
             // Trigger panel slide-in animation
             if (!prefersReducedMotion) {
                 void targetPanel.offsetWidth; // reflow to reset animation
