@@ -165,13 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
         navDropdownsData.forEach(({ dropdown, toggle }) => {
             if (!toggle) return;
 
-            if (isMobile()) {
-                dropdown.removeAttribute('data-open');
-                toggle.setAttribute('aria-expanded', 'false');
-            } else {
-                dropdown.removeAttribute('data-open');
-                toggle.setAttribute('aria-expanded', 'false');
-            }
+            // ⚡ Bolt: Removed redundant isMobile() check since both branches execute identical code
+            dropdown.removeAttribute('data-open');
+            toggle.setAttribute('aria-expanded', 'false');
         });
     };
 
