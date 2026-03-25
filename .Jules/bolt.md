@@ -55,3 +55,6 @@
 ## 2026-03-24 - Consolidating Sequential DOM Loops
 **Learning:** Resetting an entire collection and then setting a specific element's state causes redundant DOM writes and requires multiple passes. However, when consolidating loops, one must be careful not to remove early returns (like `isMobile()`) that previously bypassed the loop entirely, which would introduce an O(n) regression.
 **Action:** Consolidate class list manipulations and state updates into a single iteration over the collection, using an if/else check to set the correct state for each item, but ensure that any broad early-exit conditions are preserved outside the loop.
+## 2026-03-25 - Redundant Conditional Evaluation in DOM Update Loops
+**Learning:** Checking a media query evaluation (like `isMobile()`) inside a frequent iteration (like updating the state of every dropdown link on resize) forces redundant function calls if both the `if` and `else` blocks execute identical operations.
+**Action:** Always verify if branches of a conditional statement within an iterative process are executing identical code. If so, eliminate the redundant conditional evaluation to reduce function call overhead.
