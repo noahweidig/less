@@ -490,6 +490,10 @@ a.card {
     transform: translateY(-10px) translateZ(0);
 }
 
+.card:active {
+    transform: translateY(-5px) translateZ(0);
+}
+
 .card h3 {
     margin-bottom: 1rem;
     color: var(--primary-purple);
@@ -1423,6 +1427,10 @@ footer {
     transform: translateY(-5px);
     box-shadow: 0 16px 48px rgba(108, 92, 231, 0.15);
     border-color: rgba(108, 92, 231, 0.2);
+}
+
+.cost-card:active {
+    transform: translateY(-2px);
 }
 
 /* Visualization container */
