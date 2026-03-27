@@ -64,3 +64,8 @@
 **Vulnerability:** Reverse tabnabbing is a vulnerability where newly opened tabs (`target="_blank"`) can gain access to the `window.opener` object and navigate the original page to a malicious URL, creating a phishing risk. Modern browsers mitigate this by default, but defense-in-depth is required.
 **Learning:** While the codebase correctly uses `rel="noopener noreferrer"` in the HTML source, relying purely on manual addition by authors is prone to human error, particularly as the site scales and more external links are added.
 **Prevention:** Implemented a dynamic client-side defense-in-depth mechanism in `script.js` that automatically enforces `noopener` and `noreferrer` on all `a[target="_blank"]` elements, guarding against future omissions in the HTML.
+
+## 2026-03-11 - [Referrer Privacy Enhancement]
+**Vulnerability:** The default `strict-origin-when-cross-origin` referrer policy leaked the site's origin to external third-party sites when users navigated to recommended tools or communities.
+**Learning:** For a privacy-focused static site that curates numerous external links, sending any referrer data is an unnecessary information leakage.
+**Prevention:** Changed the global `<meta name="referrer">` tag to `no-referrer` to prevent the browser from sending any referrer headers on outbound requests.
