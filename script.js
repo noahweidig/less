@@ -426,7 +426,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Animate stat counters
+        // 🎨 Palette: Let JS handle the initial reset to "0" since the DOM is initialized with final values for screen readers
         statNumbers.forEach(el => {
+            el.textContent = '0';
             animateValue(el, parseInt(el.getAttribute('data-target'), 10), duration);
         });
 
