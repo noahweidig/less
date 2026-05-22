@@ -468,13 +468,8 @@ header.scrolled {
     padding: 2rem;
     border-radius: 20px;
     border: 1px solid var(--card-border);
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 0 12px rgba(108, 92, 231, 0.15);
     backdrop-filter: blur(5px);
-    transform: translateZ(0);
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    /* ⚡ Bolt: Removed static will-change: transform. It permanently allocates VRAM. Applied dynamically via JS on pointerenter. */
-    transition: transform 0.3s;
     cursor: default;
 }
 
@@ -483,15 +478,6 @@ a.card {
     color: inherit;
     display: block;
     cursor: pointer;
-}
-
-.card:hover,
-.card:focus-visible {
-    transform: translateY(-10px) translateZ(0);
-}
-
-.card:active {
-    transform: translateY(-5px) translateZ(0);
 }
 
 .card h3 {
@@ -651,7 +637,7 @@ a.card {
     border-radius: 16px;
     padding: 1.5rem 1rem;
     text-align: center;
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 0 12px rgba(108, 92, 231, 0.15);
     backdrop-filter: blur(5px);
 }
 
@@ -1144,14 +1130,6 @@ footer {
 }
 
 /* Pillar cards (clickable) */
-.pillar-card h3 {
-    transition: color 0.3s;
-}
-
-.pillar-card:hover h3,
-.pillar-card:focus-visible h3 {
-    color: var(--primary-orange);
-}
 
 /* Accessibility - Remove outline for non-interactive scroll targets */
 [tabindex="-1"]:focus {
@@ -1407,30 +1385,14 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 0.6rem;
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 0 12px rgba(108, 92, 231, 0.15);
     backdrop-filter: blur(6px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    /* Start hidden; JS reveals on scroll */
     opacity: 0;
-    transform: translateY(18px);
 }
 
 .cost-card.cost-card--visible {
     opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.55s ease, transform 0.55s ease,
-                box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.cost-card:hover,
-.cost-card:focus-visible {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 48px rgba(108, 92, 231, 0.15);
-    border-color: rgba(108, 92, 231, 0.2);
-}
-
-.cost-card:active {
-    transform: translateY(-2px);
+    transition: opacity 0.55s ease;
 }
 
 /* Visualization container */
