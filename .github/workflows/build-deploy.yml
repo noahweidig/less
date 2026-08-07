@@ -1,0 +1,69 @@
+name: Build and Deploy Site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate HTML
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: .
+          extra: --ignore-re "PERFORMANCE_IMPACT|README"
+
+      - name: Check for broken internal links
+        run: |
+          set -e
+          shopt -s nullglob
+          fail=0
+          for f in *.html; do
+            while read -r link; do
+              [ -z "$link" ] && continue
+              if [[ "$link" != http* ]] && [ ! -f "$link" ]; then
+                echo "Broken link in $f -> $link"
+                fail=1
+              fi
+            done < <(grep -oE 'href="[^"#][^"]*\.html"' "$f" | sed -E 's/href="([^"]*)"/\1/' | sort -u)
+          done
+          exit $fail
+
+      - name: Prepare artifact
+        run: |
+          mkdir -p _site
+          shopt -s extglob
+          cp -r !(_site|.git|.github|.Jules|node_modules) _site/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
