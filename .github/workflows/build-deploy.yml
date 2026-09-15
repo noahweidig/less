@@ -23,38 +23,46 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
       - name: Validate HTML
         uses: Cyb3r-Jak3/html5validator-action@v7.2.0
         with:
-          root: .
+          root: dist
           extra: --ignore-re "require-trusted-types-for"
 
       - name: Check for broken internal links
         run: |
           set -e
-          shopt -s nullglob
           fail=0
-          for f in *.html; do
+          while IFS= read -r -d '' f; do
             while read -r link; do
               [ -z "$link" ] && continue
-              if [[ "$link" != http* ]] && [ ! -f "$link" ]; then
+              path="${link%%#*}"
+              [ -z "$path" ] && continue
+              target="dist${path}"
+              if [ ! -f "$target" ] && [ ! -f "${target%/}/index.html" ]; then
                 echo "Broken link in $f -> $link"
                 fail=1
               fi
-            done < <(grep -oE 'href="[^"#][^"]*\.html"' "$f" | sed -E 's/href="([^"]*)"/\1/' | sort -u)
-          done
+            done < <(grep -oE 'href="/[^"]*"' "$f" | sed -E 's/href="([^"]*)"/\1/' | sort -u)
+          done < <(find dist -name '*.html' -print0)
           exit $fail
-
-      - name: Prepare artifact
-        run: |
-          mkdir -p _site
-          shopt -s extglob
-          cp -r !(_site|.git|.github|.Jules|node_modules) _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: dist
 
   deploy:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'

@@ -1,0 +1,151 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import StatCard from '../../components/StatCard.astro';
+import Quote from '../../components/Quote.astro';
+import { stats, quotes } from '../../data/citations';
+---
+<Layout
+    title="Financial Minimalism — Less."
+    description="Explore financial minimalism: spend less on what doesn't matter and reclaim control of your money."
+    path="/money"
+    section="money"
+>
+        <section class="hero small">
+            <div class="hero-content">
+                <h1>Money</h1>
+                <p class="subtitle">Financial freedom isn't about having more. It's about needing less.</p>
+            </div>
+            <div class="hero-shapes">
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </section>
+
+        <section class="content-section standalone-crisis-section" id="cost-money" tabindex="-1">
+            <h2>The Cost of Overspending</h2>
+            <p class="section-intro">Consumer culture was designed to extract money at every turn. Here's what the real, sourced data says about the cost of spending without intention.</p>
+            <div class="cost-grid">
+                <StatCard {...stats.nonEssentialSpend}>
+                    <svg class="mini-donut" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="mmg-o1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#fdcb6e"/></linearGradient>
+                        </defs>
+                        <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                        <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mmg-o1)" data-pct="30"/>
+                    </svg>
+                </StatCard>
+                <StatCard {...stats.unusedSubscriptions}>
+                    <svg class="dot-grid" viewBox="0 0 128 46">
+                        <circle class="dot dot--lit dot--green" cx="11" cy="11" r="8"/>
+                        <circle class="dot dot--lit dot--green" cx="33" cy="11" r="8"/>
+                        <circle class="dot dot--lit dot--green" cx="55" cy="11" r="8"/>
+                        <circle class="dot dot--lit dot--green" cx="77" cy="11" r="8"/>
+                        <circle class="dot dot--lit dot--green" cx="99" cy="11" r="8"/>
+                        <circle class="dot dot--lit dot--green" cx="121" cy="11" r="8"/>
+                        <circle class="dot dot--lit dot--green" cx="11" cy="35" r="8"/>
+                        <circle class="dot dot--dim" cx="33" cy="35" r="8"/>
+                        <circle class="dot dot--dim" cx="55" cy="35" r="8"/>
+                        <circle class="dot dot--dim" cx="77" cy="35" r="8"/>
+                        <circle class="dot dot--dim" cx="99" cy="35" r="8"/>
+                        <circle class="dot dot--dim" cx="121" cy="35" r="8"/>
+                    </svg>
+                </StatCard>
+                <StatCard {...stats.savingsRate}>
+                    <svg class="mini-donut" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="mmg-g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00b894"/><stop offset="100%" stop-color="#55efc4"/></linearGradient>
+                        </defs>
+                        <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                        <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mmg-g1)" data-pct="3"/>
+                    </svg>
+                </StatCard>
+                <StatCard {...stats.creditCardDebt}>
+                    <svg class="mini-donut" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="mmg-o2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#fdcb6e"/></linearGradient>
+                        </defs>
+                        <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                        <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mmg-o2)" data-pct="60"/>
+                    </svg>
+                </StatCard>
+            </div>
+        </section>
+
+        <section class="content-section benefits">
+            <h2>What You Stand to Gain</h2>
+            <p class="section-intro">Financial minimalism isn't about deprivation. It's about spending deliberately on what matters and ruthlessly cutting what doesn't, freeing resources for your actual values.</p>
+            <div class="cards">
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Freedom</h3>
+                    <p>Carrying less debt means fewer obligations to the past. When your income isn't tied up in payments for things you've already forgotten, you gain the flexibility to make choices about your future.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Security</h3>
+                    <p>A higher savings rate provides a buffer against the unexpected. It transforms financial emergencies into mere inconveniences, replacing chronic background anxiety with profound peace of mind.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Intention</h3>
+                    <p>When you stop upgrading your lifestyle just because you earn more, every purchase becomes a deliberate choice. You start funding the life you actually want, rather than the one you defaulted into.</p>
+                </div>
+            </div>
+        </section>
+
+        <Quote {...quotes.willRogers} />
+
+        <section class="content-section">
+            <h2>Core Practices</h2>
+            <p class="section-intro">Financial minimalism isn't a budget you fight every month. It's a decision-making framework that makes the right choice feel natural — before the impulse has time to win.</p>
+            <div class="cards">
+                <div class="card" data-tilt tabindex="0">
+                    <h3>The 24-Hour Rule</h3>
+                    <p>Before any non-essential purchase, wait 24 hours. For larger purchases, wait 72. Most impulse purchases evaporate when you give them time. What survives the wait is usually worth buying.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Cost Per Use</h3>
+                    <p>Judge every purchase not by its sticker price but by its cost per use. A $200 quality jacket worn 200 times costs $1 per wear. A $40 jacket worn twice costs $20 per wear. Cheap and inexpensive are different things.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Values-Based Budgeting</h3>
+                    <p>Write down your three most important values. Then look at your last month of spending. If your money isn't flowing toward those values, you're funding a life you didn't choose. Realign ruthlessly.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section steps">
+            <h2>The Financial Declutter</h2>
+            <p class="section-intro">Financial clarity doesn't require a financial advisor. It requires looking honestly at what's leaving your account — and asking whether it's funding a life you actually chose.</p>
+            <ul class="step-list" role="list">
+                <li class="step">
+                    <span class="step-number">01</span>
+                    <div class="step-content">
+                        <h3>Track every dollar for 30 days</h3>
+                        <p>Not to judge yourself — to see clearly. Most people have no idea where their money actually goes. You can't edit what you haven't audited. Awareness is the first act of financial minimalism.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-number">02</span>
+                    <div class="step-content">
+                        <h3>Cancel what you don't actively use</h3>
+                        <p>Go through every recurring charge: subscriptions, memberships, apps. If you haven't used it in the past 30 days with real intention, cancel it. You can always resubscribe. Cancellation is reversible.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-number">03</span>
+                    <div class="step-content">
+                        <h3>Automate savings before spending</h3>
+                        <p>Move savings to a separate account on payday, before you have a chance to spend it. Savings that happen automatically are savings that actually happen. Spend only what remains — and do it with full presence.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="content-section next-step">
+            <h2>The Deepest Clutter Is Internal</h2>
+            <p class="section-intro">A simpler financial life creates breathing room — not just in your bank account, but in the hours you no longer spend working to maintain things you didn't need. The last layer is the mind.</p>
+            <div class="next-step-links">
+                <a href="/mind" class="cta-button">Next: Mind</a>
+                <a href="/money/habits" class="cta-button cta-secondary">Money Habits</a>
+                <a href="/money/tools" class="cta-button cta-secondary">Money Tools</a>
+            </div>
+        </section>
+</Layout>

@@ -1,0 +1,15 @@
+---
+interface Props {
+  text: string;
+  author: string;
+  sourceUrl: string;
+}
+
+const { text, author, sourceUrl } = Astro.props;
+---
+<section class="content-section interactive-quote">
+    <blockquote>
+        "{text}"
+    </blockquote>
+    <cite>— <a href={sourceUrl} target="_blank" rel="noopener noreferrer">{author}</a></cite>
+</section>

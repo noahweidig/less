@@ -1,0 +1,48 @@
+---
+import { Sun, Moon, ChevronDown, Menu, X } from '@lucide/astro';
+
+interface Props {
+  section?: 'life' | 'tech' | 'money' | 'mind';
+}
+
+const { section } = Astro.props;
+
+const sections = [
+  { key: 'life', label: 'Life', href: '/life' },
+  { key: 'tech', label: 'Tech', href: '/tech' },
+  { key: 'money', label: 'Money', href: '/money' },
+  { key: 'mind', label: 'Mind', href: '/mind' },
+] as const;
+---
+<header>
+    <a href="/" class="logo" aria-label="Home"><svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="logo-gradient" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6c5ce7"/><stop offset="100%" stop-color="#e17055"/></linearGradient></defs><circle cx="50" cy="50" r="45" stroke="url(#logo-gradient)" stroke-width="10" fill="none"/><circle cx="50" cy="50" r="20" fill="url(#logo-gradient)"/></svg><span class="logo-text">Less.</span></a>
+    <nav id="primary-navigation" aria-label="Primary navigation">
+        <ul class="nav-links" role="list">
+            <li><a href="/" aria-current={!section ? 'page' : undefined}>Home</a></li>
+            {sections.map((s) => (
+                <li class="nav-dropdown">
+                    <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-current={section === s.key ? 'page' : undefined}>
+                        {s.label}
+                        <ChevronDown class="dropdown-arrow" aria-hidden="true" size={12} />
+                    </button>
+                    <ul class="nav-dropdown-menu" role="list">
+                        <li><a href={s.href}>Overview</a></li>
+                        <li><a href={`${s.href}/tools`}>Tools</a></li>
+                        <li><a href={`${s.href}/habits`}>Habits</a></li>
+                        <li><a href={`${s.href}/community`}>Community</a></li>
+                    </ul>
+                </li>
+            ))}
+        </ul>
+    </nav>
+    <div class="header-controls">
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <Sun class="icon sun" aria-hidden="true" size={20} />
+            <Moon class="icon moon" aria-hidden="true" size={20} />
+        </button>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-navigation">
+            <Menu class="nav-toggle-icon icon-menu" aria-hidden="true" size={22} />
+            <X class="nav-toggle-icon icon-close" aria-hidden="true" size={22} />
+        </button>
+    </div>
+</header>

@@ -1,0 +1,144 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import StatCard from '../../components/StatCard.astro';
+import Quote from '../../components/Quote.astro';
+import { stats, quotes } from '../../data/citations';
+---
+<Layout
+    title="Mental Minimalism — Less."
+    description="Explore mental minimalism: reduce information overload, cut commitments, and reclaim a quiet mind."
+    path="/mind"
+    section="mind"
+>
+        <section class="hero small">
+            <div class="hero-content">
+                <h1>Mind</h1>
+                <p class="subtitle">A quiet mind is the most productive tool you own.</p>
+            </div>
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </section>
+
+        <section class="content-section standalone-crisis-section" id="cost-mind" tabindex="-1">
+            <h2>The Cost of Mental Overload</h2>
+            <p class="section-intro">The modern mind is under siege — from information overload, chronic stress, and a daily decision count that would have been unimaginable a generation ago. Here's what the real, sourced data says.</p>
+            <div class="cost-grid">
+                <StatCard {...stats.informationOverload}>
+                    <svg class="mini-donut" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="ndmg-m1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#6c5ce7"/></linearGradient>
+                        </defs>
+                        <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                        <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#ndmg-m1)" data-pct="20"/>
+                    </svg>
+                </StatCard>
+                <StatCard {...stats.physicalStressSymptoms}>
+                    <svg class="mini-donut" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="ndmg-m2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#6c5ce7"/></linearGradient>
+                        </defs>
+                        <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                        <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#ndmg-m2)" data-pct="77"/>
+                    </svg>
+                </StatCard>
+                <StatCard {...stats.dailyInfoConsumption}>
+                    <svg class="mini-donut" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="ndmg-p1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6c5ce7"/><stop offset="100%" stop-color="#a29bfe"/></linearGradient>
+                        </defs>
+                        <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                        <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#ndmg-p1)" data-pct="34"/>
+                    </svg>
+                </StatCard>
+                <StatCard {...stats.anxietyDisruption}>
+                    <svg class="mini-donut" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="ndmg-m3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#6c5ce7"/></linearGradient>
+                        </defs>
+                        <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                        <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#ndmg-m3)" data-pct="40"/>
+                    </svg>
+                </StatCard>
+            </div>
+        </section>
+
+        <section class="content-section benefits">
+            <h2>What You Stand to Gain</h2>
+            <p class="section-intro">You can have a spotless home and a healthy bank account and still feel overwhelmed. Mental minimalism creates the space required to actually enjoy the life you've built.</p>
+            <div class="cards">
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Deep Focus</h3>
+                    <p>When you stop consuming meaningless information and agonizing over trivial decisions, you regain your ability to focus deeply on work that actually matters.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Reduced Anxiety</h3>
+                    <p>A cluttered mind is an anxious mind. Curating your inputs and simplifying your commitments acts as a release valve for chronic, background stress.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>True Presence</h3>
+                    <p>A quiet mind lets you inhabit your own life. Instead of physically being somewhere while mentally elsewhere, you become fully present for the people in front of you.</p>
+                </div>
+            </div>
+        </section>
+
+        <Quote {...quotes.bruceLee} />
+
+        <section class="content-section">
+            <h2>Core Practices</h2>
+            <p class="section-intro">A quieter mind isn't a passive state — it's something you build, deliberately, by protecting what gets in and being honest about what you say yes to.</p>
+            <div class="cards">
+                <div class="card" data-tilt tabindex="0">
+                    <h3>The Information Diet</h3>
+                    <p>Curate your inputs the way you'd curate your food. Unsubscribe from newsletters you skim. Mute accounts that don't add value. Read fewer, better things — deeply. Your mental environment shapes your thinking as surely as your physical one shapes your mood.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>The Art of No</h3>
+                    <p>Every yes is a no to something else. Before agreeing to any new commitment, ask: if this were next week instead of six months from now, would I still say yes? If not, decline gracefully. Time is the only resource you cannot earn back.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Scheduled Stillness</h3>
+                    <p>Protect time for thinking, not just doing. Block time in your week for walks without podcasts, for sitting with a problem, for doing nothing in particular. Boredom is where insight lives. We've accidentally engineered it out of our lives.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section steps">
+            <h2>The Mental Declutter</h2>
+            <p class="section-intro">Clarity doesn't come from adding more productivity systems. It comes from a few honest questions you ask yourself this week — and the willingness to act on the answers.</p>
+            <ul class="step-list" role="list">
+                <li class="step">
+                    <span class="step-number">01</span>
+                    <div class="step-content">
+                        <h3>Audit your commitments</h3>
+                        <p>Write down every recurring obligation: meetings, social events, volunteer work, side projects. Be honest about which ones you chose and which ones just accumulated. Anything you can't enthusiastically justify gets a serious review.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-number">02</span>
+                    <div class="step-content">
+                        <h3>Name your three priorities</h3>
+                        <p>If everything is important, nothing is. Write down the three areas of your life that matter most right now. Use them as a filter: anything that doesn't serve these three priorities is optional — no matter how reasonable it sounds.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-number">03</span>
+                    <div class="step-content">
+                        <h3>Eliminate or delegate the rest</h3>
+                        <p>Most obligations can be declined, delegated, or reduced without consequence. The fear that everything will collapse if you step back is almost always unfounded. Start small — drop one thing this week and observe what actually happens.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="content-section next-step">
+            <h2>The Simplest Version of Your Life</h2>
+            <p class="section-intro">You've walked through all four rooms: your home, your screen, your bank account, your mind. The simplest life isn't built in a day — it's built one honest subtraction at a time. You already know where to start.</p>
+            <div class="next-step-links">
+                <a href="/" class="cta-button">Begin the Journey</a>
+                <a href="/mind/habits" class="cta-button cta-secondary">Mind Habits</a>
+                <a href="/mind/tools" class="cta-button cta-secondary">Mind Tools</a>
+            </div>
+        </section>
+</Layout>

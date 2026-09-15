@@ -1,0 +1,55 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  section?: 'life' | 'tech' | 'money' | 'mind';
+}
+
+const { title, description, path, section } = Astro.props;
+const canonicalURL = new URL(path, Astro.site);
+const csp = "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; child-src 'none'; worker-src 'none'; media-src 'none'; manifest-src 'none'; require-trusted-types-for 'script'; upgrade-insecure-requests;";
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <!-- Strict Content Security Policy: default-deny for unused resource types to minimize attack surface -->
+    <meta http-equiv="Content-Security-Policy" content={csp}>
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content={description}>
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href={canonicalURL}>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Less.">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:url" content={canonicalURL}>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <script src="/security.js" data-cfasync="false" is:inline></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
+    <Header section={section} />
+
+    <main id="main-content" tabindex="-1">
+        <slot />
+    </main>
+
+    <Footer />
+
+    <script src="/script.js" defer data-cfasync="false" is:inline></script>
+</body>
+</html>
