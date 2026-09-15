@@ -1,0 +1,313 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StatCard from '../components/StatCard.astro';
+import Quote from '../components/Quote.astro';
+import { stats, quotes } from '../data/citations';
+import { Box, Smartphone, DollarSign, Brain } from '@lucide/astro';
+---
+<Layout
+    title="Less — The Art of Having Exactly Enough"
+    description="Less. is a minimalist guide to living with exactly enough across life, tech, money, and mind."
+    path="/"
+>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Less.</h1>
+                <p class="subtitle">The art of having exactly enough.</p>
+                <p class="hero-intro">We live in the most abundant era in human history — and somehow we've never felt more overwhelmed, more distracted, or more behind. Minimalism isn't about owning nothing. It's about stopping the accumulation of things you never chose.</p>
+                <a href="#consumerism" class="cta-button">See the Cost</a>
+            </div>
+            <div class="hero-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+        </section>
+
+        <section class="content-section crisis-section" id="consumerism" tabindex="-1">
+            <h2>The Cost of More</h2>
+            <p class="section-intro">Modern life was engineered to make you want more — more things, more screens, more noise. Here's the real, sourced data on what it's actually costing you across every dimension of your life.</p>
+
+            <div class="tab-nav" role="tablist" aria-label="Explore the cost by category">
+                <button class="tab-btn" role="tab" id="tab-clutter" aria-selected="true" aria-controls="panel-clutter" tabindex="0">
+                    <Box class="tab-icon" aria-hidden="true" size={24} />
+                    Clutter
+                </button>
+                <button class="tab-btn" role="tab" id="tab-tech" aria-selected="false" aria-controls="panel-tech" tabindex="-1">
+                    <Smartphone class="tab-icon" aria-hidden="true" size={24} />
+                    Tech
+                </button>
+                <button class="tab-btn" role="tab" id="tab-money" aria-selected="false" aria-controls="panel-money" tabindex="-1">
+                    <DollarSign class="tab-icon" aria-hidden="true" size={24} />
+                    Money
+                </button>
+                <button class="tab-btn" role="tab" id="tab-mind" aria-selected="false" aria-controls="panel-mind" tabindex="-1">
+                    <Brain class="tab-icon" aria-hidden="true" size={24} />
+                    Mind
+                </button>
+            </div>
+
+            <!-- Panel 1: Clutter -->
+            <div id="panel-clutter" role="tabpanel" aria-labelledby="tab-clutter" class="tab-panel" tabindex="0">
+                <div class="cost-grid">
+                    <StatCard {...stats.garageClutter}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-p1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6c5ce7"/><stop offset="100%" stop-color="#a29bfe"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-p1)" data-pct="25"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.storageUnitRenters}>
+                        <svg class="dot-grid" viewBox="0 0 106 46">
+                            <circle class="dot dot--dim" cx="11" cy="11" r="9"/>
+                            <circle class="dot dot--dim" cx="33" cy="11" r="9"/>
+                            <circle class="dot dot--dim" cx="55" cy="11" r="9"/>
+                            <circle class="dot dot--dim" cx="77" cy="11" r="9"/>
+                            <circle class="dot dot--dim" cx="99" cy="11" r="9"/>
+                            <circle class="dot dot--dim" cx="11" cy="35" r="9"/>
+                            <circle class="dot dot--dim" cx="33" cy="35" r="9"/>
+                            <circle class="dot dot--lit dot--purple" cx="55" cy="35" r="9"/>
+                            <circle class="dot dot--dim" cx="77" cy="35" r="9"/>
+                            <circle class="dot dot--dim" cx="99" cy="35" r="9"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.nonEssentialSpend}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-o1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#fdcb6e"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-o1)" data-pct="30"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.selfStorageSpend}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-p2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6c5ce7"/><stop offset="100%" stop-color="#a29bfe"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-p2)" data-pct="45"/>
+                        </svg>
+                    </StatCard>
+                </div>
+            </div>
+
+            <!-- Panel 2: Tech -->
+            <div id="panel-tech" role="tabpanel" aria-labelledby="tab-tech" class="tab-panel" tabindex="0" hidden>
+                <div class="cost-grid">
+                    <StatCard {...stats.screenTimeHours}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-o2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#fdcb6e"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-o2)" data-pct="44"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.phoneChecks}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-o3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#fdcb6e"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-o3)" data-pct="96"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.phoneAttachment}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-o4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#fdcb6e"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-o4)" data-pct="46"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.lifetimeScreenYears}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-p3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6c5ce7"/><stop offset="100%" stop-color="#a29bfe"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-p3)" data-pct="26"/>
+                        </svg>
+                    </StatCard>
+                </div>
+            </div>
+
+            <!-- Panel 3: Money -->
+            <div id="panel-money" role="tabpanel" aria-labelledby="tab-money" class="tab-panel" tabindex="0" hidden>
+                <div class="cost-grid">
+                    <StatCard {...stats.nonEssentialSpend}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-o5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#fdcb6e"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-o5)" data-pct="30"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.unusedSubscriptions}>
+                        <svg class="dot-grid" viewBox="0 0 128 46">
+                            <circle class="dot dot--lit dot--green" cx="11" cy="11" r="8"/>
+                            <circle class="dot dot--lit dot--green" cx="33" cy="11" r="8"/>
+                            <circle class="dot dot--lit dot--green" cx="55" cy="11" r="8"/>
+                            <circle class="dot dot--lit dot--green" cx="77" cy="11" r="8"/>
+                            <circle class="dot dot--lit dot--green" cx="99" cy="11" r="8"/>
+                            <circle class="dot dot--lit dot--green" cx="121" cy="11" r="8"/>
+                            <circle class="dot dot--lit dot--green" cx="11" cy="35" r="8"/>
+                            <circle class="dot dot--dim" cx="33" cy="35" r="8"/>
+                            <circle class="dot dot--dim" cx="55" cy="35" r="8"/>
+                            <circle class="dot dot--dim" cx="77" cy="35" r="8"/>
+                            <circle class="dot dot--dim" cx="99" cy="35" r="8"/>
+                            <circle class="dot dot--dim" cx="121" cy="35" r="8"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.savingsRate}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00b894"/><stop offset="100%" stop-color="#55efc4"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-g1)" data-pct="3"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.creditCardDebt}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-o6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#fdcb6e"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-o6)" data-pct="60"/>
+                        </svg>
+                    </StatCard>
+                </div>
+            </div>
+
+            <!-- Panel 4: Mind -->
+            <div id="panel-mind" role="tabpanel" aria-labelledby="tab-mind" class="tab-panel" tabindex="0" hidden>
+                <div class="cost-grid">
+                    <StatCard {...stats.informationOverload}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-m1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#6c5ce7"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-m1)" data-pct="20"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.physicalStressSymptoms}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-m2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#6c5ce7"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-m2)" data-pct="77"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.dailyInfoConsumption}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-p4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6c5ce7"/><stop offset="100%" stop-color="#a29bfe"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-p4)" data-pct="34"/>
+                        </svg>
+                    </StatCard>
+                    <StatCard {...stats.anxietyDisruption}>
+                        <svg class="mini-donut" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="mg-m3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e17055"/><stop offset="100%" stop-color="#6c5ce7"/></linearGradient>
+                            </defs>
+                            <circle class="mini-donut-track" cx="50" cy="50" r="38"/>
+                            <circle class="mini-donut-fill" cx="50" cy="50" r="38" stroke="url(#mg-m3)" data-pct="40"/>
+                        </svg>
+                    </StatCard>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section benefits">
+            <h2>What You Get Back</h2>
+            <p class="section-intro">Minimalism isn't about deprivation. Every thing you stop managing frees something you actually care about — time, money, attention, peace of mind.</p>
+            <div class="cards">
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Freedom</h3>
+                    <p>Fewer possessions means fewer obligations, less maintenance, and more resources — money, time, and energy — for what you actually value.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Clarity</h3>
+                    <p>A quieter environment and a simpler life create space for thought, creativity, and the kind of deep presence that modern life erodes.</p>
+                </div>
+                <div class="card" data-tilt tabindex="0">
+                    <h3>Intention</h3>
+                    <p>Every choice becomes deliberate. You stop living by default and start living by design — aligned with your actual values, not someone else's.</p>
+                </div>
+            </div>
+        </section>
+
+        <Quote {...quotes.senecaPoor} />
+
+        <section id="pillars" class="content-section">
+            <h2>Four Dimensions of Less</h2>
+            <p class="section-intro">Minimalism isn't one thing — it's a lens you apply to every layer of your life. Start with the most visible. Each area you simplify makes the next one easier.</p>
+            <div class="cards">
+                <a href="/life" class="card pillar-card" data-tilt>
+                    <h3>Life</h3>
+                    <p>Own fewer, better things. A curated home and wardrobe remove daily friction and replace overwhelm with calm.</p>
+                </a>
+                <a href="/tech" class="card pillar-card" data-tilt>
+                    <h3>Technology</h3>
+                    <p>Reclaim your attention from apps, notifications, and the endless scroll. Choose tools that serve you, not the reverse.</p>
+                </a>
+                <a href="/money" class="card pillar-card" data-tilt>
+                    <h3>Money</h3>
+                    <p>Spend less on things that don't matter so you can invest more in what does. Financial minimalism is financial freedom.</p>
+                </a>
+                <a href="/mind" class="card pillar-card" data-tilt>
+                    <h3>Mind</h3>
+                    <p>Simplify your commitments, information diet, and inner dialogue. A clear mind is the foundation for everything else.</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="content-section steps">
+            <h2>The Minimalist Path</h2>
+            <p class="section-intro">Whether you start with your closet or your calendar, the process is the same — and it always starts with looking honestly at what's there.</p>
+            <ul class="step-list" role="list">
+                <li class="step">
+                    <span class="step-number">01</span>
+                    <div class="step-content">
+                        <h3>Audit honestly</h3>
+                        <p>Take stock of what you have — things, subscriptions, commitments, thoughts. Most of it arrived by default, not by choice.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-number">02</span>
+                    <div class="step-content">
+                        <h3>Edit ruthlessly</h3>
+                        <p>Keep only what earns its place. If it doesn't serve a clear purpose or bring genuine joy, it's clutter — regardless of the category.</p>
+                    </div>
+                </li>
+                <li class="step">
+                    <span class="step-number">03</span>
+                    <div class="step-content">
+                        <h3>Maintain the standard</h3>
+                        <p>Build guardrails so the clutter doesn't creep back. Every new thing must displace something old. Every yes costs a no somewhere else.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="content-section next-step">
+            <h2>Pick a Starting Point</h2>
+            <p class="section-intro">Most people start with Life — the physical is the most visible and the most immediately satisfying to change. But any door in is the right door.</p>
+            <div class="next-step-links">
+                <a href="/life" class="cta-button">Start with Life</a>
+                <a href="/tech" class="cta-button cta-secondary">Technology</a>
+                <a href="/money" class="cta-button cta-secondary">Money</a>
+                <a href="/mind" class="cta-button cta-secondary">Mind</a>
+            </div>
+        </section>
+</Layout>

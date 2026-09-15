@@ -1,0 +1,24 @@
+---
+interface Props {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  sourceUrl: string;
+  sourceLabel: string;
+}
+
+const { value, prefix, suffix, label, sourceUrl, sourceLabel } = Astro.props;
+---
+<div class="cost-card" tabindex="0">
+    <div class="cost-card-viz" aria-hidden="true">
+        <slot />
+    </div>
+    <div class="cost-card-stat">
+        {prefix && <span class="stat-suffix stat-prefix">{prefix}</span>}
+        <span class="stat-number" data-target={value}>{value}</span>
+        {suffix && <span class="stat-suffix">{suffix}</span>}
+    </div>
+    <p class="cost-card-label">{label}</p>
+    <a class="cost-card-source" href={sourceUrl} target="_blank" rel="noopener noreferrer">Source: {sourceLabel}</a>
+</div>
