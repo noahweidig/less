@@ -12,6 +12,6 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@lucide/astro": "^1.46.0",
-    "astro": "^7.3.2"
+    "astro": "^7.3.5"
   }
 }
